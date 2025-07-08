@@ -2,7 +2,6 @@
 <@layout.registrationLayout displayMessage=!messagesPerField.existsError('username','password') displayInfo=realm.password && realm.registrationAllowed && !registrationDisabled??; section>
     <#if section = "header">
         <title>BluePay Registration</title>
-        
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <link rel="stylesheet" href="${url.resourcesPath}/css/register.css">
@@ -31,17 +30,26 @@
                             <div class="mb-3">
                                 <label class="form-label dark-text input-small-text">${msg("Business Name")}</label>
                                 <input type="text" class="form-control input-field" name="user.attributes.businessName" required>
+                                <#if messagesPerField.exists('user.attributes.businessName')>
+				    <div class="text-danger">${kcSanitize(msg(messagesPerField.get('user.attributes.businessName')))?no_esc}</div>
+                                </#if>
                             </div>
                             
                             <div class="row mb-3">
                                 <div class="col">
                                     <label class="form-label dark-text input-small-text">${msg("firstName")}</label>
                                     <input type="text" class="form-control input-field" name="firstName" required>
+                                     <#if messagesPerField.exists('firstName')>
+                                        <div class="text-danger">${kcSanitize(msg(messagesPerField.get('firstName')))?no_esc}</div>
+                                    </#if>                                   
                                 </div>
                                 <div class="col">
                                     <label class="form-label dark-text input-small-text">${msg("lastName")}</label>
-                                    <input type="text" class="form-control input-field" name="lastName" required>
+                                    <input type="text" class="form-control input-field" name="lastName" required>                                  
                                 </div>
+                                      <#if messagesPerField.exists('lastName')>
+                                        <div class="text-danger">${kcSanitize(msg(messagesPerField.get('lastName')))?no_esc}</div>
+                                    </#if>                                
                             </div>
                             
                             <div class="mb-3">
@@ -50,50 +58,92 @@
                                     <span class="input-field custom-span">+234</span>
                                     <input type="text" class="form-control input-field ms-3" name="user.attributes.phoneNumber" required>
                                 </div>
+                                <#if messagesPerField.exists('user.attributes.phoneNumber')>
+                                    <div class="text-danger">${kcSanitize(msg(messagesPerField.get('user.attributes.phoneNumber')))?no_esc}</div>
+                                </#if>                                
                             </div>
                             
                             <div class="mb-3">
                                 <label class="form-label dark-text input-small-text">${msg("email")}</label>
                                 <input type="email" class="form-control input-field" name="email" required>
+                                <#if messagesPerField.exists('email')>
+                                    <div class="text-danger">${kcSanitize(msg(messagesPerField.get('email')))?no_esc}</div>
+                                </#if>                                
                             </div>
                             
                             <div class="mb-3">
                                 <label class="form-label input-small-text dark-text">${msg("Business Type")}</label>
                                 <select class="form-select select-field input-field" name="user.attributes.busninessType" required>
-                                    <option selected>${msg("selectBusinessType")}</option>
-                                    <option>${msg("Unregistered/Starter Business")}</option>
+                                    <option selected>${msg("Select Business Type")}</option>
+                                    <option>${msg("MDAs(Ministries, Departments & Agencies")}</option>
                                     <option>${msg("Business Name Registration")}</option>
                                     <option>${msg("Partnership")}</option>
+                                    <option>${msg("Private Limited Liability Company(Ltd)")}</option>
+                                    <option>${msg("Public Limited Liability Company(PLC)")}</option>
+                                    <option>${msg("Non-Governmental Organizations(NGOs)")}</option>
+                                    <option>${msg("Co-operative Societies")}</option>
                                 </select>
+                                <#if messagesPerField.exists('user.attributes.busninessType')>
+                                    <div class="text-danger">${kcSanitize(msg(messagesPerField.get('user.attributes.busninessType')))?no_esc}</div>
+                                </#if>
                             </div>
                             
+                            
+                            <!-- Password Field with Requirements -->
                             <div class="mb-3">
                                 <label for="password" class="form-label dark-text input-small-text">${msg("password")}</label>
                                 <div class="input-group position-relative">
-                                    <input type="password" class="form-control input-field" id="password" name="password" required>
+                                    <input type="password" class="form-control input-field" id="password" name="password" autocomplete="new-password" required>
                                     <span class="password-toggle" id="togglePassword">
                                         <i class="fa-regular fa-eye"></i>
                                     </span>
                                 </div>
+                                <!-- Password Requirements -->
+                                <div class="password-requirements">
+                                    <p class="text-dark mb-2 fw-medium">Your password must contain:</p>
+                                    <div class="password-requirement" data-requirement="length">
+                                        <img src="${url.resourcesPath}/img/icon-invalid.svg" alt="Check" width="16" height="16"/>
+                                        <span>At least 8 characters</span>
+                                    </div>
+                                    <div class="password-requirement" data-requirement="uppercase">
+                                        <img src="${url.resourcesCommonPath}/img/icon-invalid.svg" alt="Check" width="16" height="16"/>
+                                        <span>At least 1 Uppercase character (A-Z)</span>
+                                    </div>
+                                    <div class="password-requirement" data-requirement="lowercase">
+                                        <img src="${url.resourcesPath}/img/icon-invalid.svg" alt="Check" width="16" height="16"/>
+                                        <span>At least 1 lower case character (a-z)</span>
+                                    </div>
+                                    <div class="password-requirement" data-requirement="digit">
+                                        <img src="${url.resourcesPath}/img/icon-invalid.svg" alt="Check" width="16" height="16"/>
+                                        <span>At least 1 digit (0 - 9)</span>
+                                    </div>
+                                    <div class="password-requirement" data-requirement="special">
+                                        <img src="${url.resourcesPath}/img/icon-invalid.svg" alt="Check" width="16" height="16"/>
+                                        <span>At least 1 special character (~!@#$)</span>
+                                    </div>
+                                </div>
                             </div>
                             
+                            <!-- Confirm Password Field -->
                             <div class="mb-3">
-                                <label for="confirmPassword" class="form-label dark-text input-small-text">${msg("Confirm Password")}</label>
+                                <label for="password-confirm" class="form-label dark-text input-small-text">${msg("Confirm Password")}</label>
                                 <div class="input-group position-relative">
-                                    <input type="password" class="form-control input-field" id="password-confirm" name="password-confirm" required>
+                                    <input type="password" class="form-control input-field" id="password-confirm" name="password-confirm" autocomplete="new-password" required>
                                     <span class="password-toggle" id="toggleConfirmPassword">
                                         <i class="fa-regular fa-eye"></i>
                                     </span>
                                 </div>
-                                <small id="passwordMatchError" class="text-danger" style="display: none;">Passwords do not match.</small>
+                                <div class="password-error">Passwords must match!</div>
                             </div>
                             
                             <div class="mb-3 mt-4">
-                                <button type="submit" class="btn btn-primary w-100" id="registerButton">${msg("doRegisterSecurityKey")}</button>
+                                <button type="submit" class="btn btn-primary w-100" id="registerButton" disabled>
+                                    ${msg("doRegisterSecurityKey")}
+                                </button>
                             </div>
                             
                             <div class="mt-3">
-                                <p>By clicking the “Register” button, you agree to <a href="">BluePay’s privacy policy</a> and <a href="">terms of acceptable use and data processing.</a></p>
+                                <p>By clicking the "Register" button, you agree to <a href="">BluePay's privacy policy</a> and <a href="">terms of acceptable use and data processing.</a></p>
                                 <hr />
                                 <p class="text-center">${msg("Already have an account?")} <a href="${url.loginUrl}">${msg("login")}</a></p>
                             </div>
@@ -104,6 +154,10 @@
         </div>
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+  // Pass the resource path to JavaScript
+  window.resourcesPath = "${url.resourcesPath}";
+</script>
         <script src="${url.resourcesPath}/js/script.js"></script>
     </#if>
 </@layout.registrationLayout>
