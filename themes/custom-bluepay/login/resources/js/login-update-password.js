@@ -1,14 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // Form elements
-  const registerForm = document.getElementById("kc-register-form");
-  const passwordInput = document.getElementById("password");
-  const confirmPasswordInput = document.getElementById("password-confirm");
-  const registerButton = document.getElementById("registerButton");
+  // Keycloak form elements
+  const kcForm = document.getElementById("kc-passwd-update-form");
+  const kcNewPassword = document.getElementById("password-new");
+  const kcConfirmPassword = document.getElementById("password-confirm");
+
+  // Visible form elements
+  const form = document.getElementById("resetPasswordForm");
+  const newPasswordInput = document.getElementById("newPassword");
+  const confirmPasswordInput = document.getElementById("confirmPassword");
+  const changePasswordBtn = document.getElementById("changePasswordBtn");
   const passwordRequirements = document.querySelector(".password-requirements");
   const passwordError = document.querySelector(".password-error");
-  const togglePasswordButtons = document.querySelectorAll(".password-toggle");
 
-  // Requirement rules
   const requirements = {
     length: {
       regex: /.{8,}/,
@@ -33,24 +36,25 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   // Password visibility toggle
-  togglePasswordButtons.forEach((btn) => {
-    btn.addEventListener("click", function () {
-      const input = this.previousElementSibling;
-      const icon = this.querySelector("i");
+  document.querySelectorAll(".password-toggle").forEach((toggle) => {
+    toggle.addEventListener("click", () => {
+      const targetId = toggle.getAttribute("data-target");
+      const input = document.getElementById(targetId);
+
       if (input.type === "password") {
         input.type = "text";
-        icon.classList.remove("fa-eye");
-        icon.classList.add("fa-eye-slash");
+        toggle.classList.remove("bi-eye-slash");
+        toggle.classList.add("bi-eye");
       } else {
         input.type = "password";
-        icon.classList.remove("fa-eye-slash");
-        icon.classList.add("fa-eye");
+        toggle.classList.remove("bi-eye");
+        toggle.classList.add("bi-eye-slash");
       }
     });
   });
 
   // Show password requirements when user starts typing
-  passwordInput.addEventListener("input", function () {
+  newPasswordInput.addEventListener("input", function () {
     if (this.value.length > 0) {
       passwordRequirements.classList.add("visible");
     } else {
@@ -61,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Password validation
   function validatePassword() {
-    const password = passwordInput.value;
+    const password = newPasswordInput.value;
     const confirmPassword = confirmPasswordInput.value;
     let validCount = 0;
 
@@ -71,8 +75,8 @@ document.addEventListener("DOMContentLoaded", function () {
       requirement.element.classList.toggle("valid", isValid);
       requirement.element.classList.toggle("invalid", !isValid);
       requirement.element.querySelector("img").src = isValid
-        ? `${window.resourcesPath}/img/icon-valid.svg`
-        : `${window.resourcesPath}/img/icon-invalid.svg`;
+        ? "${url.resourcesPath}/img/icon-valid.svg"
+        : "${url.resourcesPath}/img/icon-invalid.svg";
       if (isValid) validCount++;
     });
 
@@ -89,23 +93,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Update button state
     const allRequirementsMet = validCount === 5 && passwordsMatch;
-    registerButton.disabled = !allRequirementsMet;
-    registerButton.classList.toggle("active", allRequirementsMet);
+    changePasswordBtn.disabled = !allRequirementsMet;
+    changePasswordBtn.classList.toggle("active", allRequirementsMet);
   }
 
   // Add validation on confirm password input
   confirmPasswordInput.addEventListener("input", validatePassword);
 
   // Form submission
-  if (registerForm) {
-    registerForm.addEventListener("submit", function (e) {
-      if (registerButton.disabled) {
-        e.preventDefault();
-        return;
-      }
-      registerButton.innerHTML =
-        '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Creating account...';
-      registerButton.disabled = true;
-    });
-  }
+  changePasswordBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    // Sync values to Keycloak's hidden form
+    kcNewPassword.value = newPasswordInput.value;
+    kcConfirmPassword.value = confirmPasswordInput.value;
+
+    // Submit Keycloak's form
+    kcForm.submit();
+  });
 });
