@@ -22,9 +22,21 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # Step 3: Build and push Docker image
+      # Step 3: Extract metadata (tags, labels) for Docker image
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=latest
+            type=sha
+
+      # Step 4: Build and push Docker image
       - name: Build and Push
         uses: docker/build-push-action@v5
         with:
           context: .                # Path to Dockerfile location (root dir)
           push: true                # Push after building
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
