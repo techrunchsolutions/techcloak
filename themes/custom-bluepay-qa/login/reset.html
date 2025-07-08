@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reset Password - BluePay</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+      crossorigin="anonymous"
+    />
+
+    <!-- Custom Bootstrap Theme -->
+    <style>
+      /* Bootstrap theme customization */
+      :root {
+        --bs-primary: #0c74b1;
+        --bs-primary-rgb: 12, 116, 177;
+        --bs-secondary: #062c5a;
+        --bs-secondary-rgb: 6, 44, 90;
+        --bs-info: #cfe5f2;
+        --bs-info-rgb: 207, 229, 242;
+        --bs-body-color-rgb: 49, 57, 87;
+        --bs-body-color: #313957;
+        --bs-border-color: #e8e8e8;
+        --bs-light-rgb: 249, 247, 247;
+        --bs-light: #f9f7f7;
+        --bs-success: #46a14b;
+        --bs-danger: #ff3b30;
+      }
+
+      /* Remove Bootstrap validation styles */
+      .form-control.is-invalid,
+      .was-validated .form-control:invalid,
+      .form-control.is-valid,
+      .was-validated .form-control:valid {
+        background-image: none !important;
+        border-color: var(--bs-border-color) !important;
+        padding-right: 0.75rem !important;
+      }
+
+      .form-control:focus {
+        border-color: var(--bs-border-color) !important;
+        box-shadow: none !important;
+      }
+
+      /* Password validation styles */
+      .password-requirements {
+        font-size: 0.75rem;
+        display: none;
+      }
+
+      .password-requirements.visible {
+        display: block;
+      }
+
+      .password-requirement {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .password-requirement.valid {
+        color: var(--bs-success);
+      }
+
+      .password-requirement.invalid {
+        color: var(--bs-danger);
+      }
+
+      .password-toggle {
+        cursor: pointer;
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 2;
+        color: #0c74b1;
+      }
+
+      .password-input-wrapper {
+        position: relative;
+      }
+
+      .change-password-btn {
+        background-color: #cfe5f2;
+        border-color: #cfe5f2;
+        color: #fff;
+        width: 100%;
+        padding: 1rem;
+        border-radius: 6px;
+        font-weight: 700;
+        font-size: 1rem;
+        border: none;
+        cursor: not-allowed;
+        transition: all 0.3s ease;
+      }
+
+      .change-password-btn:disabled {
+        background-color: #cfe5f2;
+        border-color: #cfe5f2;
+        color: #fff;
+      }
+
+      .change-password-btn.active {
+        background-color: #0c74b1;
+        border-color: #0c74b1;
+        cursor: pointer;
+      }
+
+      .change-password-btn.active:hover {
+        background-color: #0a63a0;
+        border-color: #0a63a0;
+      }
+
+      .password-error {
+        color: var(--bs-danger);
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+        display: none;
+      }
+
+      .password-error.visible {
+        display: block;
+      }
+
+      /* Custom spacing for specific screen sizes */
+      @media (max-width: 991px) {
+        .pb-custom-lg {
+          padding-bottom: 6rem !important;
+        }
+      }
+
+      @media (min-width: 992px) {
+        .pb-custom-lg {
+          padding-bottom: 19rem !important;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-primary text-white">
+    <div class="container py-4">
+      <!-- Logo Section -->
+      <div class="row">
+        <div class="col-12 ps-md-5 ps-3">
+          <img
+            src="https://cdn.builder.io/api/v1/image/assets/TEMP/5bf1c541e67739add54cea7877fdb9f9a6cf8df5?placeholderIfAbsent=true&apiKey=6e2bd51eac6c4874b35ff8e55c4b46d9"
+            alt="BluePay Logo"
+            class="img-fluid"
+            style="max-width: 168px"
+          />
+        </div>
+      </div>
+
+      <div class="row justify-content-center mt-4 mt-md-5">
+        <div class="col-12 col-md-10 col-lg-8 col-xl-6 pb-custom-lg">
+          <!-- Back Button -->
+          <div class="d-flex align-items-center mb-4 ps-md-0 ps-2">
+            <a
+              onclick="window.history.back()"
+              class="text-white text-decoration-none d-flex align-items-center"
+              id="back-button"
+            >
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/439ba555bf96dbd9ffaba8263f9be67293e372ab?placeholderIfAbsent=true&apiKey=6e2bd51eac6c4874b35ff8e55c4b46d9"
+                alt="Back"
+                width="24"
+                height="24"
+                class="me-2"
+              />
+              <span class="fw-medium">Back</span>
+            </a>
+          </div>
+
+          <!-- Reset Password Card -->
+          <div class="card border-0 rounded-2 shadow">
+            <div class="card-body p-4 p-lg-5">
+              <!-- Card Header -->
+              <div class="text-center mb-4">
+                <h1
+                  class="text-secondary fw-bold mb-1"
+                  style="
+                    font-size: 1.75rem;
+                    letter-spacing: -0.84px;
+                    line-height: 1;
+                  "
+                >
+                  Reset Password
+                </h1>
+                <p class="text-body small mb-0">Enter a new password</p>
+              </div>
+
+              <!-- Form -->
+              <form class="mt-4" id="resetPasswordForm">
+                <!-- New Password -->
+                <div class="mb-3">
+                  <label
+                    for="newPassword"
+                    class="form-label text-secondary small"
+                    >New Password</label
+                  >
+                  <div class="password-input-wrapper">
+                    <input
+                      type="password"
+                      class="form-control bg-light border py-3"
+                      id="newPassword"
+                      required
+                    />
+                    <i
+                      alt="Toggle password visibility"
+                      class="password-toggle bi bi-eye-slash"
+                      data-target="newPassword"
+                    ></i>
+                  </div>
+                </div>
+
+                <!-- Password Requirements -->
+                <div class="password-requirements mb-4">
+                  <p class="text-dark mb-2 fw-medium">
+                    Your password must contain:
+                  </p>
+                  <div class="password-requirement" data-requirement="length">
+                    <img
+                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/d29c753e8abdb8093b85aff6ba3f6a9843755131?placeholderIfAbsent=true&apiKey=6e2bd51eac6c4874b35ff8e55c4b46d9"
+                      alt="Check"
+                      width="16"
+                      height="16"
+                    />
+                    <span>At least 8 characters</span>
+                  </div>
+                  <div
+                    class="password-requirement"
+                    data-requirement="uppercase"
+                  >
+                    <img
+                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/d29c753e8abdb8093b85aff6ba3f6a9843755131?placeholderIfAbsent=true&apiKey=6e2bd51eac6c4874b35ff8e55c4b46d9"
+                      alt="Check"
+                      width="16"
+                      height="16"
+                    />
+                    <span>At least 1 Uppercase character (A-Z)</span>
+                  </div>
+                  <div
+                    class="password-requirement"
+                    data-requirement="lowercase"
+                  >
+                    <img
+                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/d29c753e8abdb8093b85aff6ba3f6a9843755131?placeholderIfAbsent=true&apiKey=6e2bd51eac6c4874b35ff8e55c4b46d9"
+                      alt="Check"
+                      width="16"
+                      height="16"
+                    />
+                    <span>At least 1 lower case character (a-z)</span>
+                  </div>
+                  <div class="password-requirement" data-requirement="digit">
+                    <img
+                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/d29c753e8abdb8093b85aff6ba3f6a9843755131?placeholderIfAbsent=true&apiKey=6e2bd51eac6c4874b35ff8e55c4b46d9"
+                      alt="Check"
+                      width="16"
+                      height="16"
+                    />
+                    <span>At least 1 digit (0 - 9)</span>
+                  </div>
+                  <div class="password-requirement" data-requirement="special">
+                    <img
+                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/bdf240a306952a66a03d0c7b1d6df11fd3f034b9?placeholderIfAbsent=true&apiKey=6e2bd51eac6c4874b35ff8e55c4b46d9"
+                      alt="Check"
+                      width="16"
+                      height="16"
+                    />
+                    <span>At least 1 special character (~!@#$)</span>
+                  </div>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="mb-4">
+                  <label
+                    for="confirmPassword"
+                    class="form-label text-secondary small"
+                    >Confirm New Password</label
+                  >
+                  <div class="password-input-wrapper">
+                    <input
+                      type="password"
+                      class="form-control bg-light border py-3"
+                      id="confirmPassword"
+                      required
+                    />
+                    <i
+                      alt="Toggle password visibility"
+                      class="password-toggle bi bi-eye-slash"
+                      data-target="confirmPassword"
+                    ></i>
+                  </div>
+                  <div class="password-error">Passwords must match!</div>
+                </div>
+
+                <button
+                  type="submit"
+                  class="change-password-btn"
+                  id="changePasswordBtn"
+                  disabled
+                >
+                  Change Password
+                </button>
+              </form>
+
+              <!-- Login Link -->
+              <div class="text-center mt-3">
+                <a href="#" class="text-primary text-decoration-none"
+                  >Login instead</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="text-center text-white mt-3">
+            <p class="mb-1 fw-medium" style="font-size: 1.125rem">
+              BluePay Payment Gateway
+            </p>
+            <p class="mb-0" style="font-size: 1rem">
+              Licensed by the Central Bank of Nigeria (CBN)
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Password Validation Script -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("resetPasswordForm");
+        const newPasswordInput = document.getElementById("newPassword");
+        const confirmPasswordInput = document.getElementById("confirmPassword");
+        const changePasswordBtn = document.getElementById("changePasswordBtn");
+        const passwordRequirements = document.querySelector(
+          ".password-requirements"
+        );
+        const passwordError = document.querySelector(".password-error");
+        const requirements = {
+          length: {
+            regex: /.{8,}/,
+            element: document.querySelector('[data-requirement="length"]'),
+          },
+          uppercase: {
+            regex: /[A-Z]/,
+            element: document.querySelector('[data-requirement="uppercase"]'),
+          },
+          lowercase: {
+            regex: /[a-z]/,
+            element: document.querySelector('[data-requirement="lowercase"]'),
+          },
+          digit: {
+            regex: /[0-9]/,
+            element: document.querySelector('[data-requirement="digit"]'),
+          },
+          special: {
+            regex: /[~!@#$]/,
+            element: document.querySelector('[data-requirement="special"]'),
+          },
+        };
+
+        // Password visibility toggle
+        document.querySelectorAll(".password-toggle").forEach((toggle) => {
+          toggle.addEventListener("click", () => {
+            const targetId = toggle.getAttribute("data-target");
+            const input = document.getElementById(targetId);
+
+            if (input.type === "password") {
+              input.type = "text";
+              toggle.classList.remove("bi-eye-slash");
+              toggle.classList.add("bi-eye");
+            } else {
+              input.type = "password";
+              toggle.classList.remove("bi-eye");
+              toggle.classList.add("bi-eye-slash");
+            }
+          });
+        });
+
+        // Show password requirements when user starts typing
+        newPasswordInput.addEventListener("input", function () {
+          if (this.value.length > 0) {
+            passwordRequirements.classList.add("visible");
+          } else {
+            passwordRequirements.classList.remove("visible");
+          }
+          validatePassword();
+        });
+
+        // Password validation
+        function validatePassword() {
+          const password = newPasswordInput.value;
+          const confirmPassword = confirmPasswordInput.value;
+          let validCount = 0;
+
+          // Check password requirements
+          Object.entries(requirements).forEach(([key, requirement]) => {
+            const isValid = requirement.regex.test(password);
+            requirement.element.classList.toggle("valid", isValid);
+            requirement.element.classList.toggle("invalid", !isValid);
+            requirement.element.querySelector("img").src = isValid
+              ? "https://cdn.builder.io/api/v1/image/assets/TEMP/d29c753e8abdb8093b85aff6ba3f6a9843755131?placeholderIfAbsent=true&apiKey=6e2bd51eac6c4874b35ff8e55c4b46d9"
+              : "https://cdn.builder.io/api/v1/image/assets/TEMP/bdf240a306952a66a03d0c7b1d6df11fd3f034b9?placeholderIfAbsent=true&apiKey=6e2bd51eac6c4874b35ff8e55c4b46d9";
+            if (isValid) validCount++;
+          });
+
+          // Check if passwords match
+          const passwordsMatch =
+            password === confirmPassword && confirmPassword !== "";
+
+          // Show/hide error message
+          if (confirmPassword && !passwordsMatch) {
+            passwordError.classList.add("visible");
+          } else {
+            passwordError.classList.remove("visible");
+          }
+
+          // Update button state
+          const allRequirementsMet = validCount === 5 && passwordsMatch;
+          changePasswordBtn.disabled = !allRequirementsMet;
+          changePasswordBtn.classList.toggle("active", allRequirementsMet);
+        }
+
+        // Add validation on confirm password input
+        confirmPasswordInput.addEventListener("input", validatePassword);
+
+        // Form submission
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // Add your password reset logic here
+          console.log("Password reset form submitted");
+        });
+      });
+    </script>
+  </body>
+</html>

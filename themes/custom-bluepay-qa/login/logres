@@ -1,0 +1,226 @@
+<#import "template.ftl" as layout>
+<@layout.registrationLayout displayMessage=!messagesPerField.existsError('username') displayRequiredFields=false; section>
+    <#if section = "header">
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+        
+        <!-- Your Custom CSS -->
+        <link rel="stylesheet" href="${url.resourcesPath}/css/reset.css">
+        
+        ${msg("emailForgotTitle")}
+    <#elseif section = "form">
+        <div class="bg-primary text-white container py-4 h-100">
+            <!-- Logo Section -->
+            <div class="row">
+                <div class="col-12 ps-md-5 ps-3">
+                    <img src="${url.resourcesPath}/img/Bluepay-Logo-2.png" alt="BluePay Logo" class="img-fluid" style="max-width: 168px"/>
+                </div>
+            </div>
+
+            <div class="row justify-content-center mt-4 mt-md-5">
+                <div class="col-12 col-md-10 col-lg-8 col-xl-6 pb-custom-lg">
+                    <!-- Back Button -->
+                    <div class="d-flex align-items-center mb-4 ps-md-0 ps-2">
+                        <a href="${url.loginUrl}" class="text-white text-decoration-none d-flex align-items-center" id="back-button">
+                            <img src="${url.resourcesPath}/img/back-arrow.png" alt="Back" width="24" height="24" class="me-2"/>
+                            <span class="fw-medium">Back</span>
+                        </a>
+                    </div>
+
+                    <!-- Reset Password Card -->
+                    <div class="card border-0 rounded-2 shadow">
+                        <div class="card-body p-4 p-lg-5">
+                            <!-- Card Header -->
+                            <div class="text-center mb-4">
+                                <h1 class="text-secondary fw-bold mb-1" style="font-size: 1.875rem; letter-spacing: -0.9px; line-height: 1;">
+                                    ${msg("emailForgotTitle")}
+                                </h1>
+                                <p class="text-body small mb-0">
+                                    Enter the email address you used to register. We will send<br/>
+                                    you an email with instructions to reset your password.
+                                </p>
+                            </div>
+
+                            <!-- Form -->
+                            <form id="kc-reset-password-form" class="needs-validation" action="${url.loginAction}" method="post" novalidate>
+                                <div class="mb-3">
+                                    <label for="username" class="form-label text-secondary small">
+                                        <#if !realm.loginWithEmailAllowed>
+                                            ${msg("username")}
+                                        <#elseif !realm.registrationEmailAsUsername>
+                                            ${msg("usernameOrEmail")}
+                                        <#else>
+                                            ${msg("email")}
+                                        </#if>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        class="form-control bg-light border py-3"
+                                        id="username"
+                                        name="username"
+                                        autofocus
+                                        value="${(auth.attemptedUsername!'')}"
+                                        aria-invalid="<#if messagesPerField.existsError('username')>true</#if>"
+                                        required
+                                    />
+                                    <#if messagesPerField.existsError('username')>
+                                        <div class="invalid-feedback">
+                                            ${kcSanitize(messagesPerField.get('username'))?no_esc}
+                                        </div>
+                                    </#if>
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-info w-100 py-3 fw-bold mt-4"
+                                    id="reset-button"
+                                >
+                                    ${msg("doSubmit")}
+                                </button>
+                            </form>
+
+                            <!-- Login Link -->
+                            <div class="text-center mt-3" id="login-link-container">
+                                <a href="${url.loginUrl}" class="text-primary text-decoration-none">Login instead</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="text-center text-white mt-3">
+                        <p class="mb-1 fw-medium" style="font-size: 1.125rem">BluePay Payment Gateway</p>
+                        <p class="mb-0" style="font-size: 1rem">Licensed by the Central Bank of Nigeria (CBN)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="${url.resourcesPath}/js/login-reset-password.js"></script>
+    </#if>
+</@layout.registrationLayout>
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const backButton = document.getElementById("back-button");
+  if (backButton) {
+    backButton.addEventListener("click", function (e) {
+      e.preventDefault();
+      window.history.back();
+    });
+  }
+
+  // Add email validation and button styling
+  const emailInput = document.getElementById("username");
+  const resetButton = document.getElementById("reset-button");
+
+  if (emailInput && resetButton) {
+    // Function to validate email format
+    function isValidEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+
+    // Function to update button style based on email validity
+    function updateButtonStyle() {
+      if (isValidEmail(emailInput.value)) {
+        resetButton.classList.add("btn-active");
+      } else {
+        resetButton.classList.remove("btn-active");
+      }
+    }
+
+    // Add event listeners for input changes
+    emailInput.addEventListener("input", updateButtonStyle);
+    emailInput.addEventListener("change", updateButtonStyle);
+    emailInput.addEventListener("blur", updateButtonStyle);
+  }
+
+  // Fetch all forms that need validation
+  const forms = document.querySelectorAll(".needs-validation");
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach((form) => {
+    form.addEventListener(
+      "submit",
+      (event) => {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        } else {
+          // Prevent the default form submission
+          event.preventDefault();
+
+          // Show the success message and start countdown
+          showSuccessMessage();
+        }
+
+        form.classList.add("was-validated");
+      },
+      false
+    );
+  });
+
+  // Function to show success message and start countdown
+  function showSuccessMessage() {
+    // Change the header text
+    const headerElement = document.querySelector(".card-body h1");
+    if (headerElement) {
+      headerElement.textContent = "Check your email";
+    }
+
+    // Get the form element
+    const formElement = document.querySelector("form.needs-validation");
+    const formParent = formElement.parentElement;
+
+    // Hide the login link
+    const loginLinkContainer = document.getElementById("login-link-container");
+    if (loginLinkContainer) {
+      loginLinkContainer.style.display = "none";
+    }
+
+    // Create the countdown message element
+    const countdownElement = document.createElement("div");
+    countdownElement.className = "text-center mt-4";
+
+    // Initial countdown time in seconds
+    let timeLeft = 120; // 2 minutes = 120 seconds
+
+    // Function to update the countdown text
+    function updateCountdown() {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      const formattedTime = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+
+      if (timeLeft > 0) {
+        countdownElement.innerHTML = `<p style="color: #000000;">Didn't get email? Resend link in <span style="color: #0c74b1;">${formattedTime}</span></p>`;
+        timeLeft--;
+        setTimeout(updateCountdown, 1000);
+      } else {
+        // When timer reaches zero, change to "Resend link" with click functionality
+        countdownElement.innerHTML = `<a href="#" style="color: #0c74b1; text-decoration: none;" id="resend-link">Resend link</a>`;
+
+        // Add click event to the resend link
+        document
+          .getElementById("resend-link")
+          .addEventListener("click", function (e) {
+            e.preventDefault();
+            // Reset the countdown and start again
+            timeLeft = 120;
+            updateCountdown();
+          });
+      }
+    }
+
+    // Start the countdown
+    updateCountdown();
+
+    // Replace the form with the countdown element
+    formParent.replaceChild(countdownElement, formElement);
+  }
+});

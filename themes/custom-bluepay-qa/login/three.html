@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reset Password - BluePay</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Custom Bootstrap Theme -->
+    <style>
+      /* Bootstrap theme customization */
+      :root {
+        --bs-primary: #0c74b1;
+        --bs-primary-rgb: 12, 116, 177;
+        --bs-secondary: #062c5a;
+        --bs-secondary-rgb: 6, 44, 90;
+        --bs-info: #cfe5f2;
+        --bs-info-rgb: 207, 229, 242;
+        --bs-body-color-rgb: 49, 57, 87;
+        --bs-body-color: #313957;
+        --bs-border-color: #e8e8e8;
+        --bs-light-rgb: 249, 247, 247;
+        --bs-light: #f9f7f7;
+      }
+
+      /* Bootstrap component overrides */
+      .btn-info {
+        --bs-btn-color: #fff;
+        --bs-btn-bg: var(--bs-info);
+        --bs-btn-border-color: var(--bs-info);
+        --bs-btn-hover-color: #fff;
+        --bs-btn-hover-bg: #b8ccd8;
+        --bs-btn-hover-border-color: #b8ccd8;
+        --bs-btn-active-color: #fff;
+        --bs-btn-active-bg: #a6bac6;
+        --bs-btn-active-border-color: #a6bac6;
+      }
+
+      .form-control:focus {
+        border-color: var(--bs-primary);
+        box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+      }
+
+      /* Custom spacing for specific screen sizes */
+      @media (max-width: 991px) {
+        .pb-custom-lg {
+          padding-bottom: 6rem !important;
+        }
+      }
+
+      @media (min-width: 992px) {
+        .pb-custom-lg {
+          padding-bottom: 19rem !important;
+        }
+      }
+
+      /* Active button style */
+      .btn-active {
+        background-color: #0c74b1 !important;
+        border-color: #0c74b1 !important;
+      }
+    </style>
+  </head>
+  <body class="bg-primary text-white">
+    <div class="container py-4">
+      <!-- Logo Section -->
+      <div class="row">
+        <div class="col-12 ps-md-5 ps-3">
+          <img
+            src="https://cdn.builder.io/api/v1/image/assets/TEMP/5bf1c541e67739add54cea7877fdb9f9a6cf8df5?placeholderIfAbsent=true&apiKey=3660353ef17a486796013058d48a0a07"
+            alt="BluePay Logo"
+            class="img-fluid"
+            style="max-width: 168px"
+          />
+        </div>
+      </div>
+
+      <div class="row justify-content-center mt-4 mt-md-5">
+        <div class="col-12 col-md-10 col-lg-8 col-xl-6 pb-custom-lg">
+          <!-- Back Button -->
+          <div class="d-flex align-items-center mb-4 ps-md-0 ps-2">
+            <a
+              onclick="window.history.back()"
+              class="text-white text-decoration-none d-flex align-items-center"
+              id="back-button"
+            >
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets/TEMP/439ba555bf96dbd9ffaba8263f9be67293e372ab?placeholderIfAbsent=true&apiKey=3660353ef17a486796013058d48a0a07"
+                alt="Back"
+                width="24"
+                height="24"
+                class="me-2"
+              />
+              <span class="fw-medium">Back</span>
+            </a>
+          </div>
+
+          <!-- Reset Password Card -->
+          <div class="card border-0 rounded-2 shadow">
+            <div class="card-body p-4 p-lg-5">
+              <!-- Card Header -->
+              <div class="text-center mb-4">
+                <h1
+                  class="text-secondary fw-bold mb-1"
+                  style="
+                    font-size: 1.875rem;
+                    letter-spacing: -0.9px;
+                    line-height: 1;
+                  "
+                >
+                  Reset Password
+                </h1>
+                <p class="text-body small mb-0">
+                  Enter the email address you used to register. We will send<br />
+                  you an email with instructions to reset your password.
+                </p>
+              </div>
+
+              <!-- Form -->
+              <form class="mt-4 needs-validation" novalidate>
+                <div class="mb-3">
+                  <label for="email" class="form-label text-secondary small"
+                    >Email Address</label
+                  >
+                  <input
+                    type="email"
+                    class="form-control bg-light border py-3"
+                    id="email"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    Please enter a valid email address.
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  class="btn btn-info w-100 py-3 fw-bold mt-4"
+                  id="reset-button"
+                >
+                  Request Reset
+                </button>
+              </form>
+
+              <!-- Login Link -->
+              <div class="text-center mt-3" id="login-link-container">
+                <a href="#" class="text-primary text-decoration-none"
+                  >Login instead</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="text-center text-white mt-3">
+            <p class="mb-1 fw-medium" style="font-size: 1.125rem">
+              BluePay Payment Gateway
+            </p>
+            <p class="mb-0" style="font-size: 1rem">
+              Licensed by the Central Bank of Nigeria (CBN)
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS with Form Validation -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Bootstrap form validation
+      (() => {
+        "use strict";
+
+        // Add back button functionality
+        // const backButton = document.getElementById("back-button");
+        // if (backButton) {
+        //   backButton.addEventListener("click", function (e) {
+        //     e.preventDefault();
+        //     window.history.back();
+        //   });
+        // }
+
+        // Add email validation and button styling
+        const emailInput = document.getElementById("email");
+        const resetButton = document.getElementById("reset-button");
+
+        if (emailInput && resetButton) {
+          // Function to validate email format
+          function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+          }
+
+          // Function to update button style based on email validity
+          function updateButtonStyle() {
+            if (isValidEmail(emailInput.value)) {
+              resetButton.classList.add("btn-active");
+            } else {
+              resetButton.classList.remove("btn-active");
+            }
+          }
+
+          // Add event listeners for input changes
+          emailInput.addEventListener("input", updateButtonStyle);
+          emailInput.addEventListener("change", updateButtonStyle);
+          emailInput.addEventListener("blur", updateButtonStyle);
+        }
+
+        // Fetch all forms that need validation
+        const forms = document.querySelectorAll(".needs-validation");
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach((form) => {
+          form.addEventListener(
+            "submit",
+            (event) => {
+              if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+              } else {
+                // Prevent the default form submission
+                event.preventDefault();
+
+                // Show the success message and start countdown
+                showSuccessMessage();
+              }
+
+              form.classList.add("was-validated");
+            },
+            false
+          );
+        });
+
+        // Function to show success message and start countdown
+        function showSuccessMessage() {
+          // Change the header text
+          const headerElement = document.querySelector(".card-body h1");
+          if (headerElement) {
+            headerElement.textContent = "Check your email";
+          }
+
+          // Get the form element
+          const formElement = document.querySelector("form.needs-validation");
+          const formParent = formElement.parentElement;
+
+          // Hide the login link
+          const loginLinkContainer = document.getElementById(
+            "login-link-container"
+          );
+          if (loginLinkContainer) {
+            loginLinkContainer.style.display = "none";
+          }
+
+          // Create the countdown message element
+          const countdownElement = document.createElement("div");
+          countdownElement.className = "text-center mt-4";
+
+          // Initial countdown time in seconds
+          let timeLeft = 120; // 2 minutes = 120 seconds
+
+          // Function to update the countdown text
+          function updateCountdown() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const formattedTime = `${minutes}:${
+              seconds < 10 ? "0" : ""
+            }${seconds}`;
+
+            if (timeLeft > 0) {
+              countdownElement.innerHTML = `<p style="color: #000000;">Didn't get email? Resend link in <span style="color: #0c74b1;">${formattedTime}</span></p>`;
+              timeLeft--;
+              setTimeout(updateCountdown, 1000);
+            } else {
+              // When timer reaches zero, change to "Resend link" with click functionality
+              countdownElement.innerHTML = `<a href="#" style="color: #0c74b1; text-decoration: none;" id="resend-link">Resend link</a>`;
+
+              // Add click event to the resend link
+              document
+                .getElementById("resend-link")
+                .addEventListener("click", function (e) {
+                  e.preventDefault();
+                  // Reset the countdown and start again
+                  timeLeft = 120;
+                  updateCountdown();
+                });
+            }
+          }
+
+          // Start the countdown
+          updateCountdown();
+
+          // Replace the form with the countdown element
+          formParent.replaceChild(countdownElement, formElement);
+        }
+      })();
+    </script>
+  </body>
+</html>

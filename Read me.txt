@@ -1,0 +1,7 @@
+// To build
+docker build -t kazeemakinrinde/ngcloak .
+
+
+//To run the docker
+docker run -d --name keycloak -p 8080:8080 kazeemakinrinde/ngcloak start-dev
+
