@@ -40,3 +40,10 @@ jobs:
           push: true                # Push after building
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Deploy to test
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: srv-cv0ncpogph6c738pmtug
+          api-key: rnd_VmQJ50o6AWfdo2RB0vmrjOpur53F
+          wait-for-success: true
