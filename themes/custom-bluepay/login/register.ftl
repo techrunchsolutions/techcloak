@@ -75,13 +75,13 @@
                                 <label class="form-label input-small-text dark-text">${msg("Business Type")}</label>
                                 <select class="form-select select-field input-field" name="user.attributes.busninessType" required>
                                     <option selected>${msg("Select Business Type")}</option>
-                                    <option>${msg("MDAs(Ministries, Departments & Agencies")}</option>
                                     <option>${msg("Business Name Registration")}</option>
-                                    <option>${msg("Partnership")}</option>
-                                    <option>${msg("Private Limited Liability Company(Ltd)")}</option>
-                                    <option>${msg("Public Limited Liability Company(PLC)")}</option>
-                                    <option>${msg("Non-Governmental Organizations(NGOs)")}</option>
                                     <option>${msg("Co-operative Societies")}</option>
+                                    <option>${msg("MDAs (Ministries, Departments & Agencies")}</option>
+                                    <option>${msg("Non-Governmental Organizations (NGOs)")}</option>
+                                    <option>${msg("Partnership")}</option>
+                                    <option>${msg("Private Limited Liability Company (Ltd)")}</option>
+                                    <option>${msg("Public Limited Liability Company (PLC)")}</option>
                                 </select>
                                 <#if messagesPerField.exists('user.attributes.busninessType')>
                                     <div class="text-danger">${kcSanitize(msg(messagesPerField.get('user.attributes.busninessType')))?no_esc}</div>
