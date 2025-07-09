@@ -77,7 +77,7 @@
                                     <option selected>${msg("Select Business Type")}</option>
                                     <option>${msg("Business Name Registration")}</option>
                                     <option>${msg("Co-operative Societies")}</option>
-                                    <option>${msg("MDAs (Ministries, Departments & Agencies")}</option>
+                                    <option>${msg("MDAs (Ministries, Departments & Agencies)")}</option>
                                     <option>${msg("Non-Governmental Organizations (NGOs)")}</option>
                                     <option>${msg("Partnership")}</option>
                                     <option>${msg("Private Limited Liability Company (Ltd)")}</option>
