@@ -55,21 +55,25 @@
                             <div class="mb-3">
                                 <label class="form-label dark-text input-small-text">${msg("phoneNumber")}</label>
                                 <div class="input-group">
-                                    <span class="input-field custom-span">+234</span>
-                                    <input type="text" class="form-control input-field ms-3" name="user.attributes.phoneNumber" required>
+                                  <span class="input-field custom-span">+234</span>
+                                  <input type="number" maxlength="10" class="form-control input-field ms-3" id="phoneNumber" name="user.attributes.phoneNumber" required>
                                 </div>
+                                <div class="text-secondary input-small-text mt-1 d-none" id="phone-error">Please enter the other 10 digits of your phone number</div>
                                 <#if messagesPerField.exists('user.attributes.phoneNumber')>
-                                    <div class="text-danger">${kcSanitize(msg(messagesPerField.get('user.attributes.phoneNumber')))?no_esc}</div>
-                                </#if>                                
+                                  <div class="text-danger">${kcSanitize(msg(messagesPerField.get('user.attributes.phoneNumber')))?no_esc}</div>
+                                </#if>
                             </div>
+
                             
                             <div class="mb-3">
                                 <label class="form-label dark-text input-small-text">${msg("email")}</label>
-                                <input type="email" class="form-control input-field" name="email" required>
+                                <input type="email" class="form-control input-field" id="email" name="email" required>
+                                <div class="text-danger input-small-text mt-1 d-none" id="email-error">Please enter a valid email address.</div>
                                 <#if messagesPerField.exists('email')>
-                                    <div class="text-danger">${kcSanitize(msg(messagesPerField.get('email')))?no_esc}</div>
-                                </#if>                                
+                                   <div class="text-danger">${kcSanitize(msg(messagesPerField.get('email')))?no_esc}</div>
+                                </#if>
                             </div>
+
                             
                             <div class="mb-3">
                                 <label class="form-label input-small-text dark-text">${msg("Business Type")}</label>
