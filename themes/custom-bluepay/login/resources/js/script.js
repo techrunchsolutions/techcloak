@@ -96,6 +96,32 @@ document.addEventListener("DOMContentLoaded", function () {
   // Add validation on confirm password input
   confirmPasswordInput.addEventListener("input", validatePassword);
 
+   // Email validation
+  emailInput.addEventListener("input", function () {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (this.value.trim() !== "" && !emailPattern.test(this.value)) {
+      emailError.classList.remove("d-none");
+    } else {
+      emailError.classList.add("d-none");
+    }
+  });
+
+  // Phone number validation (10 digits only)
+  phoneInput.addEventListener("input", function () {
+    let phone = this.value.replace(/\D/g, ""); // remove non-digits
+    if (phone.length > 10) {
+      phone = phone.slice(0, 10);
+      this.value = phone;
+    }
+
+    if (phone.length !== 10) {
+      phoneError.classList.remove("d-none");
+    } else {
+      phoneError.classList.add("d-none");
+    }
+  });
+
+
   // Form submission
   if (registerForm) {
     registerForm.addEventListener("submit", function (e) {
