@@ -7,6 +7,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const passwordRequirements = document.querySelector(".password-requirements");
   const passwordError = document.querySelector(".password-error");
   const togglePasswordButtons = document.querySelectorAll(".password-toggle");
+  const emailInput = document.getElementById("email");
+  const emailError = document.getElementById("email-error");
+  const phoneInput = document.getElementById("phoneNumber");
+  const phoneError = document.getElementById("phone-error");
 
   // Requirement rules
   const requirements = {
