@@ -148,10 +148,10 @@ phoneInput.addEventListener("input", function () {
   }
 
   const prefix = value.substring(0, 3);
-  const validPrefixes = ["070", "080", "081", "090", "091"];
+  const validPrefixes = ["70", "80", "81", "90", "91"];
   if (!validPrefixes.includes(prefix)) {
     errorEl.textContent =
-      "Invalid prefix. Use 070, 080, 081, 090, or 091.";
+      "Invalid prefix. Use 70, 80, 81, 90, or 91.";
     errorEl.classList.remove("d-none");
     return;
   }
