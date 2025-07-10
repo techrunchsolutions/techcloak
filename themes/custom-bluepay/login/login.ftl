@@ -51,7 +51,7 @@
                                     <#elseif !realm.registrationEmailAsUsername>${msg("usernameOrEmail")}
                                     <#else>${msg("email")}</#if>
                                 </label>
-                                <input type="text" class="form-control custom-input custom-input" id="username" name="username" value="${(login.username!'')}" autofocus autocomplete="username"
+                                <input type="text" class="form-control custom-input " id="username" name="username" value="${(login.username!'')}" autofocus autocomplete="username"
                                     aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>">
                                 <#if messagesPerField.existsError('username','password')>
                                     <span id="input-error" class="form-error" aria-live="polite">
@@ -62,7 +62,7 @@
                             
                             <!-- Password Field -->
                             <div class="mb-3">
-                                <label for="password" class="form-label">${msg("password")}</label>
+                                <label for="password" class="form-label custom-input">${msg("password")}</label>
                                 <div class="position-relative">
                                     <input type="password" class="form-control" id="password" name="password" autocomplete="current-password"
                                         aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>">
