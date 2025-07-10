@@ -15,7 +15,7 @@
         <div class="container-fluid p-0 vh-100">
             <div class="row g-0 h-100">
                 <!-- Left Panel -->
-                <div class="col-lg-6 d-none d-lg-block position-relative left-panel">
+                <div class="col-lg-5 d-none d-lg-block position-relative left-panel">
                     <div class="left-content">
                         <img src="${url.resourcesPath}/img/man.png" class="img-cover">
                         <div class="content">
