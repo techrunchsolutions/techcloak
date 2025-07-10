@@ -227,7 +227,6 @@ body {
             <#else>
               ${msg("emailVerifyInstruction1", user.email)}
             </#if>
-            to confirm your email address
           </p>
 
           <p class="resend-text text-bluepay-text">
