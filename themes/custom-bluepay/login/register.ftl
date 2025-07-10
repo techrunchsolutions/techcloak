@@ -21,14 +21,14 @@
                         
                         <form id="kc-register-form" action="${url.registrationAction}" method="post">
                             <div class="mb-3">
-                                <label class="form-label input-small-text dark-text">${msg("Country")}</label>
+                                <label class="form-label input-small-text dark-text">${msg("Country")}<span class="text-danger">*</span></label>
                                 <select class="form-select input-field select-field" name="user.attributes.country" required>
                                     <option selected>${msg("Nigeria")}</option>
                                 </select>
                             </div>
                             
                             <div class="mb-3">
-                                <label class="form-label dark-text input-small-text">${msg("Business Name")}</label>
+                                <label class="form-label dark-text input-small-text">${msg("Business Name")}<span class="text-danger">*</span></label>
                                 <input type="text" class="form-control input-field" name="user.attributes.businessName" required>
                                 <#if messagesPerField.exists('user.attributes.businessName')>
 				    <div class="text-danger">${kcSanitize(msg(messagesPerField.get('user.attributes.businessName')))?no_esc}</div>
@@ -37,14 +37,14 @@
                             
                             <div class="row mb-3">
                                 <div class="col">
-                                    <label class="form-label dark-text input-small-text">${msg("firstName")}</label>
+                                    <label class="form-label dark-text input-small-text">${msg("firstName")}<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control input-field" name="firstName" required>
                                      <#if messagesPerField.exists('firstName')>
                                         <div class="text-danger">${kcSanitize(msg(messagesPerField.get('firstName')))?no_esc}</div>
                                     </#if>                                   
                                 </div>
                                 <div class="col">
-                                    <label class="form-label dark-text input-small-text">${msg("lastName")}</label>
+                                    <label class="form-label dark-text input-small-text">${msg("lastName")}<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control input-field" name="lastName" required>                                  
                                 </div>
                                       <#if messagesPerField.exists('lastName')>
@@ -53,7 +53,7 @@
                             </div>
                             
                             <div class="mb-3">
-                                <label class="form-label dark-text input-small-text">${msg("phoneNumber")}</label>
+                                <label class="form-label dark-text input-small-text">${msg("phoneNumber")}<span class="text-danger">*</span></label>
                                 <div class="input-group">
                                   <span class="input-field custom-span">+234</span>
                                   <input type="text"
@@ -74,7 +74,7 @@
 
                             
                             <div class="mb-3">
-                                <label class="form-label dark-text input-small-text">${msg("email")}</label>
+                                <label class="form-label dark-text input-small-text">${msg("email")}<span class="text-danger">*</span></label>
                                 <input type="email" class="form-control input-field" id="email" name="email" required>
                                 <div class="text-danger input-small-text mt-1 d-none" id="email-error">Please enter a valid email address.</div>
                                 <#if messagesPerField.exists('email')>
@@ -84,9 +84,9 @@
 
                             
                             <div class="mb-3">
-                                <label class="form-label input-small-text dark-text">${msg("Business Type")}</label>
+                                <label class="form-label input-small-text dark-text">${msg("Business Type")}<span class="text-danger">*</span></label>
                                 <select class="form-select select-field input-field" name="user.attributes.busninessType" required>
-                                    <option selected>${msg("Select Business Type")}</option>
+                                    <option value="" disabled selected hidden>${msg("Select Business Type")}</option>
                                     <option>${msg("Business Name Registration")}</option>
                                     <option>${msg("Co-operative Societies")}</option>
                                     <option>${msg("MDAs (Ministries, Departments & Agencies)")}</option>
@@ -103,7 +103,7 @@
                             
                             <!-- Password Field with Requirements -->
                             <div class="mb-3">
-                                <label for="password" class="form-label dark-text input-small-text">${msg("password")}</label>
+                                <label for="password" class="form-label dark-text input-small-text">${msg("password")}<span class="text-danger">*</span></label>
                                 <div class="input-group position-relative">
                                     <input type="password" class="form-control input-field" id="password" name="password" autocomplete="new-password" required>
                                     <span class="password-toggle" id="togglePassword">
@@ -138,7 +138,7 @@
                             
                             <!-- Confirm Password Field -->
                             <div class="mb-3">
-                                <label for="password-confirm" class="form-label dark-text input-small-text">${msg("Confirm Password")}</label>
+                                <label for="password-confirm" class="form-label dark-text input-small-text">${msg("Confirm Password")}<span class="text-danger">*</span></label>
                                 <div class="input-group position-relative">
                                     <input type="password" class="form-control input-field" id="password-confirm" name="password-confirm" autocomplete="new-password" required>
                                     <span class="password-toggle" id="toggleConfirmPassword">
