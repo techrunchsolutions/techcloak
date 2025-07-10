@@ -62,9 +62,9 @@
                             
                             <!-- Password Field -->
                             <div class="mb-3">
-                                <label for="password" class="form-label custom-input">${msg("password")}</label>
+                                <label for="password" class="form-label">${msg("password")}</label>
                                 <div class="position-relative">
-                                    <input type="password" class="form-control" id="password" name="password" autocomplete="current-password"
+                                    <input type="password" class="form-control custom-input" id="password" name="password" autocomplete="current-password"
                                         aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>">
                                     <span class="password-toggle" id="togglePassword">
                                         <i class="fa-regular fa-eye"></i>
