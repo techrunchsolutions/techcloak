@@ -33,7 +33,7 @@
                 </div>
                 
                 <!-- Right Panel -->
-                <div class="col-lg-6 right-panel d-flex align-items-center justify-content-center">
+                <div class="col-lg-7 right-panel d-flex align-items-center justify-content-center">
                     <div class="login-container">
                         <div class="mb-5">
                             <img src="${url.resourcesPath}/img/blue-logo.svg" alt="BluePay" class="logo">
