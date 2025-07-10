@@ -187,3 +187,16 @@ body {
     max-width: 100%;
   }
 }
+
+.custom-input {
+  border-color: #e8e8e8 !important;
+  background-color: #f9f7f7 !important;
+  border-radius: 6px !important;
+  border-width: 1px !important;
+}
+
+.custom-input:focus {
+  background-color: #f9f7f7 !important;
+  border-color: #e8e8e8 !important;
+  box-shadow: none !important;
+}
