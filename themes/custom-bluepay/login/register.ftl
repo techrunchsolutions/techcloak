@@ -56,7 +56,15 @@
                                 <label class="form-label dark-text input-small-text">${msg("phoneNumber")}</label>
                                 <div class="input-group">
                                   <span class="input-field custom-span">+234</span>
-                                  <input type="number" maxlength="10" class="form-control input-field ms-3" id="phoneNumber" name="user.attributes.phoneNumber" required>
+                                  <input type="text"
+       class="form-control input-field ms-3"
+       id="phoneNumber"
+       name="user.attributes.phoneNumber"
+       maxlength="10"
+       autocomplete="tel"
+       inputmode="numeric"
+       required />
+
                                 </div>
                                 <div class="text-secondary input-small-text mt-1 d-none" id="phone-error">Please enter the other 10 digits of your phone number</div>
                                 <#if messagesPerField.exists('user.attributes.phoneNumber')>
