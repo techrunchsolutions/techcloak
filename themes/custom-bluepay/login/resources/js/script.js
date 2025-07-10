@@ -110,20 +110,55 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Phone number validation (10 digits only)
-  phoneInput.addEventListener("input", function () {
-    let phone = this.value.replace(/\D/g, ""); // remove non-digits
-    if (phone.length > 10) {
-      phone = phone.slice(0, 10);
-      this.value = phone;
-    }
+phoneInput.addEventListener("keydown", function (e) {
+  const allowedKeys = [
+    "Backspace",
+    "ArrowLeft",
+    "ArrowRight",
+    "Tab",
+    "Delete"
+  ];
 
-    if (phone.length !== 10) {
-      phoneError.classList.remove("d-none");
-    } else {
-      phoneError.classList.add("d-none");
-    }
-  });
+  // Allow only digits and allowed control keys
+  if (
+    !/^\d$/.test(e.key) && // Not a digit
+    !allowedKeys.includes(e.key)
+  ) {
+    e.preventDefault(); // Block it
+  }
+});
+
+phoneInput.addEventListener("input", function () {
+  // Trim anything that somehow slips through (pasting, etc.)
+  this.value = this.value.replace(/\D/g, "");
+
+  const value = this.value;
+  const errorEl = phoneError;
+
+  if (value.length === 0) {
+    errorEl.textContent = "Phone number is required.";
+    errorEl.classList.remove("d-none");
+    return;
+  }
+
+  if (value.length !== 10) {
+    errorEl.textContent = "Phone number must be 10 digits (e.g., 8031234567)";
+    errorEl.classList.remove("d-none");
+    return;
+  }
+
+  const prefix = value.substring(0, 3);
+  const validPrefixes = ["070", "080", "081", "090", "091"];
+  if (!validPrefixes.includes(prefix)) {
+    errorEl.textContent =
+      "Invalid prefix. Use 070, 080, 081, 090, or 091.";
+    errorEl.classList.remove("d-none");
+    return;
+  }
+
+  errorEl.classList.add("d-none");
+});
+
 
 
   // Form submission
