@@ -147,7 +147,7 @@ phoneInput.addEventListener("input", function () {
     return;
   }
 
-  const prefix = value.substring(0, 3);
+  const prefix = value.substring(0, 2);
   const validPrefixes = ["70", "80", "81", "90", "91"];
   if (!validPrefixes.includes(prefix)) {
     errorEl.textContent =
