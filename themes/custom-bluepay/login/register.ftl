@@ -87,13 +87,13 @@
                                 <label class="form-label input-small-text dark-text">${msg("Business Type")}<span class="text-danger">*</span></label>
                                 <select class="form-select select-field input-field" name="user.attributes.busninessType" required>
                                     <option value="" disabled selected hidden>${msg("Select Business Type")}</option>
-                                    <option>${msg("Business Name Registration")}</option>
-                                    <option>${msg("Co-operative Societies")}</option>
-                                    <option>${msg("MDAs (Ministries, Departments & Agencies)")}</option>
-                                    <option>${msg("Non-Governmental Organizations (NGOs)")}</option>
-                                    <option>${msg("Partnership")}</option>
-                                    <option>${msg("Private Limited Liability Company (Ltd)")}</option>
-                                    <option>${msg("Public Limited Liability Company (PLC)")}</option>
+                                    <option value="business_name_registration">${msg("Business Name Registration")}</option>
+                                    <option value="cooperative_societies">${msg("Co-operative Societies")}</option>
+                                    <option value="mdas">${msg("MDAs (Ministries, Departments & Agencies)")}</option>
+                                    <option value="ngos">${msg("Non-Governmental Organizations (NGOs)")}</option>
+                                    <option value="partnership">${msg("Partnership")}</option>
+                                    <option value="private_ltd">${msg("Private Limited Liability Company (Ltd)")}</option>
+                                    <option value="public_plc">${msg("Public Limited Liability Company (PLC)")}</option>
                                 </select>
                                 <#if messagesPerField.exists('user.attributes.busninessType')>
                                     <div class="text-danger">${kcSanitize(msg(messagesPerField.get('user.attributes.busninessType')))?no_esc}</div>
