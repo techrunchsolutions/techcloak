@@ -63,7 +63,7 @@
         </div>
     <#elseif section = "info">
         <#if realm.password && realm.registrationAllowed && !registrationDisabled??>
-            <div class="text-center">
+            <div class="text-center dha">
                 <p class="text-white mb-0" style="font-size: 0.875rem;">
                     Don't have an account?
                     <a tabindex="6" href="${url.registrationUrl}" class="auth-link">${msg("doRegister")}</a>
