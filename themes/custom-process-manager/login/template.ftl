@@ -45,8 +45,6 @@
         }
 
         .site-header {
-            backdrop-filter: blur(10px);
-            background-color: rgba(10, 17, 33, 0.9);
             height: 6.25rem;
         }
 
@@ -71,7 +69,7 @@
             border-radius: 1.5rem;
             border: 1px solid rgba(59, 130, 246, 0.2);
             box-shadow: 0px 8px 32px 0px rgba(29, 78, 216, 0.15);
-            max-width: 500px;
+            max-width: 600px;
         }
 
         .auth-title {
@@ -196,6 +194,10 @@
             text-decoration: none;
             display: inline-block;
             text-align: center;
+        }
+
+        .dha {
+            margin-top: 20px;
         }
 
         .social-button:hover {
