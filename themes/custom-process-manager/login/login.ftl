@@ -25,12 +25,16 @@
                             </#if>
                         </div>
 
-                        <div class="mb-3">
+                        <div class="mb-3 position-relative">
                             <label for="password" class="form-label">${msg("password")}</label>
-                            <input tabindex="2" id="password" class="form-control" name="password" type="password" autocomplete="off"
-                                   aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
-                                   placeholder="${msg("password")}"
-                            />
+                            <div class="input-group">
+                                <input tabindex="2" id="password" class="form-control" name="password" type="password" autocomplete="off"
+                                       aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
+                                       placeholder="${msg("password")}" />
+                                <span class="input-group-text" id="toggle-password" style="cursor: pointer;">
+                                    <i class="bi bi-eye-slash" id="eye-icon"></i>
+                                </span>
+                            </div>
                             <#if usernameHidden?? && messagesPerField.existsError('username','password')>
                                 <span id="input-error" class="field-error" aria-live="polite">
                                     ${kcSanitize(messagesPerField.getFirstError('username','password'))?no_esc}
@@ -71,4 +75,9 @@
             </div>
         </#if>
     </#if>
+
+    <!-- Bootstrap Icons (if not already in your layout.ftl) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+
+    <script src="${url.resourcesPath}/js/login.js"></script>
 </@layout.registrationLayout>
