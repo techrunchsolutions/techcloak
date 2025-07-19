@@ -7,45 +7,42 @@ document.addEventListener("DOMContentLoaded", function () {
     const icon = iconWrapper.querySelector("i");
 
     iconWrapper.addEventListener("click", () => {
-      const isPasswordHidden = input.type === "password";
-      input.type = isPasswordHidden ? "text" : "password";
+      if (!input) return;
 
-      icon.classList.toggle("bi-eye");
-      icon.classList.toggle("bi-eye-slash");
+      const isHidden = input.type === "password";
+      input.type = isHidden ? "text" : "password";
+
+      // Swap icon
+      icon.classList.toggle("bi-eye-slash", !isHidden);
+      icon.classList.toggle("bi-eye", isHidden);
     });
   });
 
   const password = document.getElementById("password");
   const confirmPassword = document.getElementById("password-confirm");
+  const errorSpan = document.getElementById("confirm-password-error");
   const form = document.getElementById("kc-register-form");
 
-  // Create error element once and reuse it
-  const error = document.createElement("span");
-  error.id = "confirm-password-error";
-  error.className = "field-error";
-  error.setAttribute("aria-live", "polite");
-  error.innerText = "Passwords do not match.";
-
   function checkPasswordMatch() {
-    const parent = confirmPassword.parentElement;
-    const existingError = document.getElementById("confirm-password-error");
+    if (!password || !confirmPassword || !errorSpan) return;
 
-    if (password.value && confirmPassword.value && password.value !== confirmPassword.value) {
-      if (!existingError) parent.appendChild(error);
+    const pw = password.value;
+    const cpw = confirmPassword.value;
+
+    if (pw && cpw && pw !== cpw) {
+      errorSpan.style.display = "block";
     } else {
-      if (existingError) existingError.remove();
+      errorSpan.style.display = "none";
     }
   }
 
-  // Live check on typing
   password.addEventListener("input", checkPasswordMatch);
   confirmPassword.addEventListener("input", checkPasswordMatch);
 
-  // Prevent submit if mismatch still exists
   form.addEventListener("submit", function (e) {
     if (password.value !== confirmPassword.value) {
       e.preventDefault();
-      checkPasswordMatch();
+      errorSpan.style.display = "block";
     }
   });
 });
