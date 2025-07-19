@@ -51,6 +51,7 @@
         .company-logo {
             width: 10rem;
             height: 2.5rem;
+            margin-bottom: 13px;
         }
 
         .nav-text {
@@ -255,11 +256,6 @@
                 height: 5rem;
             }
 
-            .company-logo {
-                width: 8rem;
-                height: 2rem;
-            }
-
             .auth-title {
                 font-size: 1.5rem;
             }
@@ -282,7 +278,7 @@
                             alt="JustJava Logo"
                             class="company-logo"
                         />
-                        <span style="color: white; font-weight: bold; font-size: 1.25rem;">JustJava</span>
+                        <span class="text-decoration-none" style="color: white; font-weight: bold; font-size: 1.5rem;">JustJava</span>
                     </a>
                 </header>
 
