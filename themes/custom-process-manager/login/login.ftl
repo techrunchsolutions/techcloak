@@ -31,7 +31,7 @@
                                 <input tabindex="2" id="password" class="form-control" name="password" type="password" autocomplete="off"
                                        aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
                                        placeholder="${msg("password")}" />
-                                <span class="input-group-text" id="toggle-password" style="cursor: pointer;">
+                                <span class="input-group-text" id="toggle-password" style="cursor: pointer; background-color:#ffffff0d";>
                                     <i class="bi bi-eye-slash" id="eye-icon"></i>
                                 </span>
                             </div>
