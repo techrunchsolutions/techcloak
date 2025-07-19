@@ -76,7 +76,7 @@
                                        autocomplete="new-password"
                                        aria-invalid="<#if messagesPerField.existsError('password','password-confirm')>true</#if>"
                                        placeholder="${msg("password")}" />
-                                <span class="input-group-text toggle-password" data-target="password" style="cursor: pointer;">
+                                <span class="input-group-text toggle-password" data-target="password" style="cursor: pointer; background-color:#ffffff0d";">
                                     <i class="bi bi-eye-slash"></i>
                                 </span>
                             </div>
@@ -94,7 +94,7 @@
                                        autocomplete="new-password"
                                        aria-invalid="<#if messagesPerField.existsError('password-confirm')>true</#if>"
                                        placeholder="${msg("passwordConfirm")}" />
-                                <span class="input-group-text toggle-password" data-target="password-confirm" style="cursor: pointer;">
+                                <span class="input-group-text toggle-password" data-target="password-confirm" style="cursor: pointer; background-color:#ffffff0d";">
                                     <i class="bi bi-eye-slash"></i>
                                 </span>
                             </div>
