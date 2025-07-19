@@ -76,8 +76,8 @@
                                        autocomplete="new-password"
                                        aria-invalid="<#if messagesPerField.existsError('password','password-confirm')>true</#if>"
                                        placeholder="${msg("password")}" />
-                                <span class="input-group-text toggle-password" data-target="password" style="cursor: pointer; background-color:#ffffff0d";">
-                                    <i class="bi bi-eye-slash"></i>
+                                <span class="input-group-text toggle-password" data-target="password" style="cursor: pointer; background-color:#ffffff0d; border: 1px solid #3b82f64d;">
+                                    <i class="bi bi-eye-slash" "style=color:white;"></i>
                                 </span>
                             </div>
                             <#if messagesPerField.existsError('password')>
