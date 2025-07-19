@@ -278,7 +278,7 @@
                 <header class="site-header w-100 position-fixed top-0 start-0 d-flex align-items-center justify-content-between px-5" style="z-index: 1000;">
                     <a href="${url.loginUrl}">
                         <img
-                            src="${url.resourcesPath}/img/justjava-logo.png"
+                            src="${url.resourcesPath}/img/justjava-logo.svg"
                             alt="JustJava Logo"
                             class="company-logo"
                         />
