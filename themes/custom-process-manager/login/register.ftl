@@ -98,6 +98,11 @@
                                     <i class="bi bi-eye-slash" style="color:white;"></i>
                                 </span>
                             </div>
+                            <!-- Live error message controlled by JS -->
+                            <span id="confirm-password-error" class="field-error" style="display: none;" aria-live="polite">
+                                Passwords do not match.
+                            </span>
+
                             <#if messagesPerField.existsError('password-confirm')>
                                 <span id="input-error-password-confirm" class="field-error" aria-live="polite">
                                     ${kcSanitize(messagesPerField.get('password-confirm'))?no_esc}
