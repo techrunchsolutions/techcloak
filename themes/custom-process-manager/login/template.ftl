@@ -49,7 +49,7 @@
         }
 
         .company-logo {
-            width: 10rem;
+            width: 5rem;
             height: 2.5rem;
             margin-bottom: 13px;
         }
