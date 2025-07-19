@@ -1,46 +1,51 @@
 document.addEventListener("DOMContentLoaded", function () {
+  const toggleIcons = document.querySelectorAll(".toggle-password");
+
+  toggleIcons.forEach(iconWrapper => {
+    const targetId = iconWrapper.getAttribute("data-target");
+    const input = document.getElementById(targetId);
+    const icon = iconWrapper.querySelector("i");
+
+    iconWrapper.addEventListener("click", () => {
+      const isPasswordHidden = input.type === "password";
+      input.type = isPasswordHidden ? "text" : "password";
+
+      icon.classList.toggle("bi-eye");
+      icon.classList.toggle("bi-eye-slash");
+    });
+  });
+
   const password = document.getElementById("password");
   const confirmPassword = document.getElementById("password-confirm");
-
-  // Create toggles
-  const toggleVisibility = (fieldId) => {
-    const field = document.getElementById(fieldId);
-    const wrapper = field.parentElement;
-    const toggle = document.createElement("button");
-
-    toggle.type = "button";
-    toggle.textContent = "Show";
-    toggle.className = "btn btn-sm btn-outline-secondary mt-2";
-
-    toggle.addEventListener("click", () => {
-      const isHidden = field.type === "password";
-      field.type = isHidden ? "text" : "password";
-      toggle.textContent = isHidden ? "Hide" : "Show";
-    });
-
-    wrapper.appendChild(toggle);
-  };
-
-  toggleVisibility("password");
-  toggleVisibility("password-confirm");
-
-  // Validate password match
   const form = document.getElementById("kc-register-form");
+
+  // Create error element once and reuse it
+  const error = document.createElement("span");
+  error.id = "confirm-password-error";
+  error.className = "field-error";
+  error.setAttribute("aria-live", "polite");
+  error.innerText = "Passwords do not match.";
+
+  function checkPasswordMatch() {
+    const parent = confirmPassword.parentElement;
+    const existingError = document.getElementById("confirm-password-error");
+
+    if (password.value && confirmPassword.value && password.value !== confirmPassword.value) {
+      if (!existingError) parent.appendChild(error);
+    } else {
+      if (existingError) existingError.remove();
+    }
+  }
+
+  // Live check on typing
+  password.addEventListener("input", checkPasswordMatch);
+  confirmPassword.addEventListener("input", checkPasswordMatch);
+
+  // Prevent submit if mismatch still exists
   form.addEventListener("submit", function (e) {
     if (password.value !== confirmPassword.value) {
       e.preventDefault();
-
-      // Remove old error if present
-      const oldError = document.getElementById("confirm-password-error");
-      if (oldError) oldError.remove();
-
-      const error = document.createElement("span");
-      error.id = "confirm-password-error";
-      error.className = "field-error";
-      error.setAttribute("aria-live", "polite");
-      error.innerText = "Passwords do not match.";
-
-      confirmPassword.parentElement.appendChild(error);
+      checkPasswordMatch();
     }
   });
 });
