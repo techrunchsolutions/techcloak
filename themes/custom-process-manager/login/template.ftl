@@ -282,6 +282,7 @@
                             alt="JustJava Logo"
                             class="company-logo"
                         />
+                        <span style="color: white; font-weight: bold; font-size: 1.25rem;">JustJava</span>
                     </a>
                 </header>
 
