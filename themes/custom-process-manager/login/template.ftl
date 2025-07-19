@@ -272,13 +272,13 @@
         <div class="w-100 min-vh-100 position-relative">
             <section class="main-section w-100 min-vh-100 position-relative d-flex align-items-center">
                 <header class="site-header w-100 position-fixed top-0 start-0 d-flex align-items-center justify-content-between px-5" style="z-index: 1000;">
-                    <a href="${url.loginUrl}">
+                    <a href="${url.loginUrl}" class="text-decoration-none">
                         <img
                             src="${url.resourcesPath}/img/justjava-logo.svg"
                             alt="JustJava Logo"
                             class="company-logo"
                         />
-                        <span class="text-decoration-none" style="color: white; font-weight: bold; font-size: 1.5rem;">JustJava</span>
+                        <span style="color: white; font-weight: bold; font-size: 1.5rem;">JustJava</span>
                     </a>
                 </header>
 
