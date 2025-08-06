@@ -68,10 +68,16 @@
         </div>
     <#elseif section = "info" >
         <#if realm.password && realm.registrationAllowed && !registrationDisabled??>
-            <div id="kc-registration-container">
+            <div id="kc-registration-container" class="text-center mt-4">
                 <div id="kc-registration">
                     <span class="text-white">${msg("noAccount")} <a tabindex="6" href="${url.registrationUrl}" class="auth-link">${msg("doRegister")}</a></span>
                 </div>
+            </div>
+        </#if>
+
+        <#if realm.resetPasswordAllowed>
+            <div class="text-center mt-3">
+                <a tabindex="5" href="${url.loginResetCredentialsUrl}" class="auth-link">${msg("doForgotPassword")}</a>
             </div>
         </#if>
     </#if>
