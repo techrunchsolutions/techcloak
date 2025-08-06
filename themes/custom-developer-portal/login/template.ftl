@@ -73,9 +73,7 @@
 
         .site-header {
             height: 6.25rem;
-            background: rgba(15, 23, 42, 0.8);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-color);
         }
 
         .company-logo {
@@ -351,3 +349,4 @@
 </body>
 </html>
 </#macro>
+
