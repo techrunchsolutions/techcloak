@@ -1,10 +1,15 @@
 <#import "template.ftl" as layout>
-<@layout.registrationLayout displayMessage=!messagesPerField.existsError('username','password') displayInfo=realm.password && realm.registrationAllowed && !registrationDisabled??; section>
+<@layout.registrationLayout 
+    displayMessage=!messagesPerField.existsError('username','password') 
+    displayInfo=true;  <!-- Always show the info section -->
+    section>
+
     <#if section = "header">
         <h1 class="auth-title">Welcome back</h1>
         <p class="auth-subtitle">Sign in to your developer account</p>
         <!-- Custom CSS -->
         <link rel="stylesheet" href="${url.resourcesPath}/css/login.css">
+
     <#elseif section = "form">
         <div id="kc-form">
             <div id="kc-form-wrapper">
@@ -12,7 +17,9 @@
                     <!-- Email Field -->
                     <div class="mb-4">
                         <label for="username" class="form-label">
-                            <#if !realm.loginWithEmailAllowed>${msg("username")}<#elseif !realm.registrationEmailAsUsername>${msg("usernameOrEmail")}<#else>${msg("email")}</#if>
+                            <#if !realm.loginWithEmailAllowed>Username
+                            <#elseif !realm.registrationEmailAsUsername>Username or Email
+                            <#else>Email</#if>
                         </label>
                         <div class="position-relative">
                             <input
@@ -24,7 +31,7 @@
                                 type="text"
                                 autofocus
                                 autocomplete="off"
-                                placeholder="<#if !realm.loginWithEmailAllowed>${msg("username")}<#elseif !realm.registrationEmailAsUsername>${msg("usernameOrEmail")}<#else>${msg("email")}</#if>"
+                                placeholder="<#if !realm.loginWithEmailAllowed>Username<#elseif !realm.registrationEmailAsUsername>Username or Email<#else>Email</#if>"
                                 aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
                             />
                             <#if messagesPerField.existsError('username','password')>
@@ -37,7 +44,7 @@
 
                     <!-- Password Field -->
                     <div class="mb-4">
-                        <label for="password" class="form-label">${msg("password")}</label>
+                        <label for="password" class="form-label">Password</label>
                         <div class="position-relative">
                             <input
                                 tabindex="2"
@@ -46,7 +53,7 @@
                                 name="password"
                                 type="password"
                                 autocomplete="off"
-                                placeholder="${msg("password")}"
+                                placeholder="Password"
                                 aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
                             />
                         </div>
@@ -54,31 +61,34 @@
 
                     <div id="kc-form-buttons" class="mt-4">
                         <input type="hidden" id="id-hidden-input" name="credentialId" <#if auth.selectedCredential?has_content>value="${auth.selectedCredential}"</#if>/>
+
                         <input
                             tabindex="4"
                             class="submit-button"
                             name="login"
                             id="kc-login"
                             type="submit"
-                            value="${msg("doLogIn")}"
+                            value="Sign In"
                         />
                     </div>
                 </form>
             </div>
         </div>
-    <#elseif section = "info" >
-        <#if realm.password && realm.registrationAllowed && !registrationDisabled??>
-            <div id="kc-registration-container" class="text-center mt-4">
-                <div id="kc-registration">
-                    <span class="text-white">${msg("noAccount")} <a tabindex="6" href="${url.registrationUrl}" class="auth-link">${msg("doRegister")}</a></span>
-                </div>
-            </div>
-        </#if>
 
-        <#if realm.resetPasswordAllowed>
-            <div class="text-center mt-3">
-                <a tabindex="5" href="${url.loginResetCredentialsUrl}" class="auth-link">${msg("doForgotPassword")}</a>
+    <#elseif section = "info" >
+        <!-- Sign Up Instead -->
+        <div id="kc-registration-container" class="text-center mt-4">
+            <div id="kc-registration">
+                <span class="text-white">
+                    Don’t have an account?
+                    <a tabindex="6" href="${url.registrationUrl}" class="auth-link">Sign up instead</a>
+                </span>
             </div>
-        </#if>
+        </div>
+
+        <!-- Forgot Password -->
+        <div class="text-center mt-3">
+            <a tabindex="5" href="${url.loginResetCredentialsUrl}" class="auth-link">Forgot Password?</a>
+        </div>
     </#if>
 </@layout.registrationLayout>
