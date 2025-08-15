@@ -1,0 +1,446 @@
+<#import "template.ftl" as layout>
+<@layout.registrationLayout displayMessage=!messagesPerField.existsError('firstName','lastName','email','username','password','password-confirm') displayInfo=realm.password && realm.registrationAllowed && !registrationDisabled??; section>
+    <#if section = "header">
+        ${msg("registerTitle")}
+    <#elseif section = "form">
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Attorney AI - Sign Up</title>
+    <link href="data:image/x-icon;base64," rel="icon" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
+    <link rel="stylesheet" href="${url.resourcesPath}/css/register.css" type="text/css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <div class="flex min-h-screen items-center justify-center p-4 sm:p-6">
+      <div
+        class="flex w-full max-w-6xl bg-white rounded-xl shadow-2xl overflow-hidden animate__animated animate__fadeIn"
+      >
+        <!-- Side Image -->
+        <div class="hidden lg:block w-1/2 side-image">
+          <div class="side-image-overlay">
+            <div class="text-white text-center">
+              <div class="relative inline-block mb-6">
+                <div
+                  class="absolute -inset-4 bg-blue-100/20 rounded-full opacity-60 animate-pulse"
+                ></div>
+                <div
+                  class="relative flex items-center justify-center w-24 h-24 bg-white/10 backdrop-blur-sm rounded-2xl shadow-md legal-icon border border-white/20"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-12 w-12 text-white"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <h2 class="text-4xl font-bold mb-4 logo-text">AttorneyAI</h2>
+              <p class="text-xl mb-6 max-w-md mx-auto leading-relaxed">
+                Your AI-powered legal assistant for smarter case management and
+                research
+              </p>
+              <div class="flex justify-center space-x-2 mt-8">
+                <div
+                  class="w-3 h-3 bg-white rounded-full opacity-60 animate-bounce"
+                  style="animation-delay: 0s"
+                ></div>
+                <div
+                  class="w-3 h-3 bg-white rounded-full opacity-60 animate-bounce"
+                  style="animation-delay: 0.2s"
+                ></div>
+                <div
+                  class="w-3 h-3 bg-white rounded-full opacity-60 animate-bounce"
+                  style="animation-delay: 0.4s"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="w-full lg:w-1/2 p-8 sm:p-12">
+          <div class="text-center mb-8 lg:hidden">
+            <div class="flex justify-center mb-6">
+              <div class="relative">
+                <div
+                  class="absolute -inset-4 bg-blue-100 rounded-full opacity-60 animate-pulse"
+                ></div>
+                <div
+                  class="relative flex items-center justify-center w-24 h-24 bg-white rounded-2xl shadow-md legal-icon"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-12 w-12 text-blue-600"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <h1
+              class="text-3xl font-bold text-[var(--text-primary)] logo-text mb-2"
+            >
+              AttorneyAI
+            </h1>
+            <p class="text-[var(--text-secondary)]">
+              AI-powered legal intelligence
+            </p>
+          </div>
+
+          <h2 class="text-2xl font-bold text-[var(--text-primary)] mb-1">
+            Create your account
+          </h2>
+          <p class="text-[var(--text-secondary)] mb-8">
+            Join AttorneyAI and revolutionize your legal practice
+          </p>
+
+          <#if message?has_content && (message.type != 'warning' || !isAppInitiatedAction??)>
+            <div class="alert alert-${message.type}">
+              <#if message.type = 'success'><span class="${properties.kcFeedbackSuccessIcon!}"></span></#if>
+              <#if message.type = 'warning'><span class="${properties.kcFeedbackWarningIcon!}"></span></#if>
+              <#if message.type = 'error'><span class="${properties.kcFeedbackErrorIcon!}"></span></#if>
+              <#if message.type = 'info'><span class="${properties.kcFeedbackInfoIcon!}"></span></#if>
+              <span class="kc-feedback-text">${kcSanitize(message.summary)?no_esc}</span>
+            </div>
+          </#if>
+
+          <form id="kc-register-form" action="${url.registrationAction}" method="post" class="space-y-6">
+            <div class="space-y-5">
+              <!-- First Name and Last Name -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="form_label" for="firstName">${msg("firstName")}</label>
+                  <div class="input-container">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="input-icon"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                      />
+                    </svg>
+                    <input
+                      class="input input-with-icon <#if messagesPerField.existsError('firstName')>border-[var(--error-color)] focus:ring-[var(--error-color)]</#if>"
+                      id="firstName"
+                      name="firstName"
+                      value="${(register.formData.firstName!'')}"
+                      placeholder="John"
+                      type="text"
+                      autofocus
+                      aria-invalid="<#if messagesPerField.existsError('firstName')>true</#if>"
+                    />
+                  </div>
+                  <#if messagesPerField.existsError('firstName')>
+                    <div class="error-message">
+                      ${kcSanitize(messagesPerField.get('firstName'))?no_esc}
+                    </div>
+                  </#if>
+                </div>
+
+                <div>
+                  <label class="form_label" for="lastName">${msg("lastName")}</label>
+                  <div class="input-container">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="input-icon"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                      />
+                    </svg>
+                    <input
+                      class="input input-with-icon <#if messagesPerField.existsError('lastName')>border-[var(--error-color)] focus:ring-[var(--error-color)]</#if>"
+                      id="lastName"
+                      name="lastName"
+                      value="${(register.formData.lastName!'')}"
+                      placeholder="Doe"
+                      type="text"
+                      aria-invalid="<#if messagesPerField.existsError('lastName')>true</#if>"
+                    />
+                  </div>
+                  <#if messagesPerField.existsError('lastName')>
+                    <div class="error-message">
+                      ${kcSanitize(messagesPerField.get('lastName'))?no_esc}
+                    </div>
+                  </#if>
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div>
+                <label class="form_label" for="email">${msg("email")}</label>
+                <div class="input-container">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="input-icon"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                  <input
+                    class="input input-with-icon <#if messagesPerField.existsError('email')>border-[var(--error-color)] focus:ring-[var(--error-color)]</#if>"
+                    id="email"
+                    name="email"
+                    value="${(register.formData.email!'')}"
+                    placeholder="your@email.com"
+                    type="email"
+                    aria-invalid="<#if messagesPerField.existsError('email')>true</#if>"
+                  />
+                </div>
+                <#if messagesPerField.existsError('email')>
+                  <div class="error-message">
+                    ${kcSanitize(messagesPerField.get('email'))?no_esc}
+                  </div>
+                </#if>
+                <div id="email-validation" class="validation-text hidden"></div>
+              </div>
+
+              <!-- Username (if required) -->
+              <#if !realm.registrationEmailAsUsername>
+                <div>
+                  <label class="form_label" for="username">${msg("username")}</label>
+                  <div class="input-container">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="input-icon"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                      />
+                    </svg>
+                    <input
+                      class="input input-with-icon <#if messagesPerField.existsError('username')>border-[var(--error-color)] focus:ring-[var(--error-color)]</#if>"
+                      id="username"
+                      name="username"
+                      value="${(register.formData.username!'')}"
+                      type="text"
+                      aria-invalid="<#if messagesPerField.existsError('username')>true</#if>"
+                    />
+                  </div>
+                  <#if messagesPerField.existsError('username')>
+                    <div class="error-message">
+                      ${kcSanitize(messagesPerField.get('username'))?no_esc}
+                    </div>
+                  </#if>
+                </div>
+              </#if>
+
+              <!-- Password -->
+              <div>
+                <label class="form_label" for="password">${msg("password")}</label>
+                <div class="input-container">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="input-icon"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                    />
+                  </svg>
+                  <input
+                    class="input input-with-icon <#if messagesPerField.existsError('password')>border-[var(--error-color)] focus:ring-[var(--error-color)]</#if>"
+                    id="password"
+                    name="password"
+                    placeholder="••••••••"
+                    type="password"
+                    aria-invalid="<#if messagesPerField.existsError('password')>true</#if>"
+                  />
+                  <span class="password-toggle" id="togglePassword">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <#if messagesPerField.existsError('password')>
+                  <div class="error-message">
+                    ${kcSanitize(messagesPerField.get('password'))?no_esc}
+                  </div>
+                </#if>
+                <div id="password-validation" class="validation-text">
+                  Password must be at least 8 characters with uppercase, lowercase and numbers
+                </div>
+              </div>
+
+              <!-- Confirm Password -->
+              <div>
+                <label class="form_label" for="password-confirm">${msg("passwordConfirm")}</label>
+                <div class="input-container">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="input-icon"
+                    id="confirm-password-icon"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                    />
+                  </svg>
+                  <input
+                    class="input input-with-icon <#if messagesPerField.existsError('password-confirm')>border-[var(--error-color)] focus:ring-[var(--error-color)]</#if>"
+                    id="password-confirm"
+                    name="password-confirm"
+                    placeholder="••••••••"
+                    type="password"
+                    aria-invalid="<#if messagesPerField.existsError('password-confirm')>true</#if>"
+                  />
+                  <span class="password-toggle" id="togglePasswordConfirm">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                      />
+                    </svg>
+                  </span>
+                </div>
+                <#if messagesPerField.existsError('password-confirm')>
+                  <div class="error-message">
+                    ${kcSanitize(messagesPerField.get('password-confirm'))?no_esc}
+                  </div>
+                </#if>
+                <div id="confirm-password-validation" class="validation-text hidden"></div>
+              </div>
+
+              <!-- Terms and Conditions -->
+              <div class="flex items-start space-x-3">
+                <input
+                  class="h-4 w-4 text-[var(--primary-color)] focus:ring-[var(--primary-color)] border-gray-300 rounded mt-1"
+                  id="terms"
+                  name="terms"
+                  type="checkbox"
+                  required
+                />
+                <label class="text-sm text-[var(--text-secondary)]" for="terms">
+                  I agree to the
+                  <a href="#" class="text-[var(--primary-color)] hover:underline">Terms of Service</a>
+                  and
+                  <a href="#" class="text-[var(--primary-color)] hover:underline">Privacy Policy</a>
+                </label>
+              </div>
+              <div id="terms-validation" class="error-message hidden">
+                You must agree to the Terms of Service and Privacy Policy
+              </div>
+            </div>
+
+            <button
+              class="button_primary mt-2 flex items-center justify-center gap-2 hover:gap-3 transition-all"
+              name="register"
+              id="kc-register"
+              type="submit"
+              disabled
+            >
+              <span>Create Account</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </form>
+
+          <p
+            class="text-center text-xs sm:text-sm text-[var(--text-secondary)] mt-6 sm:mt-8"
+          >
+            Already have an account?
+            <a
+              class="font-medium text-[var(--primary-color)] hover:underline transition-slow"
+              href="${url.loginUrl}"
+              >Sign in</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+   <script src="${url.resourcesPath}/js/register.js"></script>
+    </#if>
+</@layout.registrationLayout>
