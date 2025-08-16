@@ -22,6 +22,10 @@
         --accent-color: #e0f2fe;
       }
 
+      .software-text {
+      color: white !important;
+      }
+
       .login-pf-header, .login-pf-page-header {
         display: none !important;
       }
@@ -548,6 +552,7 @@
     </#if>
 <script src="${url.resourcesPath}/js/register.js"></script>
 </@layout.registrationLayout>
+
 
 
 
