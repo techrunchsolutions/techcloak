@@ -33,6 +33,19 @@
         --error-color: #dc2626;
       }
 
+      html, body {
+      height:100%;
+      overflow:hidden;
+      }
+
+      .login-pf-header, .login-pf-page-header {
+        display: hidden;
+      }
+
+      .login-pf-page {
+        padding-top: 0px;
+    }
+
       body {
         @apply font-sans bg-[var(--background-color)] text-[var(--text-primary)] antialiased;
       }
@@ -98,7 +111,7 @@
         @apply absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer hover:text-[var(--primary-color)] h-5 w-5;
       }
 
-      .login-pf-page .card-pf p {
+      .attorney-text {
         color: white;
       }
 
@@ -142,7 +155,7 @@
                 </div>
               </div>
               <h2 class="text-4xl font-bold mb-4 logo-text">AttorneyAI</h2>
-              <p class="text-xl mb-6 max-w-md mx-auto leading-relaxed">
+              <p class="text-xl mb-6 max-w-md mx-auto leading-relaxed attorney-text">
                 Your AI-powered legal assistant for smarter case management and
                 research
               </p>
