@@ -44,7 +44,6 @@
 
       html, body {
         @apply font-sans bg-[var(--background-color)] text-[var(--text-primary)] antialiased;
-        overflow: hidden;
       }
 
       .card {
@@ -135,12 +134,6 @@
       @media (max-width: 1023px) {
         .side-image {
           display: none;
-        }
-      }
-
-      @media (min-width: 640px) {
-        .sm\:p-6 {
-          padding: 0rem;
         }
       }
     </style>
@@ -572,4 +565,3 @@
    <script src="${url.resourcesPath}/js/register.js"></script>
     </#if>
 </@layout.registrationLayout>
-
