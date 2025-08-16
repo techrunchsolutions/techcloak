@@ -30,6 +30,28 @@
         padding-top: 0px;
       }
 
+        .login-pf-page {
+        padding-top: 0px;
+      }
+
+      .card-pf {
+        max-width: 15000px !important;
+        padding: 0;
+        border-top: 0px solid transparent;
+      }
+
+      #kc-content-wrapper {
+         margin-top: 0px;
+      }
+
+      #kc-info {
+        margin: 0px;
+      }
+
+      html, body {
+        overflow-x: hidden;
+      }
+
       body {
         @apply font-sans bg-[var(--background-color)] text-[var(--text-primary)];
       }
@@ -516,4 +538,5 @@
     </#if>
 <script src="${url.resourcesPath}/js/register.js"></script>
 </@layout.registrationLayout>
+
 
