@@ -17,65 +17,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
-    <style type="text/tailwindcss">
-      /* Hide all default Keycloak elements */
-      .login-pf body {
-        background: none !important;
-        font-family: inherit !important;
-      }
 
-      .login-pf .container {
-        background: none !important;
-        box-shadow: none !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        max-width: none !important;
-        width: 100% !important;
-      }
-
-      .login-pf-page .login-pf-brand,
-      .login-pf-page .login-pf-header,
-      .login-pf-page .card-pf,
-      .login-pf-page .login-pf-social-section,
-      .login-pf-page .login-pf-signup,
-      .login-pf-page .login-pf-footer,
-      #kc-header,
-      #kc-header-wrapper,
-      #kc-info,
-      #kc-info-wrapper,
-      .kc-logo-text,
-      .alert,
-      .alert-error,
-      .alert-warning,
-      .alert-success,
-      .alert-info {
-        display: none !important;
-      }
-
-      .login-pf-page {
-        background: none !important;
-        padding: 0 !important;
-        margin: 0 !important;
-      }
-
-      #kc-container,
-      #kc-container-wrapper {
-        background: none !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        box-shadow: none !important;
-        border: none !important;
-      }
-
-      #kc-content,
-      #kc-content-wrapper {
-        background: none !important;
-        padding: 0 !important;
-        margin: 0 !important;
-        box-shadow: none !important;
-        border: none !important;
-      }
-
+       <style type="text/tailwindcss">
       :root {
         --primary-color: #2563eb;
         --secondary-color: #1e40af;
@@ -88,17 +31,6 @@
         --button-hover: #1d4ed8;
         --accent-color: #f59e0b;
         --error-color: #dc2626;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      html, body {
-        height: 100%;
-        overflow: hidden;
       }
 
       body {
@@ -166,15 +98,8 @@
         @apply absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer hover:text-[var(--primary-color)] h-5 w-5;
       }
 
-      .main-container {
-        height: 100vh;
-        overflow: hidden;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 9999;
+      .login-pf-page .card-pf p {
+        color: white;
       }
 
       @media (max-width: 1023px) {
@@ -184,12 +109,13 @@
       }
     </style>
 
-    <div class="main-container flex items-center justify-center p-4 sm:p-6">
+
+    <div class="flex min-h-screen items-center justify-center p-4 sm:p-6">
       <div
         class="flex w-full max-w-6xl bg-white rounded-xl shadow-2xl overflow-hidden animate__animated animate__fadeIn"
       >
         <!-- Side Image -->
-        <div class="hidden lg:block w-1/2 side-image">
+        <div class="lg:block w-1/2 side-image">
           <div class="side-image-overlay">
             <div class="text-white text-center">
               <div class="relative inline-block mb-6">
@@ -284,8 +210,12 @@
           </p>
 
           <#if message?has_content && (message.type != 'warning' || !isAppInitiatedAction??)>
-            <div class="mb-4 p-4 rounded-lg <#if message.type = 'error'>bg-red-50 border border-red-200<#elseif message.type = 'success'>bg-green-50 border border-green-200<#else>bg-blue-50 border border-blue-200</#if>">
-              <span class="text-sm <#if message.type = 'error'>text-red-600<#elseif message.type = 'success'>text-green-600<#else>text-blue-600</#if>">${kcSanitize(message.summary)?no_esc}</span>
+            <div class="alert alert-${message.type}">
+              <#if message.type = 'success'><span class="${properties.kcFeedbackSuccessIcon!}"></span></#if>
+              <#if message.type = 'warning'><span class="${properties.kcFeedbackWarningIcon!}"></span></#if>
+              <#if message.type = 'error'><span class="${properties.kcFeedbackErrorIcon!}"></span></#if>
+              <#if message.type = 'info'><span class="${properties.kcFeedbackInfoIcon!}"></span></#if>
+              <span class="kc-feedback-text">${kcSanitize(message.summary)?no_esc}</span>
             </div>
           </#if>
 
@@ -449,22 +379,6 @@
       </div>
     </div>
 
-    <script>
-      // Toggle password visibility
-      const togglePassword = document.querySelector('#togglePassword');
-      const password = document.querySelector('#password');
-
-      if (togglePassword && password) {
-        togglePassword.addEventListener('click', function() {
-          const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-          password.setAttribute('type', type);
-
-          // Toggle eye icon
-          this.innerHTML = type === 'password' ?
-            '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>' :
-            '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" /></svg>';
-        });
-      }
-    </script>
+   <script src="${url.resourcesPath}/js/login.js"></script>
     </#if>
 </@layout.registrationLayout>
