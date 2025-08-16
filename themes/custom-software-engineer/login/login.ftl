@@ -436,5 +436,5 @@
             </div>
         </#if>
     </#if>
-
+<script src="${url.resourcesPath}/js/login.js"></script>
 </@layout.registrationLayout>
