@@ -137,6 +137,12 @@
           display: none;
         }
       }
+
+      @media (min-width: 640px) {
+        .sm\:p-6 {
+          padding: 0rem;
+        }
+      }
     </style>
 
 
@@ -566,3 +572,4 @@
    <script src="${url.resourcesPath}/js/register.js"></script>
     </#if>
 </@layout.registrationLayout>
+
