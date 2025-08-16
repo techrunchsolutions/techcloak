@@ -98,6 +98,10 @@
         @apply absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer hover:text-[var(--primary-color)] h-5 w-5;
       }
 
+      .login-pf-page .card-pf p {
+        color: white;
+      }
+
       @media (max-width: 1023px) {
         .side-image {
           display: none;
@@ -111,7 +115,7 @@
         class="flex w-full max-w-6xl bg-white rounded-xl shadow-2xl overflow-hidden animate__animated animate__fadeIn"
       >
         <!-- Side Image -->
-        <div class="hidden lg:block w-1/2 side-image">
+        <div class="lg:block w-1/2 side-image">
           <div class="side-image-overlay">
             <div class="text-white text-center">
               <div class="relative inline-block mb-6">
