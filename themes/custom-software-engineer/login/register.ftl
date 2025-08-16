@@ -46,6 +46,10 @@
        }
      }
 
+      #kc-info-wrapper {
+    display:none;
+}
+
       #kc-content-wrapper {
          margin-top: 0px;
       }
@@ -195,7 +199,7 @@
         <!-- Header -->
         <div class="w-full max-w-md mb-12 z-10 text-white text-center">
           <h1 class="text-4xl font-bold mb-2">The Software Engineer</h1>
-          <p class="text-lg opacity-90">Streamline your development workflow</p>
+          <p class="text-lg opacity-90 software-text">Streamline your development workflow</p>
         </div>
 
         <!-- Process animation -->
@@ -255,7 +259,7 @@
         <div
           class="mt-12 text-white opacity-80 text-sm text-center max-w-md z-10"
         >
-          <p>
+          <p class="software-text">
             From concept to deployment - manage your entire software development
             lifecycle in one place
           </p>
@@ -536,7 +540,7 @@
                 clip-rule="evenodd"
               />
             </svg>
-            ${msg("backToLogin")}
+            Back to Login
           </a>
         </div>
       </div>
@@ -544,6 +548,7 @@
     </#if>
 <script src="${url.resourcesPath}/js/register.js"></script>
 </@layout.registrationLayout>
+
 
 
 
