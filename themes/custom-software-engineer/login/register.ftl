@@ -157,7 +157,7 @@
 
     <div class="min-h-screen grid grid-cols-1 md:grid-cols-2">
       <div
-        class="hidden md:flex items-center justify-center p-12 flex-col relative bg-gradient-to-b from-blue-600 to-blue-800"
+        class="md:flex items-center justify-center p-12 flex-col relative bg-gradient-to-b from-blue-600 to-blue-800"
       >
         <!-- Background image -->
         <div
@@ -516,3 +516,4 @@
     </#if>
 <script src="${url.resourcesPath}/js/register.js"></script>
 </@layout.registrationLayout>
+
