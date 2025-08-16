@@ -1,148 +1,129 @@
-// Password visibility toggle functionality
 function togglePasswordVisibility(fieldId) {
-  const passwordField = document.getElementById(fieldId);
-  const eyeOpen = document.getElementById(fieldId + "-eye-open");
-  const eyeClosed = document.getElementById(fieldId + "-eye-closed");
+                var passwordField = document.getElementById(fieldId);
+                var eyeOpen = document.getElementById(fieldId + '-eye-open');
+                var eyeClosed = document.getElementById(fieldId + '-eye-closed');
 
-  if (passwordField.type === "password") {
-    passwordField.type = "text";
-    eyeOpen.classList.add("hidden");
-    eyeClosed.classList.remove("hidden");
-  } else {
-    passwordField.type = "password";
-    eyeOpen.classList.remove("hidden");
-    eyeClosed.classList.add("hidden");
-  }
-}
+                if (passwordField.type === 'password') {
+                    passwordField.type = 'text';
+                    eyeOpen.classList.add('hidden');
+                    eyeClosed.classList.remove('hidden');
+                } else {
+                    passwordField.type = 'password';
+                    eyeOpen.classList.remove('hidden');
+                    eyeClosed.classList.add('hidden');
+                }
+            }
 
-// Password validation functionality
-function validatePassword(password) {
-  const lengthRequirement = password.length >= 8;
-  const mixRequirement = /^(?=.*[a-zA-Z])(?=.*\d)/.test(password);
+            function validatePassword(password) {
+                var lengthRequirement = password.length >= 8;
+                var mixRequirement = /^(?=.*[a-zA-Z])(?=.*\d)/.test(password);
 
-  return {
-    length: lengthRequirement,
-    mix: mixRequirement,
-    valid: lengthRequirement && mixRequirement,
-  };
-}
+                return {
+                    length: lengthRequirement,
+                    mix: mixRequirement,
+                    valid: lengthRequirement && mixRequirement
+                };
+            }
 
-function updatePasswordRequirements(validation) {
-  const lengthIcon = document.querySelector(
-    "#password-length .requirement-icon"
-  );
-  const lengthText = document.querySelector("#password-length span:last-child");
-  const mixIcon = document.querySelector("#password-mix .requirement-icon");
-  const mixText = document.querySelector("#password-mix span:last-child");
+            function updatePasswordRequirements(validation) {
+                var lengthItem = document.getElementById('password-length');
+                var mixItem = document.getElementById('password-mix');
 
-  // Update length requirement
-  if (validation.length) {
-    lengthIcon.textContent = "✓";
-    lengthIcon.className = "requirement-icon text-green-600";
-    lengthText.className = "text-green-600";
-  } else {
-    lengthIcon.textContent = "○";
-    lengthIcon.className = "requirement-icon text-red-500";
-    lengthText.className = "text-red-500";
-  }
+                if (validation.length) {
+                    lengthItem.className = 'requirement-item requirement-met';
+                    lengthItem.querySelector('.requirement-icon').textContent = '✓';
+                } else {
+                    lengthItem.className = 'requirement-item requirement-failed';
+                    lengthItem.querySelector('.requirement-icon').textContent = '○';
+                }
 
-  // Update mix requirement
-  if (validation.mix) {
-    mixIcon.textContent = "✓";
-    mixIcon.className = "requirement-icon text-green-600";
-    mixText.className = "text-green-600";
-  } else {
-    mixIcon.textContent = "○";
-    mixIcon.className = "requirement-icon text-red-500";
-    mixText.className = "text-red-500";
-  }
-}
+                if (validation.mix) {
+                    mixItem.className = 'requirement-item requirement-met';
+                    mixItem.querySelector('.requirement-icon').textContent = '✓';
+                } else {
+                    mixItem.className = 'requirement-item requirement-failed';
+                    mixItem.querySelector('.requirement-icon').textContent = '○';
+                }
+            }
 
-function validatePasswordMatch() {
-  const password = document.getElementById("password").value;
-  const confirmPassword = document.getElementById("password-confirm").value;
-  const matchMessage = document.getElementById("password-match-message");
-  const matchSuccess = document.getElementById("password-match-success");
-  const confirmField = document.getElementById("password-confirm");
+            function validatePasswordMatch() {
+                var password = document.getElementById('password').value;
+                var confirmPassword = document.getElementById('password-confirm').value;
+                var matchMessage = document.getElementById('password-match-message');
+                var matchSuccess = document.getElementById('password-match-success');
+                var confirmField = document.getElementById('password-confirm');
 
-  if (confirmPassword === "") {
-    matchMessage.classList.add("hidden");
-    matchSuccess.classList.add("hidden");
-    confirmField.classList.remove("input-error", "input-success");
-    return null;
-  }
+                if (confirmPassword === '') {
+                    matchMessage.classList.add('hidden');
+                    matchSuccess.classList.add('hidden');
+                    confirmField.classList.remove('input-error', 'input-success');
+                    return null;
+                }
 
-  if (password === confirmPassword) {
-    matchMessage.classList.add("hidden");
-    matchSuccess.classList.remove("hidden");
-    confirmField.classList.remove("input-error");
-    confirmField.classList.add("input-success");
-    return true;
-  } else {
-    matchMessage.classList.remove("hidden");
-    matchSuccess.classList.add("hidden");
-    confirmField.classList.remove("input-success");
-    confirmField.classList.add("input-error");
-    return false;
-  }
-}
+                if (password === confirmPassword) {
+                    matchMessage.classList.add('hidden');
+                    matchSuccess.classList.remove('hidden');
+                    confirmField.classList.remove('input-error');
+                    confirmField.classList.add('input-success');
+                    return true;
+                } else {
+                    matchMessage.classList.remove('hidden');
+                    matchSuccess.classList.add('hidden');
+                    confirmField.classList.remove('input-success');
+                    confirmField.classList.add('input-error');
+                    return false;
+                }
+            }
 
-function validateForm() {
-  const firstName = document.getElementById("firstName").value.trim();
-  const lastName = document.getElementById("lastName").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const username = document.getElementById("username")
-    ? document.getElementById("username").value.trim()
-    : "valid";
-  const password = document.getElementById("password").value;
-  const confirmPassword = document.getElementById("password-confirm").value;
+            function validateForm() {
+                var firstName = document.getElementById('firstName').value.trim();
+                var lastName = document.getElementById('lastName').value.trim();
+                var email = document.getElementById('email').value.trim();
+                var usernameField = document.getElementById('username');
+                var username = usernameField ? usernameField.value.trim() : 'valid';
+                var password = document.getElementById('password').value;
+                var confirmPassword = document.getElementById('password-confirm').value;
 
-  const passwordValidation = validatePassword(password);
-  const passwordsMatch = validatePasswordMatch();
+                var passwordValidation = validatePassword(password);
+                var passwordsMatch = validatePasswordMatch();
 
-  const allFieldsFilled =
-    firstName && lastName && email && username && password && confirmPassword;
-  const allRequirementsMet =
-    passwordValidation.valid && passwordsMatch === true;
+                var allFieldsFilled = firstName && lastName && email && username && password && confirmPassword;
+                var allRequirementsMet = passwordValidation.valid && passwordsMatch === true;
 
-  const registerButton = document.getElementById("register-button");
-  registerButton.disabled = !(allFieldsFilled && allRequirementsMet);
-}
+                var registerButton = document.getElementById('register-button');
+                registerButton.disabled = !(allFieldsFilled && allRequirementsMet);
+            }
 
-// Event listeners
-document.addEventListener("DOMContentLoaded", function () {
-  const passwordField = document.getElementById("password");
-  const confirmPasswordField = document.getElementById("password-confirm");
-  const allInputs = document.querySelectorAll("input[required]");
+            document.addEventListener('DOMContentLoaded', function() {
+                var passwordField = document.getElementById('password');
+                var confirmPasswordField = document.getElementById('password-confirm');
+                var allInputs = document.querySelectorAll('input[required]');
 
-  passwordField.addEventListener("input", function () {
-    const validation = validatePassword(this.value);
-    updatePasswordRequirements(validation);
+                passwordField.addEventListener('input', function() {
+                    var validation = validatePassword(this.value);
+                    updatePasswordRequirements(validation);
 
-    const passwordInput = document.getElementById("password");
-    if (this.value === "") {
-      passwordInput.classList.remove("input-error", "input-success");
-    } else if (validation.valid) {
-      passwordInput.classList.remove("input-error");
-      passwordInput.classList.add("input-success");
-    } else {
-      passwordInput.classList.remove("input-success");
-      passwordInput.classList.add("input-error");
-    }
+                    if (this.value === '') {
+                        this.classList.remove('input-error', 'input-success');
+                    } else if (validation.valid) {
+                        this.classList.remove('input-error');
+                        this.classList.add('input-success');
+                    } else {
+                        this.classList.remove('input-success');
+                        this.classList.add('input-error');
+                    }
 
-    validateForm();
-  });
+                    validateForm();
+                });
 
-  confirmPasswordField.addEventListener("input", function () {
-    validatePasswordMatch();
-    validateForm();
-  });
+                confirmPasswordField.addEventListener('input', function() {
+                    validatePasswordMatch();
+                    validateForm();
+                });
 
-  // Add event listeners to all required inputs
-  allInputs.forEach((input) => {
-    input.addEventListener("input", validateForm);
-  });
+                for (var i = 0; i < allInputs.length; i++) {
+                    allInputs[i].addEventListener('input', validateForm);
+                }
 
-  // Initial validation
-  validateForm();
-});
+                validateForm();
+            });
