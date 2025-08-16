@@ -127,6 +127,10 @@
         @apply text-[var(--success-color)];
       }
 
+      .attorney-text {
+        color: white !important;
+      }
+
       @media (max-width: 1023px) {
         .side-image {
           display: none;
@@ -167,7 +171,7 @@
                 </div>
               </div>
               <h2 class="text-4xl font-bold mb-4 logo-text">AttorneyAI</h2>
-              <p class="text-xl mb-6 max-w-md mx-auto leading-relaxed">
+              <p class="text-xl mb-6 max-w-md mx-auto leading-relaxed attorney-text">
                 Your AI-powered legal assistant for smarter case management and
                 research
               </p>
@@ -561,6 +565,7 @@
    <script src="${url.resourcesPath}/js/register.js"></script>
     </#if>
 </@layout.registrationLayout>
+
 
 
 
