@@ -34,6 +34,14 @@
         --success-color: #16a34a;
       }
 
+      .login-pf-header, .login-pf-page-header {
+        display: hidden;
+      }
+
+      .login-pf-page {
+        padding-top: 0px;
+      }
+
       body {
         @apply font-sans bg-[var(--background-color)] text-[var(--text-primary)] antialiased;
       }
@@ -553,4 +561,5 @@
    <script src="${url.resourcesPath}/js/register.js"></script>
     </#if>
 </@layout.registrationLayout>
+
 
