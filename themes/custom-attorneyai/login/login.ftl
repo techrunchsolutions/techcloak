@@ -45,7 +45,6 @@
 
       html, body {
         @apply font-sans bg-[var(--background-color)] text-[var(--text-primary)] antialiased;
-        overflow: hidden;
       }
 
       .card {
@@ -389,7 +388,6 @@
         </div>
       </div>
     </div>
-
    <script src="${url.resourcesPath}/js/login.js"></script>
     </#if>
 </@layout.registrationLayout>
