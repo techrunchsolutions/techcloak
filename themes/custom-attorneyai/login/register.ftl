@@ -44,6 +44,8 @@
 
       html, body {
         @apply font-sans bg-[var(--background-color)] text-[var(--text-primary)] antialiased;
+        overflow-x: hidden; /* Always hide horizontal scrollbar */
+        overflow-y: hidden; /* Initially hide vertical scrollbar */
       }
 
       .card {
