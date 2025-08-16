@@ -40,6 +40,13 @@
         border-top: 0px solid transparent;
       }
 
+       @media (min-width: 768px) {
+          .login-pf-page .card-pf {
+          padding: 0px;
+       }
+     }
+
+
       #kc-content-wrapper {
          margin-top: 0px;
       }
