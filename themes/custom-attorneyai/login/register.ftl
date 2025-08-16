@@ -35,7 +35,7 @@
       }
 
       .login-pf-header, .login-pf-page-header {
-        display: hidden;
+        display: none !important;
       }
 
       .login-pf-page {
@@ -561,5 +561,6 @@
    <script src="${url.resourcesPath}/js/register.js"></script>
     </#if>
 </@layout.registrationLayout>
+
 
 
