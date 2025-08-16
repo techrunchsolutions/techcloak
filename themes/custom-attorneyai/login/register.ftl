@@ -9,7 +9,6 @@
     <link href="data:image/x-icon;base64," rel="icon" type="image/x-icon" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect" />
-    <link rel="stylesheet" href="${url.resourcesPath}/css/register.css" type="text/css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap"
       rel="stylesheet"
@@ -18,6 +17,116 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
+
+    <style type="text/tailwindcss">
+      :root {
+        --primary-color: #2563eb;
+        --secondary-color: #1e40af;
+        --background-color: #f8fafc;
+        --card-background: #ffffff;
+        --text-primary: #1e293b;
+        --text-secondary: #64748b;
+        --input-border: #e2e8f0;
+        --input-focus: #2563eb;
+        --button-hover: #1d4ed8;
+        --accent-color: #f59e0b;
+        --error-color: #dc2626;
+        --success-color: #16a34a;
+      }
+
+      body {
+        @apply font-sans bg-[var(--background-color)] text-[var(--text-primary)] antialiased;
+      }
+
+      .card {
+        @apply bg-[var(--card-background)] rounded-xl shadow-xl p-8 border border-gray-100;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
+          0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      }
+
+      .button_primary {
+        @apply bg-gradient-to-r from-[var(--primary-color)] to-[var(--secondary-color)] text-white rounded-lg px-4 py-3 text-base font-semibold hover:opacity-90 transition-all duration-300 w-full shadow-md hover:shadow-lg;
+      }
+
+      .button_primary:disabled {
+        @apply opacity-50 cursor-not-allowed;
+      }
+
+      .input {
+        @apply border border-[var(--input-border)] rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[var(--input-focus)] w-full transition-all duration-300 bg-white hover:border-[var(--primary-color)];
+      }
+
+      .input-container {
+        @apply relative;
+      }
+
+      .input-icon {
+        @apply absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5;
+      }
+
+      .input-with-icon {
+        @apply pl-10;
+      }
+
+      .form_label {
+        @apply block text-[var(--text-secondary)] text-sm font-medium mb-2;
+      }
+
+      .logo-text {
+        font-family: "Playfair Display", serif;
+      }
+
+      .transition-slow {
+        transition: all 0.5s ease;
+      }
+
+      .legal-icon {
+        filter: drop-shadow(0 4px 6px rgba(37, 99, 235, 0.2));
+      }
+
+      .side-image {
+        background-image: url("https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
+        background-size: cover;
+        background-position: center;
+        border-radius: 1rem 0 0 1rem;
+      }
+
+      .side-image-overlay {
+        @apply h-full w-full bg-gradient-to-b from-blue-900/70 to-blue-900/30 flex items-center justify-center p-12;
+      }
+
+      .error-message {
+        @apply text-sm text-[var(--error-color)] mt-1;
+      }
+
+      .success-message {
+        @apply text-sm text-[var(--success-color)] mt-1;
+      }
+
+      .password-toggle {
+        @apply absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-pointer hover:text-[var(--primary-color)] h-5 w-5;
+      }
+
+      .validation-text {
+        @apply text-xs text-[var(--text-secondary)] mt-1;
+      }
+
+      .validation-text.error {
+        @apply text-[var(--error-color)];
+      }
+
+      .validation-text.success {
+        @apply text-[var(--success-color)];
+      }
+
+      @media (max-width: 1023px) {
+        .side-image {
+          display: none;
+        }
+      }
+    </style>
+
+
     <div class="flex min-h-screen items-center justify-center p-4 sm:p-6">
       <div
         class="flex w-full max-w-6xl bg-white rounded-xl shadow-2xl overflow-hidden animate__animated animate__fadeIn"
@@ -444,3 +553,4 @@
    <script src="${url.resourcesPath}/js/register.js"></script>
     </#if>
 </@layout.registrationLayout>
+
