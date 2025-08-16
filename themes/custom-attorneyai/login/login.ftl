@@ -33,13 +33,10 @@
         --error-color: #dc2626;
       }
 
-      html, body {
-      height:100%;
-      overflow:hidden;
-      }
+      
 
       .login-pf-header, .login-pf-page-header {
-        display: hidden;
+        display: none !important;
       }
 
       .login-pf-page {
@@ -112,7 +109,7 @@
       }
 
       .attorney-text {
-        color: white;
+        color: white !important;
       }
 
       @media (max-width: 1023px) {
