@@ -512,4 +512,6 @@
         </body>
         </html>
     </#if>
+<script src="${url.resourcesPath}/js/register.js"></script>
 </@layout.registrationLayout>
+
