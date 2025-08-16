@@ -1,27 +1,30 @@
 
-     // Check if content fits in viewport and disable scrolling accordingly
+     // Check if content fits in viewport and control vertical scrolling
      function checkContentFit() {
        const documentHeight = document.documentElement.scrollHeight;
        const windowHeight = window.innerHeight;
 
-       if (documentHeight <= windowHeight) {
-         // Content fits, disable scrolling
-         document.documentElement.style.overflow = 'hidden';
-         document.body.style.overflow = 'hidden';
+       if (documentHeight > windowHeight) {
+         // Content doesn't fit, enable vertical scrolling
+         document.documentElement.style.overflowY = 'auto';
+         document.body.style.overflowY = 'auto';
        } else {
-         // Content doesn't fit, enable scrolling
-         document.documentElement.style.overflow = 'auto';
-         document.body.style.overflow = 'auto';
+         // Content fits, disable vertical scrolling
+         document.documentElement.style.overflowY = 'hidden';
+         document.body.style.overflowY = 'hidden';
        }
+
+       // Always keep horizontal scrolling disabled
+       document.documentElement.style.overflowX = 'hidden';
+       document.body.style.overflowX = 'hidden';
      }
+
+     // Run immediately to prevent flickering
+     checkContentFit();
 
      // Check on load and resize
      window.addEventListener('load', checkContentFit);
      window.addEventListener('resize', checkContentFit);
-
-     // Also check after a short delay to ensure all content is rendered
-     setTimeout(checkContentFit, 100);
-
 // Password visibility toggles
 const togglePassword = document.querySelector("#togglePassword");
 const password = document.querySelector("#password");
@@ -330,4 +333,5 @@ form.addEventListener("submit", function (e) {
 
 // Initialize validation state
 updateSubmitButton();
+
 
