@@ -22,6 +22,17 @@
         --accent-color: #e0f2fe;
       }
 
+    #kc-info-wrapper {
+       display: none;
+     }
+
+
+
+      .login-pf-page .card-pf {
+       padding: 0px; 
+       margin-bottom: 0;
+     }
+
       .software-text{
         color: white !important;
       }
