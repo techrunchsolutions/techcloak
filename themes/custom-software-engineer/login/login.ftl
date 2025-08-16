@@ -23,7 +23,7 @@
       }
 
       .software-text{
-        color: white;
+        color: white !important;
       }
 
       .login-pf-header, .login-pf-page-header {
