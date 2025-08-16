@@ -42,8 +42,9 @@
         padding-top: 0px;
       }
 
-      body {
+      html, body {
         @apply font-sans bg-[var(--background-color)] text-[var(--text-primary)] antialiased;
+        overflow: hidden;
       }
 
       .card {
@@ -565,7 +566,3 @@
    <script src="${url.resourcesPath}/js/register.js"></script>
     </#if>
 </@layout.registrationLayout>
-
-
-
-
