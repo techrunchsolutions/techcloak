@@ -132,7 +132,7 @@
         class="flex w-full max-w-6xl bg-white rounded-xl shadow-2xl overflow-hidden animate__animated animate__fadeIn"
       >
         <!-- Side Image -->
-        <div class="hidden lg:block w-1/2 side-image">
+        <div class="lg:block w-1/2 side-image">
           <div class="side-image-overlay">
             <div class="text-white text-center">
               <div class="relative inline-block mb-6">
@@ -553,4 +553,5 @@
    <script src="${url.resourcesPath}/js/register.js"></script>
     </#if>
 </@layout.registrationLayout>
+
 
