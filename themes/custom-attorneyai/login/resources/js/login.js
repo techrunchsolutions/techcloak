@@ -18,11 +18,23 @@ if (togglePassword && password) {
 
      // Check if content fits in viewport and control vertical scrolling
      function checkContentFit() {
+       // First, temporarily enable scrolling to get accurate measurements
+       document.documentElement.style.overflowY = 'auto';
+       document.body.style.overflowY = 'auto';
+
+       // Get the actual content height and viewport height
+       const bodyHeight = document.body.scrollHeight;
        const documentHeight = document.documentElement.scrollHeight;
        const windowHeight = window.innerHeight;
 
-       if (documentHeight > windowHeight) {
-         // Content doesn't fit, enable vertical scrolling
+       // Use the larger of body or document height
+       const actualContentHeight = Math.max(bodyHeight, documentHeight);
+
+       // Add a small buffer (10px) to account for any minor rendering differences
+       const needsScrolling = actualContentHeight > (windowHeight + 10);
+
+       if (needsScrolling) {
+         // Content doesn't fit, keep vertical scrolling enabled
          document.documentElement.style.overflowY = 'auto';
          document.body.style.overflowY = 'auto';
        } else {
@@ -36,9 +48,9 @@ if (togglePassword && password) {
        document.body.style.overflowX = 'hidden';
      }
 
-     // Run immediately to prevent flickering
-     checkContentFit();
+     // Run after a brief delay to ensure DOM is fully rendered
+     setTimeout(checkContentFit, 50);
 
      // Check on load and resize
-     window.addEventListener('load', checkContentFit);
-     window.addEventListener('resize', checkContentFit);
+     window.addEventListener('load', () => setTimeout(checkContentFit, 100));
+     window.addEventListener('resize', () => setTimeout(checkContentFit, 50));
