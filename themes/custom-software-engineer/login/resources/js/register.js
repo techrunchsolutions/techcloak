@@ -1,129 +1,142 @@
-function togglePasswordVisibility(fieldId) {
-                var passwordField = document.getElementById(fieldId);
-                var eyeOpen = document.getElementById(fieldId + '-eye-open');
-                var eyeClosed = document.getElementById(fieldId + '-eye-closed');
 
-                if (passwordField.type === 'password') {
-                    passwordField.type = 'text';
-                    eyeOpen.classList.add('hidden');
-                    eyeClosed.classList.remove('hidden');
-                } else {
-                    passwordField.type = 'password';
-                    eyeOpen.classList.remove('hidden');
-                    eyeClosed.classList.add('hidden');
-                }
+      // Password visibility toggle functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        // Password toggle
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        const passwordEyeOpen = document.getElementById('passwordEyeOpen');
+        const passwordEyeClosed = document.getElementById('passwordEyeClosed');
+
+        if (togglePassword && passwordInput) {
+          togglePassword.addEventListener('click', function() {
+            if (passwordInput.type === 'password') {
+              passwordInput.type = 'text';
+              passwordEyeOpen.style.display = 'none';
+              passwordEyeClosed.style.display = 'block';
+            } else {
+              passwordInput.type = 'password';
+              passwordEyeOpen.style.display = 'block';
+              passwordEyeClosed.style.display = 'none';
             }
+          });
+        }
 
-            function validatePassword(password) {
-                var lengthRequirement = password.length >= 8;
-                var mixRequirement = /^(?=.*[a-zA-Z])(?=.*\d)/.test(password);
+        // Confirm password toggle
+        const togglePasswordConfirm = document.getElementById('togglePasswordConfirm');
+        const confirmPasswordInput = document.getElementById('password-confirm');
+        const confirmEyeOpen = document.getElementById('confirmEyeOpen');
+        const confirmEyeClosed = document.getElementById('confirmEyeClosed');
 
-                return {
-                    length: lengthRequirement,
-                    mix: mixRequirement,
-                    valid: lengthRequirement && mixRequirement
-                };
+        if (togglePasswordConfirm && confirmPasswordInput) {
+          togglePasswordConfirm.addEventListener('click', function() {
+            if (confirmPasswordInput.type === 'password') {
+              confirmPasswordInput.type = 'text';
+              confirmEyeOpen.style.display = 'none';
+              confirmEyeClosed.style.display = 'block';
+            } else {
+              confirmPasswordInput.type = 'password';
+              confirmEyeOpen.style.display = 'block';
+              confirmEyeClosed.style.display = 'none';
             }
+          });
+        }
 
-            function updatePasswordRequirements(validation) {
-                var lengthItem = document.getElementById('password-length');
-                var mixItem = document.getElementById('password-mix');
+        // Password validation
+        function validatePassword(password) {
+          const lengthValid = password.length >= 8;
+          const mixValid = /^(?=.*[a-zA-Z])(?=.*\d)/.test(password);
+          return { lengthValid, mixValid, valid: lengthValid && mixValid };
+        }
 
-                if (validation.length) {
-                    lengthItem.className = 'requirement-item requirement-met';
-                    lengthItem.querySelector('.requirement-icon').textContent = '✓';
-                } else {
-                    lengthItem.className = 'requirement-item requirement-failed';
-                    lengthItem.querySelector('.requirement-icon').textContent = '○';
-                }
+        function validatePasswordMatch() {
+          const password = passwordInput.value;
+          const confirmPassword = confirmPasswordInput.value;
+          const validation = document.getElementById('confirm-password-validation');
 
-                if (validation.mix) {
-                    mixItem.className = 'requirement-item requirement-met';
-                    mixItem.querySelector('.requirement-icon').textContent = '✓';
-                } else {
-                    mixItem.className = 'requirement-item requirement-failed';
-                    mixItem.querySelector('.requirement-icon').textContent = '○';
-                }
-            }
+          if (confirmPassword === '') {
+            validation.classList.add('hidden');
+            return null;
+          }
 
-            function validatePasswordMatch() {
-                var password = document.getElementById('password').value;
-                var confirmPassword = document.getElementById('password-confirm').value;
-                var matchMessage = document.getElementById('password-match-message');
-                var matchSuccess = document.getElementById('password-match-success');
-                var confirmField = document.getElementById('password-confirm');
+          if (password === confirmPassword) {
+            validation.textContent = 'Passwords match';
+            validation.className = 'validation-text success';
+            validation.classList.remove('hidden');
+            return true;
+          } else {
+            validation.textContent = 'Passwords do not match';
+            validation.className = 'validation-text error';
+            validation.classList.remove('hidden');
+            return false;
+          }
+        }
 
-                if (confirmPassword === '') {
-                    matchMessage.classList.add('hidden');
-                    matchSuccess.classList.add('hidden');
-                    confirmField.classList.remove('input-error', 'input-success');
-                    return null;
-                }
+        function validateForm() {
+          const firstName = document.getElementById('firstName').value.trim();
+          const lastName = document.getElementById('lastName').value.trim();
+          const email = document.getElementById('email').value.trim();
+          const usernameField = document.getElementById('username');
+          const username = usernameField ? usernameField.value.trim() : 'valid';
+          const password = passwordInput.value;
+          const confirmPassword = confirmPasswordInput.value;
 
-                if (password === confirmPassword) {
-                    matchMessage.classList.add('hidden');
-                    matchSuccess.classList.remove('hidden');
-                    confirmField.classList.remove('input-error');
-                    confirmField.classList.add('input-success');
-                    return true;
-                } else {
-                    matchMessage.classList.remove('hidden');
-                    matchSuccess.classList.add('hidden');
-                    confirmField.classList.remove('input-success');
-                    confirmField.classList.add('input-error');
-                    return false;
-                }
-            }
+          const passwordValidation = validatePassword(password);
+          const passwordsMatch = validatePasswordMatch();
 
-            function validateForm() {
-                var firstName = document.getElementById('firstName').value.trim();
-                var lastName = document.getElementById('lastName').value.trim();
-                var email = document.getElementById('email').value.trim();
-                var usernameField = document.getElementById('username');
-                var username = usernameField ? usernameField.value.trim() : 'valid';
-                var password = document.getElementById('password').value;
-                var confirmPassword = document.getElementById('password-confirm').value;
+          const allFieldsFilled = firstName && lastName && email && username && password && confirmPassword;
+          const allRequirementsMet = passwordValidation.valid && passwordsMatch === true;
 
-                var passwordValidation = validatePassword(password);
-                var passwordsMatch = validatePasswordMatch();
+          const registerButton = document.getElementById('kc-register');
+          registerButton.disabled = !(allFieldsFilled && allRequirementsMet);
+        }
 
-                var allFieldsFilled = firstName && lastName && email && username && password && confirmPassword;
-                var allRequirementsMet = passwordValidation.valid && passwordsMatch === true;
+        // Password validation display
+        passwordInput.addEventListener('input', function() {
+          const validation = validatePassword(this.value);
+          const validationDiv = document.getElementById('password-validation');
 
-                var registerButton = document.getElementById('register-button');
-                registerButton.disabled = !(allFieldsFilled && allRequirementsMet);
-            }
+          if (this.value === '') {
+            validationDiv.textContent = 'Use at least 8 characters with a mix of letters and numbers';
+            validationDiv.className = 'validation-text';
+          } else if (validation.valid) {
+            validationDiv.textContent = 'Password meets requirements';
+            validationDiv.className = 'validation-text success';
+          } else {
+            validationDiv.textContent = 'Password must be at least 8 characters with letters and numbers';
+            validationDiv.className = 'validation-text error';
+          }
 
-            document.addEventListener('DOMContentLoaded', function() {
-                var passwordField = document.getElementById('password');
-                var confirmPasswordField = document.getElementById('password-confirm');
-                var allInputs = document.querySelectorAll('input[required]');
+          validateForm();
+        });
 
-                passwordField.addEventListener('input', function() {
-                    var validation = validatePassword(this.value);
-                    updatePasswordRequirements(validation);
+        confirmPasswordInput.addEventListener('input', function() {
+          validateForm();
+        });
 
-                    if (this.value === '') {
-                        this.classList.remove('input-error', 'input-success');
-                    } else if (validation.valid) {
-                        this.classList.remove('input-error');
-                        this.classList.add('input-success');
-                    } else {
-                        this.classList.remove('input-success');
-                        this.classList.add('input-error');
-                    }
+        // Add event listeners to all required inputs
+        const allInputs = document.querySelectorAll('input[type="text"], input[type="email"]');
+        allInputs.forEach(input => {
+          input.addEventListener('input', validateForm);
+        });
 
-                    validateForm();
-                });
+        // Initial validation
+        validateForm();
 
-                confirmPasswordField.addEventListener('input', function() {
-                    validatePasswordMatch();
-                    validateForm();
-                });
+        // Add loading state to register button
+        const registerForm = document.getElementById('kc-register-form');
+        const registerButton = document.getElementById('kc-register');
 
-                for (var i = 0; i < allInputs.length; i++) {
-                    allInputs[i].addEventListener('input', validateForm);
-                }
-
-                validateForm();
-            });
+        if (registerForm && registerButton) {
+          registerForm.addEventListener('submit', function() {
+            registerButton.innerHTML = `
+              <svg class="animate-spin h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Creating account...
+            `;
+            registerButton.disabled = true;
+          });
+        }
+      });
+  
