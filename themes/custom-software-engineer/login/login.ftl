@@ -22,12 +22,34 @@
         --accent-color: #e0f2fe;
       }
 
+      .software-text{
+        color: white;
+      }
+
       .login-pf-header, .login-pf-page-header {
         display: none !important;
       }
 
       .login-pf-page {
         padding-top: 0px;
+      }
+
+      .card-pf {
+        max-width: 15000px !important;
+        padding: 0;
+        border-top: 0px solid transparent;
+      }
+
+      #kc-content-wrapper {
+         margin-top: 0px;
+      }
+
+      #kc-info {
+        margin: 0px;
+      }
+
+      html, body {
+        overflow-x: hidden;
       }
 
       body {
@@ -148,7 +170,7 @@
 
     <div class="min-h-screen grid grid-cols-1 md:grid-cols-2">
       <div
-        class="hidden md:flex items-center justify-center p-12 flex-col relative bg-gradient-to-b from-blue-600 to-blue-800"
+        class="md:flex items-center justify-center p-12 flex-col relative bg-gradient-to-b from-blue-600 to-blue-800"
       >
         <!-- Background image -->
         <div
@@ -158,7 +180,7 @@
         <!-- Header -->
         <div class="w-full max-w-md mb-12 z-10 text-white text-center">
           <h1 class="text-4xl font-bold mb-2">The Software Engineer</h1>
-          <p class="text-lg opacity-90">Streamline your development workflow</p>
+          <p class="text-lg opacity-90 software-text">Streamline your development workflow</p>
         </div>
 
         <!-- Process animation -->
@@ -218,7 +240,7 @@
         <div
           class="mt-12 text-white opacity-80 text-sm text-center max-w-md z-10"
         >
-          <p>
+          <p class="software-text">
             From concept to deployment - manage your entire software development
             lifecycle in one place
           </p>
@@ -404,15 +426,6 @@
         </div>
       </div>
     </div>
-    <#elseif section = "info" >
-        <#if realm.password && realm.registrationAllowed && !registrationDisabled??>
-            <div id="kc-registration-container">
-                <div id="kc-registration">
-                    <span>${msg("noAccount")} <a tabindex="6"
-                                                 href="${url.registrationUrl}">${msg("doRegister")}</a></span>
-                </div>
-            </div>
-        </#if>
     </#if>
 <script src="${url.resourcesPath}/js/login.js"></script>
 </@layout.registrationLayout>
