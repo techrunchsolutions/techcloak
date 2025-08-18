@@ -159,18 +159,41 @@ phoneInput.addEventListener("input", function () {
   errorEl.classList.add("d-none");
 });
 
+ const countrySelect = document.getElementById("country");
+  const countryError = document.getElementById("country-error");
 
+  countrySelect.addEventListener("change", function () {
+    if (countrySelect.value && countrySelect.value !== "Nigeria") {
+      countryError.classList.remove("d-none");
+      registerButton.disabled = true;
+    } else {
+      countryError.classList.add("d-none");
+      validatePassword(); // re-check other validations
+    }
+  });
 
   // Form submission
   if (registerForm) {
-    registerForm.addEventListener("submit", function (e) {
-      if (registerButton.disabled) {
-        e.preventDefault();
-        return;
-      }
-      registerButton.innerHTML =
-        '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Creating account...';
-      registerButton.disabled = true;
-    });
-  }
+  registerForm.addEventListener("submit", function (e) {
+    // Check country first
+    if (countrySelect.value !== "Nigeria") {
+      e.preventDefault();
+      countryError.classList.remove("d-none");
+      countrySelect.focus();
+      return; // stop here, don’t proceed to password/spinner
+    }
+
+    // Check if button is disabled (password/email/phone validation)
+    if (registerButton.disabled) {
+      e.preventDefault();
+      return;
+    }
+
+    // Otherwise allow submission, show spinner
+    registerButton.innerHTML =
+      '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Creating account...';
+    registerButton.disabled = true;
+  });
+}
+
 });
