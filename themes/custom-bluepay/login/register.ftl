@@ -24,7 +24,13 @@
                                 <label class="form-label input-small-text dark-text">${msg("Country")}<span class="text-danger">*</span></label>
                                 <select class="form-select input-field select-field" name="user.attributes.country" required>
                                     <option selected>${msg("Nigeria")}</option>
+                                    <option value="Ghana">Ghana</option>
+    <option value="Kenya">Kenya</option>
+    <option value="South Africa">South Africa</option>
                                 </select>
+<div id="country-error" class="text-danger d-none">
+    Country not supported
+  </div>
                             </div>
                             
                             <div class="mb-3">
