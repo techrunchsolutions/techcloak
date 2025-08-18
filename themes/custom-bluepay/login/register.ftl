@@ -22,7 +22,7 @@
                         <form id="kc-register-form" action="${url.registrationAction}" method="post">
                             <div class="mb-3">
                                 <label class="form-label input-small-text dark-text">${msg("Country")}<span class="text-danger">*</span></label>
-                                <select class="form-select input-field select-field" name="user.attributes.country" required>
+                                <select class="form-select input-field select-field" id="country" name="user.attributes.country" required>
                                     <option selected>${msg("Nigeria")}</option>
                                     <option value="Ghana">Ghana</option>
     <option value="Kenya">Kenya</option>
