@@ -1,123 +1,156 @@
 <#import "template.ftl" as layout>
 <@layout.emailLayout>
-
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Verify your Bluepay Email</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<html lang="${locale.language}" dir="${(ltr)?then('ltr','rtl')}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-      body {
-        font-family: "Basis Grotesque Pro", -apple-system, Roboto, Helvetica, sans-serif;
-        background-color: #f2f5f8;
-        min-height: 100vh;
-      }
-      .email-container {
-        width: 640px;
-        max-width: 100%;
-        min-height: 770px;
-        background-color: #f2f5f8;
-      }
-      .bluepay-logo {
-        width: 135px;
-        height: 43px;
-        object-fit: contain;
-      }
-      .email-body {
-        border-radius: 4px 4px 0px 0px;
-        background-color: #fff;
-      }
-      .welcome-message,
-      .instructions-text,
-      .closing-message,
-      .copyright-text {
-        color: #313957;
-        font-feature-settings: "liga" off, "clig" off;
-        font-family: "Basis Grotesque Pro", -apple-system, Roboto, Helvetica, sans-serif;
-        font-weight: 400;
-        line-height: 160%;
-      }
-      .instructions-text {
-        line-height: 1.4;
-      }
-      .confirmation-button {
-        height: 46px;
-        border-radius: 10px;
-        background-color: #0c74b1;
-        border: none;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-      }
-      .button-text {
-        font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
-        font-weight: 500;
-        font-size: 0.875rem;
-        line-height: 1.5rem;
-        color: #fff;
-        display: inline-block;
-        padding: 10px 20px;
-      }
-      .confirmation-url {
-        color: #0c74b1;
-        text-decoration: none;
-        word-break: break-all;
-      }
-      .email-footer {
-        border-radius: 0px 0px 4px 4px;
-        background-color: #f7f9fc;
-      }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f2f5f8;
+            font-family: 'Basis Grotesque Pro', -apple-system, Roboto, Helvetica, sans-serif;
+        }
+
+        .email-container {
+            background-color: rgba(242, 245, 248, 1);
+            max-width: 640px;
+            margin: 0 auto;
+            font-family: 'Basis Grotesque Pro', -apple-system, Roboto, Helvetica, sans-serif;
+        }
+
+        .email-body {
+            background-color: var(--Background-Default, #fff);
+            font-size: 1rem;
+            line-height: 1.625;
+            font-weight: 400;
+        }
+
+        .greeting, .instruction-text, .closing, .copyright-text {
+            color: var(--body-primary-color, #313957);
+            font-feature-settings: "liga" off, "clig" off;
+        }
+
+        .instruction-text {
+            text-transform: capitalize;
+        }
+
+        .confirm-button {
+            background-color: var(--primary-color, #0c74b1);
+            color: var(--Text-White, #fff);
+            border-radius: 10px;
+            min-height: 46px;
+            font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
+            font-size: 0.875rem;
+            font-weight: 500;
+            line-height: 1.5;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+            padding: 11px 16px;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .confirm-button:hover {
+            background-color: #0a5d8a;
+            color: var(--Text-White, #fff);
+            text-decoration: none;
+        }
+
+        .confirmation-link {
+            line-height: 1.375rem;
+            text-transform: capitalize;
+            color: rgba(12, 116, 177, 1);
+            word-break: break-all;
+        }
+
+        .email-footer {
+            background-color: rgba(247, 249, 252, 1);
+            border-radius: 0px 0px 4px 4px;
+        }
+
+        .logo {
+            aspect-ratio: 3.26;
+            object-fit: contain;
+            object-position: center;
+            width: 140px;
+            max-width: 100%;
+        }
+
+        .social-icon {
+            aspect-ratio: 1;
+            object-fit: contain;
+            object-position: center;
+            width: 24px;
+        }
+
+        .copyright-text {
+            line-height: 1.6;
+        }
+
+        @media (max-width: 991px) {
+            .email-container {
+                padding-left: 1.25rem !important;
+                padding-right: 1.25rem !important;
+            }
+
+            .email-header {
+                padding-left: 1.25rem !important;
+                padding-right: 1.25rem !important;
+            }
+
+            .email-body {
+                padding-left: 1.25rem !important;
+                padding-right: 1.25rem !important;
+            }
+
+            .email-footer {
+                padding-left: 1.25rem !important;
+                padding-right: 1.25rem !important;
+            }
+        }
     </style>
-  </head>
-  <body class="d-flex justify-content-center align-items-start py-4 px-3">
-    <div class="email-container mx-auto p-4">
-      <header class="d-flex flex-column align-items-start gap-4 w-100 py-4 px-5">
-        <div style="width: 140px; height: 43px" class="position-relative">
-          <img src="https://api.builder.io/api/v1/image/assets/TEMP/34bd38628526155a31c7dd31263d8fb3c6d508bc?width=271" alt="Bluepay Logo" class="bluepay-logo" />
-        </div>
-      </header>
+</head>
+<body>
+    <div class="email-container pt-4 px-4">
+        <header class="email-header d-flex flex-column align-items-start justify-content-center py-3 px-4">
+            <img
+                src="https://api.builder.io/api/v1/image/assets/TEMP/b17b76ac6ed6ba0bdf5dfcdebe33d9efcc621d42?placeholderIfAbsent=true&apiKey=4fc790af8ec944d3b1d1ef4195c80612"
+                alt="Bluepay Logo"
+                class="logo"
+            />
+        </header>
 
-      <main class="email-body d-flex flex-column align-items-start gap-3 w-100 p-5">
-        <section class="welcome-message w-100">
-          Dear ${user.firstName!"Customer"},
-          <br /><br />
-          Thanks for signing up with Bluepay! To create your account and get started with accepting payments, please confirm your email address.
-          <br /><br />
-          Click the button below to complete your signup.
-        </section>
+        <main class="email-body w-100 p-4 rounded-top">
+            ${kcSanitize(msg("emailVerificationBodyHtml",link, linkExpiration, realmName, linkExpirationFormatter(linkExpiration)))?no_esc}
+        </main>
 
-        <a href="${link}" class="confirmation-button w-100 px-3 py-2" target="_blank">
-          <span class="button-text">Confirm your email</span>
-        </a>
-
-        <section class="instructions-text w-100">
-          If you’re having trouble clicking the button, copy and paste the URL below into your browser:
-          <br /><br />
-          <a href="${link}" class="confirmation-url">${link}</a>
-        </section>
-
-        <section class="instructions-text w-100">
-          This link will expire in ${linkExpirationFormatter(linkExpiration)}.
-        </section>
-
-        <section class="closing-message w-100">
-          Best regards,<br />
-          The Bluepay Team
-        </section>
-
-        <section class="copyright-text w-100">
-          © Bluepay Ltd. 2025 | Modern Day Payment
-        </section>
-      </main>
-
-      <footer class="email-footer d-flex flex-column align-items-center gap-3 w-100 p-5">
-        <!-- Optional: social icons could go here -->
-        <p style="color: #6a7c94; font-size: 0.85rem;">Follow us on social media</p>
-      </footer>
+        <footer class="email-footer w-100 d-flex flex-column align-items-stretch justify-content-center p-4 rounded-bottom">
+            <div class="footer-content d-flex w-100 flex-column align-items-start">
+                <div class="social-media d-flex align-items-center justify-content-start" style="gap: 1.5rem;">
+                    <img
+                        src="https://api.builder.io/api/v1/image/assets/TEMP/43b1c04489e17e67a511949d8f0f492dee2b0713?placeholderIfAbsent=true&apiKey=4fc790af8ec944d3b1d1ef4195c80612"
+                        alt="Social Media Icon 1"
+                        class="social-icon flex-shrink-0"
+                    />
+                    <img
+                        src="https://api.builder.io/api/v1/image/assets/TEMP/be10376bebdfa825b9403fec672edd8c2421f0d0?placeholderIfAbsent=true&apiKey=4fc790af8ec944d3b1d1ef4195c80612"
+                        alt="Social Media Icon 2"
+                        class="social-icon flex-shrink-0"
+                    />
+                    <img
+                        src="https://api.builder.io/api/v1/image/assets/TEMP/046e600a17197f6544a9d25f1938e4301f677afa?placeholderIfAbsent=true&apiKey=4fc790af8ec944d3b1d1ef4195c80612"
+                        alt="Social Media Icon 3"
+                        class="social-icon flex-shrink-0"
+                    />
+                </div>
+            </div>
+        </footer>
     </div>
-  </body>
+</body>
 </html>
-
 </@layout.emailLayout>
