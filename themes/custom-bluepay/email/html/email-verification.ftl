@@ -40,8 +40,18 @@
         line-height: 160%;
         font-size: 1rem;
       }
+      .welcome-message {
+        margin-bottom: 2rem;
+      }
       .instructions-text {
         line-height: 1.4;
+        margin-bottom: 1.5rem;
+      }
+      .closing-message {
+        margin-bottom: 2rem;
+      }
+      .copyright-text {
+        margin-bottom: 0;
       }
       .confirmation-button {
         height: 46px;
@@ -52,6 +62,7 @@
         text-decoration: none;
         display: inline-block;
         width: 100%;
+        margin-bottom: 2rem;
       }
       .confirmation-button:hover {
         background-color: #0a5d8a;
@@ -91,6 +102,12 @@
         background-color: #f7f9fc;
         padding: 32px;
       }
+      .section-spacing {
+        margin-bottom: 1.5rem;
+      }
+      .button-section {
+        margin: 2rem 0;
+      }
       @media (max-width: 600px) {
         .email-container {
           width: 100% !important;
@@ -100,6 +117,21 @@
         .main-content,
         .footer-section {
           padding: 20px !important;
+        }
+        .welcome-message {
+          margin-bottom: 1.5rem;
+        }
+        .confirmation-button {
+          margin-bottom: 1.5rem;
+        }
+        .closing-message {
+          margin-bottom: 1.5rem;
+        }
+        .section-spacing {
+          margin-bottom: 1rem;
+        }
+        .button-section {
+          margin: 1.5rem 0;
         }
       }
     </style>
@@ -113,7 +145,7 @@
       </header>
 
       <main class="main-content">
-        <section class="welcome-message w-100 mb-3">
+        <section class="welcome-message">
           Dear ${user.firstName!"Customer"},
           <br /><br />
           Thanks for signing up with Bluepay! To create your account and get started with accepting payments, please confirm your email address.
@@ -121,28 +153,28 @@
           Click the button below to complete your signup.
         </section>
 
-        <div class="mb-3">
+        <div class="button-section">
           <a href="${link}" class="confirmation-button d-flex justify-content-center align-items-center" target="_blank">
             <span class="button-text">Confirm your email</span>
           </a>
         </div>
 
-        <section class="instructions-text w-100 mb-3">
+        <section class="instructions-text section-spacing">
           If you're having trouble clicking the button, copy and paste the URL below into your browser:
           <br /><br />
           <a href="${link}" class="confirmation-url">${link}</a>
         </section>
 
-        <section class="instructions-text w-100 mb-3">
+        <section class="instructions-text section-spacing">
           This link will expire in ${linkExpirationFormatter(linkExpiration)}.
         </section>
 
-        <section class="closing-message w-100 mb-3">
+        <section class="closing-message">
           Best regards,<br />
           The Bluepay Team
         </section>
 
-        <section class="copyright-text w-100">
+        <section class="copyright-text">
           © Bluepay Ltd. 2025 | Modern Day Payment
         </section>
       </main>
@@ -150,17 +182,17 @@
       <footer class="footer-section">
         <div class="d-flex justify-content-start align-items-center" style="gap: 24px;">
           <img
-            src="https://api.builder.io/api/v1/image/assets/TEMP/43b1c04489e17e67a511949d8f0f492dee2b0713?placeholderIfAbsent=true&apiKey=4fc790af8ec944d3b1d1ef4195c80612"
+            src="${url.resourcesPath}/img/facebook.svg"
             alt="Facebook"
             class="social-icon"
           />
           <img
-            src="https://api.builder.io/api/v1/image/assets/TEMP/be10376bebdfa825b9403fec672edd8c2421f0d0?placeholderIfAbsent=true&apiKey=4fc790af8ec944d3b1d1ef4195c80612"
+            src="${url.resourcesPath}/img/twitter.svg"
             alt="Twitter"
             class="social-icon"
           />
           <img
-            src="https://api.builder.io/api/v1/image/assets/TEMP/046e600a17197f6544a9d25f1938e4301f677afa?placeholderIfAbsent=true&apiKey=4fc790af8ec944d3b1d1ef4195c80612"
+            src="${url.resourcesPath}/img/linkedin.svg"
             alt="LinkedIn"
             class="social-icon"
           />
@@ -171,4 +203,3 @@
 </html>
 
 </@layout.emailLayout>
-
