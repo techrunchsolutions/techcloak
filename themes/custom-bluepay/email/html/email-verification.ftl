@@ -11,14 +11,15 @@
     <style>
       body {
         font-family: "Basis Grotesque Pro", -apple-system, Roboto, Helvetica, sans-serif;
-        background-color: #f2f5f8;
-        min-height: 100vh;
+        background-color: transparent;
+        margin: 0;
+        padding: 0;
       }
       .email-container {
-        width: 640px;
-        max-width: 100%;
-        min-height: 770px;
-        background-color: #f2f5f8;
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: transparent;
       }
       .bluepay-logo {
         width: 135px;
@@ -38,6 +39,7 @@
         font-family: "Basis Grotesque Pro", -apple-system, Roboto, Helvetica, sans-serif;
         font-weight: 400;
         line-height: 160%;
+        font-size: 1rem;
       }
       .instructions-text {
         line-height: 1.4;
@@ -50,6 +52,10 @@
         text-align: center;
         text-decoration: none;
         display: inline-block;
+        width: 100%;
+      }
+      .confirmation-button:hover {
+        background-color: #0a5d8a;
       }
       .button-text {
         font-family: Inter, -apple-system, Roboto, Helvetica, sans-serif;
@@ -69,18 +75,46 @@
         border-radius: 0px 0px 4px 4px;
         background-color: #f7f9fc;
       }
+      .social-icon {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+      }
+      .header-section {
+        background-color: #f2f5f8;
+        padding: 24px 32px;
+      }
+      .main-content {
+        background-color: #fff;
+        padding: 32px;
+      }
+      .footer-section {
+        background-color: #f7f9fc;
+        padding: 32px;
+      }
+      @media (max-width: 600px) {
+        .email-container {
+          width: 100% !important;
+          max-width: 100% !important;
+        }
+        .header-section,
+        .main-content,
+        .footer-section {
+          padding: 20px !important;
+        }
+      }
     </style>
   </head>
-  <body class="d-flex justify-content-center align-items-start py-4 px-3">
-    <div class="email-container mx-auto p-4">
-      <header class="d-flex flex-column align-items-start gap-4 w-100 py-4 px-5">
+  <body>
+    <div class="email-container">
+      <header class="header-section">
         <div style="width: 140px; height: 43px" class="position-relative">
-          <img src="${url.resourcesPath}/img/blue-logo.svg" alt="BluePay" class="logo">
+          <img src="${url.resourcesPath}/img/blue-logo.svg" alt="BluePay" class="bluepay-logo">
         </div>
       </header>
 
-      <main class="email-body d-flex flex-column align-items-start gap-3 w-100 p-5">
-        <section class="welcome-message w-100">
+      <main class="main-content">
+        <section class="welcome-message w-100 mb-3">
           Dear ${user.firstName!"Customer"},
           <br /><br />
           Thanks for signing up with Bluepay! To create your account and get started with accepting payments, please confirm your email address.
@@ -88,21 +122,23 @@
           Click the button below to complete your signup.
         </section>
 
-        <a href="${link}" class="confirmation-button w-100 px-3 py-2" target="_blank">
-          <span class="button-text">Confirm your email</span>
-        </a>
+        <div class="mb-3">
+          <a href="${link}" class="confirmation-button d-flex justify-content-center align-items-center" target="_blank">
+            <span class="button-text">Confirm your email</span>
+          </a>
+        </div>
 
-        <section class="instructions-text w-100">
-          If you’re having trouble clicking the button, copy and paste the URL below into your browser:
+        <section class="instructions-text w-100 mb-3">
+          If you're having trouble clicking the button, copy and paste the URL below into your browser:
           <br /><br />
           <a href="${link}" class="confirmation-url">${link}</a>
         </section>
 
-        <section class="instructions-text w-100">
+        <section class="instructions-text w-100 mb-3">
           This link will expire in ${linkExpirationFormatter(linkExpiration)}.
         </section>
 
-        <section class="closing-message w-100">
+        <section class="closing-message w-100 mb-3">
           Best regards,<br />
           The Bluepay Team
         </section>
@@ -112,13 +148,27 @@
         </section>
       </main>
 
-      <footer class="email-footer d-flex flex-column align-items-center gap-3 w-100 p-5">
-        <!-- Optional: social icons could go here -->
-        <p style="color: #6a7c94; font-size: 0.85rem;">Follow us on social media</p>
+      <footer class="footer-section">
+        <div class="d-flex justify-content-start align-items-center" style="gap: 24px;">
+          <img
+            src="https://api.builder.io/api/v1/image/assets/TEMP/43b1c04489e17e67a511949d8f0f492dee2b0713?placeholderIfAbsent=true&apiKey=4fc790af8ec944d3b1d1ef4195c80612"
+            alt="Facebook"
+            class="social-icon"
+          />
+          <img
+            src="https://api.builder.io/api/v1/image/assets/TEMP/be10376bebdfa825b9403fec672edd8c2421f0d0?placeholderIfAbsent=true&apiKey=4fc790af8ec944d3b1d1ef4195c80612"
+            alt="Twitter"
+            class="social-icon"
+          />
+          <img
+            src="https://api.builder.io/api/v1/image/assets/TEMP/046e600a17197f6544a9d25f1938e4301f677afa?placeholderIfAbsent=true&apiKey=4fc790af8ec944d3b1d1ef4195c80612"
+            alt="LinkedIn"
+            class="social-icon"
+          />
+        </div>
       </footer>
     </div>
   </body>
 </html>
 
 </@layout.emailLayout>
-
