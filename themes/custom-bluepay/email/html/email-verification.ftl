@@ -75,7 +75,7 @@
     <div class="email-container mx-auto p-4">
       <header class="d-flex flex-column align-items-start gap-4 w-100 py-4 px-5">
         <div style="width: 140px; height: 43px" class="position-relative">
-          <img src="https://api.builder.io/api/v1/image/assets/TEMP/34bd38628526155a31c7dd31263d8fb3c6d508bc?width=271" alt="Bluepay Logo" class="bluepay-logo" />
+          <img src="${url.resourcesPath}/img/blue-logo.svg" alt="BluePay" class="logo">
         </div>
       </header>
 
@@ -121,3 +121,4 @@
 </html>
 
 </@layout.emailLayout>
+
