@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         
         <!-- Custom CSS -->
-        <link rel="stylesheet" href="${url.resourcesPath}/css/login.css">
+        <link rel="stylesheet" href="${url.resourcesPath}/css/custom.css">
     <#elseif section = "form">
         <div class="container-fluid p-0 vh-100">
             <div class="row g-0 h-100">
