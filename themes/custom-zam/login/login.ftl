@@ -8,7 +8,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>${msg("loginTitle",(realm.displayName!''))}</title>
+    <title>Login - NASD ZAM</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -204,6 +204,46 @@
       .social-icon:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .alert-error {
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+        padding: 0.75rem 1.25rem;
+        margin-bottom: 1rem;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+      }
+
+      .alert-warning {
+        background-color: #fff3cd;
+        border-color: #ffeaa7;
+        color: #856404;
+        padding: 0.75rem 1.25rem;
+        margin-bottom: 1rem;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+      }
+
+      .alert-success {
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        color: #155724;
+        padding: 0.75rem 1.25rem;
+        margin-bottom: 1rem;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+      }
+
+      .alert-info {
+        background-color: #d1ecf1;
+        border-color: #bee5eb;
+        color: #0c5460;
+        padding: 0.75rem 1.25rem;
+        margin-bottom: 1rem;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
       }
 
       @media (max-width: 1200px) {
@@ -483,9 +523,9 @@
             <h2 class="fw-bold fs-1 text-dark">${msg("doLogIn")}</h2>
           </div>
 
-          <!-- Error/Success Messages -->
-          <#if message?has_content && (message.type != 'warning' || !isAppInitiatedAction??)>
-            <div class="alert alert-${message.type} mb-4">
+          <!-- Display Messages -->
+          <#if displayMessage && message?has_content && (message.type != 'warning' || !isAppInitiatedAction??)>
+            <div class="alert alert-${message.type}">
               <#if message.type = 'success'><span class="${properties.kcFeedbackSuccessIcon!}"></span></#if>
               <#if message.type = 'warning'><span class="${properties.kcFeedbackWarningIcon!}"></span></#if>
               <#if message.type = 'error'><span class="${properties.kcFeedbackErrorIcon!}"></span></#if>
@@ -511,10 +551,11 @@
                 tabindex="1"
                 autofocus
                 autocomplete="off"
+                aria-invalid="<#if messagesPerField.existsError('username')>true</#if>"
                 required
               />
               <#if messagesPerField.existsError('username')>
-                <div class="text-danger small mt-1">
+                <div class="text-danger small mt-1" aria-live="polite">
                   ${kcSanitize(messagesPerField.get('username'))?no_esc}
                 </div>
               </#if>
@@ -532,23 +573,17 @@
                   style="height: 60px; padding-right: 50px"
                   tabindex="2"
                   autocomplete="off"
+                  aria-invalid="<#if messagesPerField.existsError('password')>true</#if>"
                   required
                 />
                 <i class="bi bi-eye password-toggle" id="password-toggle"></i>
               </div>
               <#if messagesPerField.existsError('password')>
-                <div class="text-danger small mt-1">
+                <div class="text-danger small mt-1" aria-live="polite">
                   ${kcSanitize(messagesPerField.get('password'))?no_esc}
                 </div>
               </#if>
             </div>
-
-            <#if realm.rememberMe && !usernameEditDisabled??>
-              <div class="form-check mb-4">
-                <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe" tabindex="3" <#if login.rememberMe??>checked</#if>>
-                <label class="form-check-label" for="rememberMe">${msg("rememberMe")}</label>
-              </div>
-            </#if>
 
             <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
               <#if realm.resetPasswordAllowed>
@@ -563,14 +598,29 @@
               </#if>
             </div>
 
+            <#if realm.rememberMe && !usernameEditDisabled??>
+              <div class="form-check mb-4">
+                <input class="form-check-input" type="checkbox" id="rememberMe" name="rememberMe" tabindex="3" <#if login.rememberMe??>checked</#if>>
+                <label class="form-check-label" for="rememberMe">
+                  ${msg("rememberMe")}
+                </label>
+              </div>
+            </#if>
+
             <div class="text-center mb-4">
               <small class="text-muted-custom">
-                By logging in, you agree to ZAM's
-                <button type="button" class="btn btn-link text-primary-custom text-decoration-underline p-0 small tap">
+                By registering, you agree to ZAM's
+                <button
+                  type="button"
+                  class="btn btn-link text-primary-custom text-decoration-underline p-0 small tap"
+                >
                   Terms of Service
                 </button>
                 and
-                <button type="button" class="btn btn-link text-primary-custom text-decoration-underline p-0 small tap">
+                <button
+                  type="button"
+                  class="btn btn-link text-primary-custom text-decoration-underline p-0 small tap"
+                >
                   Privacy Policy
                 </button>
               </small>
@@ -580,37 +630,73 @@
               <input type="hidden" id="id-hidden-input" name="credentialId" <#if auth.selectedCredential?has_content>value="${auth.selectedCredential}"</#if>/>
               <button
                 type="submit"
+                class="btn bg-primary-custom text-white btn-lg py-3 fs-5 fw-semibold"
                 name="login"
                 id="kc-login"
-                class="btn bg-primary-custom text-white btn-lg py-3 fs-5 fw-semibold"
                 tabindex="4"
               >
                 ${msg("doLogIn")}
               </button>
             </div>
 
+            <!-- Social Media Icons -->
             <#if realm.password && social.providers??>
-              <!-- Social Media Icons -->
               <div class="social-icons">
                 <#list social.providers as p>
-                  <a href="${p.loginUrl}" class="social-icon" title="${p.displayName!}">
+                  <a href="${p.loginUrl}" class="social-icon" title="${p.displayName}">
                     <#if p.providerId == "google">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                          fill="#4285F4"
+                        />
+                        <path
+                          d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                          fill="#34A853"
+                        />
+                        <path
+                          d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                          fill="#FBBC05"
+                        />
+                        <path
+                          d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                          fill="#EA4335"
+                        />
                       </svg>
                     <#elseif p.providerId == "facebook">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#1877F2"/>
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+                          fill="#1877F2"
+                        />
                       </svg>
                     <#elseif p.providerId == "apple">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701" fill="#000"/>
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"
+                          fill="#000"
+                        />
                       </svg>
                     <#else>
-                      <span>${p.displayName!}</span>
+                      <span>${p.displayName}</span>
                     </#if>
                   </a>
                 </#list>
@@ -619,13 +705,120 @@
 
             <!-- Footer -->
             <footer class="text-center">
-              <small class="text-muted-custom">© 2024 NASD Plc. All rights reserved</small>
+              <small class="text-muted-custom"
+                >© 2024 NASD Plc. All rights reserved</small
+              >
             </footer>
           </form>
         </div>
       </section>
     </main>
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Carousel functionality
+      let currentSlide = 1;
+      const totalSlides = 3;
+      let autoSlideInterval;
+
+      function showSlide(slideNumber) {
+        // Hide all images
+        for (let i = 1; i <= totalSlides; i++) {
+          const img = document.getElementById(`carousel-img-${i}`);
+          const indicator = document.getElementById(`indicator-${i}`);
+          if (img) img.classList.remove("active");
+          if (indicator) indicator.className = "carousel-indicator";
+        }
+
+        // Show current image
+        const currentImg = document.getElementById(`carousel-img-${slideNumber}`);
+        const currentIndicator = document.getElementById(`indicator-${slideNumber}`);
+        if (currentImg) currentImg.classList.add("active");
+        if (currentIndicator) currentIndicator.className = "carousel-indicator-active";
+
+        // Update navigation buttons
+        const prevBtn = document.getElementById("carousel-prev");
+        const nextBtn = document.getElementById("carousel-next");
+        if (prevBtn) prevBtn.style.display = slideNumber === 1 ? "none" : "block";
+        if (nextBtn) nextBtn.style.display = slideNumber === totalSlides ? "none" : "block";
+      }
+
+      function nextSlide() {
+        if (currentSlide < totalSlides) {
+          currentSlide++;
+          showSlide(currentSlide);
+        }
+      }
+
+      function prevSlide() {
+        if (currentSlide > 1) {
+          currentSlide--;
+          showSlide(currentSlide);
+        }
+      }
+
+      function startAutoSlide() {
+        autoSlideInterval = setInterval(() => {
+          if (currentSlide < totalSlides) {
+            nextSlide();
+          } else {
+            currentSlide = 1;
+            showSlide(currentSlide);
+          }
+        }, 5000);
+      }
+
+      function stopAutoSlide() {
+        clearInterval(autoSlideInterval);
+      }
+
+      // Event listeners for carousel
+      const nextBtn = document.getElementById("carousel-next");
+      const prevBtn = document.getElementById("carousel-prev");
+
+      if (nextBtn) {
+        nextBtn.addEventListener("click", () => {
+          stopAutoSlide();
+          nextSlide();
+          startAutoSlide();
+        });
+      }
+
+      if (prevBtn) {
+        prevBtn.addEventListener("click", () => {
+          stopAutoSlide();
+          prevSlide();
+          startAutoSlide();
+        });
+      }
+
+      // Start auto-slide
+      startAutoSlide();
+
+      // Password toggle functionality
+      const passwordToggle = document.getElementById("password-toggle");
+      const passwordInput = document.getElementById("password");
+
+      if (passwordToggle && passwordInput) {
+        passwordToggle.addEventListener("click", () => {
+          if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            passwordToggle.classList.remove("bi-eye");
+            passwordToggle.classList.add("bi-eye-slash");
+          } else {
+            passwordInput.type = "password";
+            passwordToggle.classList.remove("bi-eye-slash");
+            passwordToggle.classList.add("bi-eye");
+          }
+        });
+      }
+
+      // Focus on username field if it's empty
+      const usernameInput = document.getElementById("username");
+      if (usernameInput && !usernameInput.value) {
+        usernameInput.focus();
+      }
+    </script>
   </body>
 </html>
     </#if>
