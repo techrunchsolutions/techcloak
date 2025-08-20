@@ -21,7 +21,7 @@
             <div class="container-fluid h-100">
                 <header class="d-flex justify-content-center align-items-center mb-4" style="margin-top:50px">
                     <div class="d-flex align-items-center gap-2">
-                        <img src="${url.resourcesPath}/img/NASD-logo.png" alt="logo"/>
+                        <img src="${url.resourcesPath}/img/NASD Product logos.png" alt="logo"/>
                         <h1 class="fw-bold fs-4 mb-0 text-dark">NASD ZAM</h1>
                     </div>
                 </header>
@@ -92,4 +92,5 @@
     </main>
     </#if>
 </@layout.registrationLayout>
+
 
