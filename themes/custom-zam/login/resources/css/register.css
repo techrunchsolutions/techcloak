@@ -3,6 +3,19 @@ body {
         overflow-x: hidden;
       }
 
+.card-pf {
+    max-width: 15000px;
+    border-top: none;
+}
+
+#kc-header {
+        display: none;
+}
+
+.login-pf-header {
+        display none;
+}
+
       .brand-font {
         font-family: "Champagne & Limousines", -apple-system, Roboto, Helvetica,
           sans-serif;
@@ -394,3 +407,4 @@ body {
           padding: 15px !important;
         }
       }
+
