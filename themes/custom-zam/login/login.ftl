@@ -206,6 +206,12 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
 
+      .error-message {
+        color: #dc3545;
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+      }
+
       @media (max-width: 1200px) {
         .left-content {
           display: none !important;
@@ -281,14 +287,11 @@
           >
             <header class="text-center mb-3">
               <h3 class="fw-semibold fs-5 lh-base">
-                Discover your communication potential
+                ${msg("communicationPotentialTitle", "Discover your communication potential")}
               </h3>
             </header>
             <p class="text-center mb-4 lh-sm small">
-              Tired of using non-privacy communication system? Customize your
-              organization chat and branding the way its suit you and your
-              business. We have all the parameters and functionalities you need
-              to push your business communication to the next level.
+              ${msg("communicationPotentialDescription", "Tired of using non-privacy communication system? Customize your organization chat and branding the way its suit you and your business. We have all the parameters and functionalities you need to push your business communication to the next level.")}
             </p>
             <div class="d-flex justify-content-center align-items-center gap-3">
               <button
@@ -473,7 +476,7 @@
                 </defs>
               </svg>
               <h1 class="brand-font fw-bold fs-4 mb-0 text-dark">
-                NASD-Communication System
+                ${msg("applicationTitle", "NASD-Communication System")}
               </h1>
             </div>
           </header>
@@ -483,14 +486,14 @@
             <h2 class="fw-bold fs-1 text-dark">${msg("doLogIn")}</h2>
           </div>
 
-          <!-- Error/Success Messages -->
-          <#if message?has_content && (message.type != 'warning' || !isAppInitiatedAction??)>
-            <div class="alert alert-${message.type} mb-4">
-              <#if message.type = 'success'><span class="${properties.kcFeedbackSuccessIcon!}"></span></#if>
-              <#if message.type = 'warning'><span class="${properties.kcFeedbackWarningIcon!}"></span></#if>
-              <#if message.type = 'error'><span class="${properties.kcFeedbackErrorIcon!}"></span></#if>
-              <#if message.type = 'info'><span class="${properties.kcFeedbackInfoIcon!}"></span></#if>
-              <span class="kc-feedback-text">${kcSanitize(message.summary)?no_esc}</span>
+          <!-- Display Messages -->
+          <#if displayMessage && message?has_content && (message.type != 'warning' || !isAppInitiatedAction??)>
+            <div class="alert alert-${message.type} mb-4" role="alert">
+              <#if message.type = 'success'><span class="bi bi-check-circle-fill me-2"></span></#if>
+              <#if message.type = 'warning'><span class="bi bi-exclamation-triangle-fill me-2"></span></#if>
+              <#if message.type = 'error'><span class="bi bi-x-circle-fill me-2"></span></#if>
+              <#if message.type = 'info'><span class="bi bi-info-circle-fill me-2"></span></#if>
+              ${kcSanitize(message.summary)?no_esc}
             </div>
           </#if>
 
@@ -502,7 +505,7 @@
               </label>
               <input
                 type="text"
-                class="form-control form-control-lg bg-light-custom border-custom"
+                class="form-control form-control-lg bg-light-custom border-custom <#if messagesPerField.existsError('username')>is-invalid</#if>"
                 id="username"
                 name="username"
                 value="${(login.username!'')}"
@@ -510,11 +513,11 @@
                 style="height: 60px"
                 tabindex="1"
                 autofocus
-                autocomplete="off"
+                autocomplete="<#if realm.loginWithEmailAllowed>email<#else>username</#if>"
                 required
               />
               <#if messagesPerField.existsError('username')>
-                <div class="text-danger small mt-1">
+                <div class="error-message">
                   ${kcSanitize(messagesPerField.get('username'))?no_esc}
                 </div>
               </#if>
@@ -525,19 +528,19 @@
               <div class="input-container">
                 <input
                   type="password"
-                  class="form-control form-control-lg bg-light-custom border-custom"
+                  class="form-control form-control-lg bg-light-custom border-custom <#if messagesPerField.existsError('password')>is-invalid</#if>"
                   id="password"
                   name="password"
                   placeholder="${msg("password")}"
                   style="height: 60px; padding-right: 50px"
                   tabindex="2"
-                  autocomplete="off"
+                  autocomplete="current-password"
                   required
                 />
                 <i class="bi bi-eye password-toggle" id="password-toggle"></i>
               </div>
               <#if messagesPerField.existsError('password')>
-                <div class="text-danger small mt-1">
+                <div class="error-message">
                   ${kcSanitize(messagesPerField.get('password'))?no_esc}
                 </div>
               </#if>
@@ -545,8 +548,10 @@
 
             <#if realm.rememberMe && !usernameEditDisabled??>
               <div class="form-check mb-4">
-                <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe" tabindex="3" <#if login.rememberMe??>checked</#if>>
-                <label class="form-check-label" for="rememberMe">${msg("rememberMe")}</label>
+                <input class="form-check-input" type="checkbox" id="rememberMe" name="rememberMe" tabindex="3" <#if login.rememberMe??>checked</#if>>
+                <label class="form-check-label" for="rememberMe">
+                  ${msg("rememberMe")}
+                </label>
               </div>
             </#if>
 
@@ -555,6 +560,8 @@
                 <a href="${url.loginResetCredentialsUrl}" class="btn btn-link text-primary-custom text-decoration-underline p-0">
                   ${msg("doForgotPassword")}
                 </a>
+              <#else>
+                <span></span>
               </#if>
               <#if realm.registrationAllowed && !registrationDisabled??>
                 <a href="${url.registrationUrl}" class="btn btn-link text-primary-custom text-decoration-underline p-0">
@@ -565,14 +572,14 @@
 
             <div class="text-center mb-4">
               <small class="text-muted-custom">
-                By logging in, you agree to ZAM's
-                <button type="button" class="btn btn-link text-primary-custom text-decoration-underline p-0 small tap">
-                  Terms of Service
-                </button>
-                and
-                <button type="button" class="btn btn-link text-primary-custom text-decoration-underline p-0 small tap">
-                  Privacy Policy
-                </button>
+                ${msg("termsText", "By registering, you agree to ZAM's")}
+                <a href="#" class="btn btn-link text-primary-custom text-decoration-underline p-0 small tap">
+                  ${msg("termsTitle")}
+                </a>
+                ${msg("and")}
+                <a href="#" class="btn btn-link text-primary-custom text-decoration-underline p-0 small tap">
+                  ${msg("privacyPolicyTitle")}
+                </a>
               </small>
             </div>
 
@@ -580,20 +587,20 @@
               <input type="hidden" id="id-hidden-input" name="credentialId" <#if auth.selectedCredential?has_content>value="${auth.selectedCredential}"</#if>/>
               <button
                 type="submit"
-                name="login"
-                id="kc-login"
                 class="btn bg-primary-custom text-white btn-lg py-3 fs-5 fw-semibold"
+                id="kc-login"
+                name="login"
                 tabindex="4"
               >
                 ${msg("doLogIn")}
               </button>
             </div>
 
+            <!-- Social Media Icons -->
             <#if realm.password && social.providers??>
-              <!-- Social Media Icons -->
               <div class="social-icons">
                 <#list social.providers as p>
-                  <a href="${p.loginUrl}" class="social-icon" title="${p.displayName!}">
+                  <a href="${p.loginUrl}" class="social-icon" title="${p.displayName}">
                     <#if p.providerId == "google">
                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
@@ -610,7 +617,7 @@
                         <path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701" fill="#000"/>
                       </svg>
                     <#else>
-                      <span>${p.displayName!}</span>
+                      <span class="fw-bold">${p.displayName?substring(0,1)}</span>
                     </#if>
                   </a>
                 </#list>
@@ -619,13 +626,16 @@
 
             <!-- Footer -->
             <footer class="text-center">
-              <small class="text-muted-custom">© 2024 NASD Plc. All rights reserved</small>
+              <small class="text-muted-custom">
+                ${msg("copyright", "© 2024 NASD Plc. All rights reserved")}
+              </small>
             </footer>
           </form>
         </div>
       </section>
     </main>
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
     </#if>
