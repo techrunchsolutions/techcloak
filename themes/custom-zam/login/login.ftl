@@ -40,7 +40,7 @@
                         </div>
                         
                         <h2 class="fw-bold mb-2 login-header">Log in to your account</h2>
-                        <p class="text-muted mb-4 login-p">Enter your details to login</p>
+                        <p class="text-muted mb-4 login-p">Enter your details to login joor</p>
                         
                         <!-- Keycloak Login Form -->
                         <form id="kc-form-login" onsubmit="login.disabled = true; return true;" action="${url.loginAction}" method="post">
