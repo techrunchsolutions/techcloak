@@ -209,46 +209,6 @@
         color: inherit;
       }
 
-      .alert-error {
-        background-color: #f8d7da;
-        border-color: #f5c6cb;
-        color: #721c24;
-        padding: 0.75rem 1.25rem;
-        margin-bottom: 1rem;
-        border: 1px solid transparent;
-        border-radius: 0.25rem;
-      }
-
-      .alert-warning {
-        background-color: #fff3cd;
-        border-color: #ffeaa7;
-        color: #856404;
-        padding: 0.75rem 1.25rem;
-        margin-bottom: 1rem;
-        border: 1px solid transparent;
-        border-radius: 0.25rem;
-      }
-
-      .alert-success {
-        background-color: #d4edda;
-        border-color: #c3e6cb;
-        color: #155724;
-        padding: 0.75rem 1.25rem;
-        margin-bottom: 1rem;
-        border: 1px solid transparent;
-        border-radius: 0.25rem;
-      }
-
-      .alert-info {
-        background-color: #d1ecf1;
-        border-color: #bee5eb;
-        color: #0c5460;
-        padding: 0.75rem 1.25rem;
-        margin-bottom: 1rem;
-        border: 1px solid transparent;
-        border-radius: 0.25rem;
-      }
-
       @media (max-width: 1200px) {
         .left-content {
           display: none !important;
@@ -527,30 +487,26 @@
             <h2 class="fw-bold fs-1 text-dark">Login to your account</h2>
           </div>
 
-          <!-- Display Messages -->
-          <#if displayMessage && message?has_content && (message.type != 'warning' || !isAppInitiatedAction??)>
-            <div class="alert alert-${message.type}">
-              <#if message.type = 'success'><span class="${properties.kcFeedbackSuccessIcon!}"></span></#if>
-              <#if message.type = 'warning'><span class="${properties.kcFeedbackWarningIcon!}"></span></#if>
-              <#if message.type = 'error'><span class="${properties.kcFeedbackErrorIcon!}"></span></#if>
-              <#if message.type = 'info'><span class="${properties.kcFeedbackInfoIcon!}"></span></#if>
-              <span class="kc-feedback-text">${kcSanitize(message.summary)?no_esc}</span>
-            </div>
-          </#if>
-
           <!-- Login Form -->
-          <form id="kc-form-login" onsubmit="login.disabled = true; return true;" action="${url.loginAction}" method="post" class="mx-auto" style="max-width: 532px">
+          <form id="login-form" class="mx-auto" style="max-width: 532px" onsubmit="login.disabled = true; return true;" action="${url.loginAction}" method="post">
+            <!-- Display Keycloak Messages -->
+            <#if displayMessage && message?has_content && (message.type != 'warning' || !isAppInitiatedAction??)>
+              <div class="alert alert-danger mb-4" role="alert">
+                ${kcSanitize(message.summary)?no_esc}
+              </div>
+            </#if>
+
             <div class="mb-4">
               <label for="username" class="form-label fw-semibold fs-5">
-                <#if !realm.loginWithEmailAllowed>${msg("username")}<#elseif !realm.registrationEmailAsUsername>${msg("usernameOrEmail")}<#else>${msg("email")}</#if>
+                <#if !realm.loginWithEmailAllowed>${msg("username")}<#elseif !realm.registrationEmailAsUsername>${msg("usernameOrEmail")}<#else>Email</#if>
               </label>
               <input
-                type="text"
+                type="<#if realm.loginWithEmailAllowed && realm.registrationEmailAsUsername>email<#else>text</#if>"
                 class="form-control form-control-lg bg-light-custom border-custom"
                 id="username"
                 name="username"
                 value="${(login.username!'')}"
-                placeholder="<#if !realm.loginWithEmailAllowed>${msg("username")}<#elseif !realm.registrationEmailAsUsername>${msg("usernameOrEmail")}<#else>${msg("email")}</#if>"
+                placeholder="<#if !realm.loginWithEmailAllowed>Enter your username<#elseif !realm.registrationEmailAsUsername>Enter your username or email<#else>Enter your email</#if>"
                 style="height: 60px"
                 tabindex="1"
                 autofocus
@@ -559,21 +515,21 @@
                 required
               />
               <#if messagesPerField.existsError('username')>
-                <div class="text-danger small mt-1" aria-live="polite">
+                <div class="text-danger small mt-1" id="email-error">
                   ${kcSanitize(messagesPerField.get('username'))?no_esc}
                 </div>
               </#if>
             </div>
 
             <div class="mb-4">
-              <label for="password" class="form-label fw-semibold fs-5">${msg("password")}</label>
+              <label for="password" class="form-label fw-semibold fs-5">Password</label>
               <div class="input-container">
                 <input
                   type="password"
                   class="form-control form-control-lg bg-light-custom border-custom"
                   id="password"
                   name="password"
-                  placeholder="${msg("password")}"
+                  placeholder="Enter your password"
                   style="height: 60px; padding-right: 50px"
                   tabindex="2"
                   autocomplete="off"
@@ -583,7 +539,7 @@
                 <i class="bi bi-eye password-toggle" id="password-toggle"></i>
               </div>
               <#if messagesPerField.existsError('password')>
-                <div class="text-danger small mt-1" aria-live="polite">
+                <div class="text-danger small mt-1">
                   ${kcSanitize(messagesPerField.get('password'))?no_esc}
                 </div>
               </#if>
@@ -592,12 +548,12 @@
             <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
               <#if realm.resetPasswordAllowed>
                 <a href="${url.loginResetCredentialsUrl}" class="btn btn-link text-primary-custom text-decoration-underline p-0">
-                  ${msg("doForgotPassword")}
+                  Forgot password?
                 </a>
               </#if>
               <#if realm.registrationAllowed && !registrationDisabled??>
                 <a href="${url.registrationUrl}" class="btn btn-link text-primary-custom text-decoration-underline p-0">
-                  ${msg("doRegister")}
+                  Create account
                 </a>
               </#if>
             </div>
@@ -634,12 +590,13 @@
               <input type="hidden" id="id-hidden-input" name="credentialId" <#if auth.selectedCredential?has_content>value="${auth.selectedCredential}"</#if>/>
               <button
                 type="submit"
-                class="btn bg-primary-custom text-white btn-lg py-3 fs-5 fw-semibold"
+                class="btn bg-primary-custom text-white btn-lg py-3 fs-5 fw-semibold btn-disabled"
+                id="sign-in"
                 name="login"
-                id="kc-login"
                 tabindex="4"
+                disabled
               >
-                ${msg("doLogIn")}
+                Sign in
               </button>
             </div>
 
@@ -686,7 +643,7 @@
                           fill="#1877F2"
                         />
                       </svg>
-                    <#elseif p.providerId == "apple">
+                    <#else>
                       <svg
                         width="24"
                         height="24"
@@ -699,8 +656,6 @@
                           fill="#000"
                         />
                       </svg>
-                    <#else>
-                      <span>${p.displayName}</span>
                     </#if>
                   </a>
                 </#list>
@@ -728,23 +683,25 @@
       function showSlide(slideNumber) {
         // Hide all images
         for (let i = 1; i <= totalSlides; i++) {
-          const img = document.getElementById(`carousel-img-${i}`);
-          const indicator = document.getElementById(`indicator-${i}`);
-          if (img) img.classList.remove("active");
-          if (indicator) indicator.className = "carousel-indicator";
+          document
+            .getElementById(`carousel-img-${i}`)
+            .classList.remove("active");
+          document.getElementById(`indicator-${i}`).className =
+            "carousel-indicator";
         }
 
         // Show current image
-        const currentImg = document.getElementById(`carousel-img-${slideNumber}`);
-        const currentIndicator = document.getElementById(`indicator-${slideNumber}`);
-        if (currentImg) currentImg.classList.add("active");
-        if (currentIndicator) currentIndicator.className = "carousel-indicator-active";
+        document
+          .getElementById(`carousel-img-${slideNumber}`)
+          .classList.add("active");
+        document.getElementById(`indicator-${slideNumber}`).className =
+          "carousel-indicator-active";
 
         // Update navigation buttons
-        const prevBtn = document.getElementById("carousel-prev");
-        const nextBtn = document.getElementById("carousel-next");
-        if (prevBtn) prevBtn.style.display = slideNumber === 1 ? "none" : "block";
-        if (nextBtn) nextBtn.style.display = slideNumber === totalSlides ? "none" : "block";
+        document.getElementById("carousel-prev").style.display =
+          slideNumber === 1 ? "none" : "block";
+        document.getElementById("carousel-next").style.display =
+          slideNumber === totalSlides ? "none" : "block";
       }
 
       function nextSlide() {
@@ -777,51 +734,95 @@
       }
 
       // Event listeners for carousel
-      const nextBtn = document.getElementById("carousel-next");
-      const prevBtn = document.getElementById("carousel-prev");
+      document.getElementById("carousel-next").addEventListener("click", () => {
+        stopAutoSlide();
+        nextSlide();
+        startAutoSlide();
+      });
 
-      if (nextBtn) {
-        nextBtn.addEventListener("click", () => {
-          stopAutoSlide();
-          nextSlide();
-          startAutoSlide();
-        });
-      }
-
-      if (prevBtn) {
-        prevBtn.addEventListener("click", () => {
-          stopAutoSlide();
-          prevSlide();
-          startAutoSlide();
-        });
-      }
+      document.getElementById("carousel-prev").addEventListener("click", () => {
+        stopAutoSlide();
+        prevSlide();
+        startAutoSlide();
+      });
 
       // Start auto-slide
       startAutoSlide();
 
-      // Password toggle functionality
-      const passwordToggle = document.getElementById("password-toggle");
-      const passwordInput = document.getElementById("password");
+      // Form validation
+      let emailTouched = false;
 
-      if (passwordToggle && passwordInput) {
-        passwordToggle.addEventListener("click", () => {
+      function validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      }
+
+      function validateForm() {
+        const email = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value;
+
+        let isValid = true;
+
+        // Email validation - only show error if user has started typing
+        const emailError = document.getElementById("email-error");
+        if (emailTouched && !validateEmail(email) && email) {
+          if (emailError) {
+            emailError.textContent = "Please enter a valid email address";
+            emailError.style.display = "block";
+          }
+          isValid = false;
+        } else {
+          if (emailError) {
+            emailError.textContent = "";
+            emailError.style.display = "none";
+          }
+        }
+
+        // Check if password is not empty
+        if (!password) {
+          isValid = false;
+        }
+
+        const button = document.getElementById("sign-in");
+        if (isValid && email && password) {
+          button.disabled = false;
+          button.classList.remove("btn-disabled");
+        } else {
+          button.disabled = true;
+          button.classList.add("btn-disabled");
+        }
+      }
+
+      // Event listeners for form validation
+      document.getElementById("username").addEventListener("input", () => {
+        emailTouched = true;
+        validateForm();
+      });
+
+      document
+        .getElementById("password")
+        .addEventListener("input", validateForm);
+
+      // Password toggle functionality
+      document
+        .getElementById("password-toggle")
+        .addEventListener("click", () => {
+          const passwordInput = document.getElementById("password");
+          const toggle = document.getElementById("password-toggle");
+
           if (passwordInput.type === "password") {
             passwordInput.type = "text";
-            passwordToggle.classList.remove("bi-eye");
-            passwordToggle.classList.add("bi-eye-slash");
+            toggle.classList.remove("bi-eye");
+            toggle.classList.add("bi-eye-slash");
           } else {
             passwordInput.type = "password";
-            passwordToggle.classList.remove("bi-eye-slash");
-            passwordToggle.classList.add("bi-eye");
+            toggle.classList.remove("bi-eye-slash");
+            toggle.classList.add("bi-eye");
           }
         });
-      }
 
-      // Focus on username field if it's empty
-      const usernameInput = document.getElementById("username");
-      if (usernameInput && !usernameInput.value) {
-        usernameInput.focus();
-      }
+      // Initialize validation
+      validateForm();
     </script>
   </body>
 </html>
