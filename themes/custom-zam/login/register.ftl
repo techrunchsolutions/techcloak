@@ -1,361 +1,94 @@
 <#import "template.ftl" as layout>
-<#import "user-profile-commons.ftl" as userProfileCommons>
-<#import "register-commons.ftl" as registerCommons>
-
 <@layout.registrationLayout displayMessage=messagesPerField.exists('global') displayRequiredFields=true; section>
-    <#if section = "header">
-        ${msg("registerTitle")}
-    <#elseif section = "form">
-        <style>
-            /* Custom Styles for NASD ZAM */
-            :root {
-                --primary-red: #ec232a;
-                --light-gray: #f8f9fa;
-                --border-gray: #dee2e6;
-                --text-muted: #6c757d;
-            }
-
-            .kc-content {
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            }
-
-            .brand-font {
-                font-weight: bold;
-            }
-
-            .bg-primary-custom {
-                background-color: var(--primary-red) !important;
-            }
-
-            .text-primary-custom {
-                color: var(--primary-red) !important;
-            }
-
-            .bg-light-custom {
-                background-color: var(--light-gray);
-            }
-
-            .border-custom {
-                border: 1px solid var(--border-gray);
-                border-radius: 8px;
-            }
-
-            .text-muted-custom {
-                color: var(--text-muted);
-            }
-
-            .form-control:focus {
-                border-color: var(--primary-red);
-                box-shadow: 0 0 0 0.25rem rgba(236, 35, 42, 0.25);
-            }
-
-            .input-container {
-                position: relative;
-            }
-
-            .password-toggle {
-                position: absolute;
-                right: 15px;
-                top: 50%;
-                transform: translateY(-50%);
-                cursor: pointer;
-                color: var(--text-muted);
-                z-index: 5;
-            }
-
-            .social-icons {
-                display: flex;
-                justify-content: center;
-                gap: 1rem;
-                margin: 2rem 0;
-            }
-
-            .social-icon {
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-                background-color: var(--light-gray);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                transition: background-color 0.3s ease;
-            }
-
-            .social-icon:hover {
-                background-color: var(--border-gray);
-            }
-
-            .social-icon img {
-                width: 24px;
-                height: 24px;
-            }
-
-            .kc-form-group {
-                margin-bottom: 1.5rem;
-            }
-
-            .kc-header-wrapper {
-                text-align: center;
-                margin-bottom: 2rem;
-            }
-
-            .kc-form-options-wrapper {
-                margin-bottom: 1.5rem;
-            }
-
-            /* Custom layout adjustments */
-            .kc-logo-wrapper {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin-bottom: 1.5rem;
-            }
-
-            .kc-page-container {
-                padding: 2rem;
-            }
-
-            @media (max-width: 768px) {
-                .kc-page-container {
-                    padding: 1rem;
-                }
-            }
-        </style>
-
-        <!-- Custom Header -->
-        <div class="kc-header-wrapper">
-            <div class="kc-logo-wrapper">
-                <img src="${url.resourcesPath}/img/NASD Product logos.png" alt="NASD Logo" style="height: 40px; margin-right: 10px;" />
-                <h1 class="brand-font fw-bold fs-4 mb-0 text-dark">NASD ZAM</h1>
+    <#if section == "header">
+        <title>Sign Up - NASD ZAM</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="${url.resourcesPath}/css/styles.css"/>
+    <#elseif section == "form">
+    <main class="position-relative min-vh-100">
+        <!-- Left promotional content -->
+        <div class="left-content">
+            <div class="background-container">
+                <img src="${url.resourcesPath}/img/car4.png" class="carousel-image active"/>
+                <img src="${url.resourcesPath}/img/car5.png" class="carousel-image"/>
+                <img src="${url.resourcesPath}/img/car6.png" class="carousel-image"/>
             </div>
-            <h2 class="fw-bold fs-1 text-dark">${msg("registerTitle")}</h2>
         </div>
 
-        <!-- Display global messages -->
-        <#if message?has_content>
-            <#if message.type = 'error'>
-                <div class="alert alert-${message.type}">
-                    <span>${kcSanitize(message.summary)?no_esc}</span>
+        <!-- Main Registration -->
+        <section class="main-content">
+            <div class="container-fluid h-100">
+                <header class="d-flex justify-content-center align-items-center mb-4" style="margin-top:50px">
+                    <div class="d-flex align-items-center gap-2">
+                        <img src="${url.resourcesPath}/img/NASD-logo.png" alt="logo"/>
+                        <h1 class="fw-bold fs-4 mb-0 text-dark">NASD ZAM</h1>
+                    </div>
+                </header>
+
+                <div class="text-center mb-5">
+                    <h2 class="fw-bold fs-1 text-dark">Create your account</h2>
                 </div>
-            </#if>
-        </#if>
 
-        <form id="kc-register-form" class="kc-form-class" action="${url.registrationAction}" method="post">
-            <@userProfileCommons.userProfileFormFields; callback, attribute>
-                <#if callback = "beforeField">
-                    <#if attribute.name == 'username' && !realm.registrationEmailAsUsername>
-                        <div class="kc-form-group">
-                            <label for="username" class="form-label fw-semibold">${msg("username")}</label>
-                            <input type="text" 
-                                   class="form-control form-control-lg bg-light-custom border-custom" 
-                                   id="username" 
-                                   name="username"
-                                   placeholder="${msg('enterUsername')}"
-                                   value="${(register.formData.username!'')}"
-                                   aria-invalid="<#if messagesPerField.existsError('username')>true</#if>"
-                                   required />
-                            <#if messagesPerField.existsError('username')>
-                                <div class="text-danger small mt-1">
-                                    ${kcSanitize(messagesPerField.get('username'))?no_esc}
-                                </div>
-                            </#if>
-                        </div>
-                    </#if>
-
-                    <#if attribute.name == 'email'>
-                        <div class="kc-form-group">
-                            <label for="email" class="form-label fw-semibold">${msg("email")}</label>
-                            <input type="email" 
-                                   class="form-control form-control-lg bg-light-custom border-custom" 
-                                   id="email" 
-                                   name="email"
-                                   placeholder="${msg('enterEmail')}"
-                                   value="${(register.formData.email!'')}"
-                                   aria-invalid="<#if messagesPerField.existsError('email')>true</#if>"
-                                   required />
-                            <#if messagesPerField.existsError('email')>
-                                <div class="text-danger small mt-1">
-                                    ${kcSanitize(messagesPerField.get('email'))?no_esc}
-                                </div>
-                            </#if>
-                        </div>
-                    </#if>
-
-                    <#if attribute.name == 'firstName'>
-                        <div class="kc-form-group">
-                            <label for="firstName" class="form-label fw-semibold">${msg("firstName")}</label>
-                            <input type="text" 
-                                   class="form-control form-control-lg bg-light-custom border-custom" 
-                                   id="firstName" 
-                                   name="firstName"
-                                   placeholder="${msg('enterFirstName')}"
+                <form id="kc-register-form" action="${url.registrationAction}" method="post">
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-6">
+                            <label for="firstName" class="form-label fw-semibold fs-5">First Name</label>
+                            <input type="text" id="firstName" name="firstName"
                                    value="${(register.formData.firstName!'')}"
-                                   aria-invalid="<#if messagesPerField.existsError('firstName')>true</#if>"
-                                   <#if attribute.required??>required</#if> />
+                                   class="form-control form-control-lg bg-light-custom border-custom" required/>
                             <#if messagesPerField.existsError('firstName')>
-                                <div class="text-danger small mt-1">
-                                    ${kcSanitize(messagesPerField.get('firstName'))?no_esc}
-                                </div>
+                                <span class="text-danger">${kcSanitize(messagesPerField.get('firstName'))?no_esc}</span>
                             </#if>
                         </div>
-                    </#if>
-
-                    <#if attribute.name == 'lastName'>
-                        <div class="kc-form-group">
-                            <label for="lastName" class="form-label fw-semibold">${msg("lastName")}</label>
-                            <input type="text" 
-                                   class="form-control form-control-lg bg-light-custom border-custom" 
-                                   id="lastName" 
-                                   name="lastName"
-                                   placeholder="${msg('enterLastName')}"
+                        <div class="col-md-6">
+                            <label for="lastName" class="form-label fw-semibold fs-5">Last Name</label>
+                            <input type="text" id="lastName" name="lastName"
                                    value="${(register.formData.lastName!'')}"
-                                   aria-invalid="<#if messagesPerField.existsError('lastName')>true</#if>"
-                                   <#if attribute.required??>required</#if> />
+                                   class="form-control form-control-lg bg-light-custom border-custom" required/>
                             <#if messagesPerField.existsError('lastName')>
-                                <div class="text-danger small mt-1">
-                                    ${kcSanitize(messagesPerField.get('lastName'))?no_esc}
-                                </div>
+                                <span class="text-danger">${kcSanitize(messagesPerField.get('lastName'))?no_esc}</span>
                             </#if>
                         </div>
-                    </#if>
-                </#if>
+                    </div>
 
-                <#if callback = "afterField">
-                    <#if passwordRequired?? && (attribute.name == 'username' || (attribute.name == 'email' && realm.registrationEmailAsUsername))>
-                        <!-- Password Field -->
-                        <div class="kc-form-group">
-                            <label for="password" class="form-label fw-semibold">${msg("password")}</label>
-                            <div class="input-container">
-                                <input type="password" 
-                                       class="form-control form-control-lg bg-light-custom border-custom" 
-                                       id="password" 
-                                       name="password"
-                                       placeholder="${msg('enterPassword')}"
-                                       autocomplete="new-password"
-                                       aria-invalid="<#if messagesPerField.existsError('password','password-confirm')>true</#if>"
-                                       required />
-                                <i class="bi bi-eye password-toggle" id="password-toggle"></i>
-                            </div>
-                            <#if messagesPerField.existsError('password')>
-                                <div class="text-danger small mt-1">
-                                    ${kcSanitize(messagesPerField.get('password'))?no_esc}
-                                </div>
-                            </#if>
-                        </div>
+                    <div class="mb-4">
+                        <label for="email" class="form-label fw-semibold fs-5">Email</label>
+                        <input type="email" id="email" name="email"
+                               value="${(register.formData.email!'')}"
+                               class="form-control form-control-lg bg-light-custom border-custom" required/>
+                        <#if messagesPerField.existsError('email')>
+                            <span class="text-danger">${kcSanitize(messagesPerField.get('email'))?no_esc}</span>
+                        </#if>
+                    </div>
 
-                        <!-- Confirm Password Field -->
-                        <div class="kc-form-group">
-                            <label for="password-confirm" class="form-label fw-semibold">${msg("passwordConfirm")}</label>
-                            <div class="input-container">
-                                <input type="password" 
-                                       class="form-control form-control-lg bg-light-custom border-custom" 
-                                       id="password-confirm" 
-                                       name="password-confirm"
-                                       placeholder="${msg('confirmPassword')}"
-                                       autocomplete="new-password"
-                                       aria-invalid="<#if messagesPerField.existsError('password-confirm')>true</#if>"
-                                       required />
-                                <i class="bi bi-eye password-toggle" id="confirm-password-toggle"></i>
-                            </div>
-                            <#if messagesPerField.existsError('password-confirm')>
-                                <div class="text-danger small mt-1">
-                                    ${kcSanitize(messagesPerField.get('password-confirm'))?no_esc}
-                                </div>
-                            </#if>
-                        </div>
-                    </#if>
-                </#if>
-            </@userProfileCommons.userProfileFormFields>
+                    <div class="mb-4">
+                        <label for="password" class="form-label fw-semibold fs-5">Password</label>
+                        <input type="password" id="password" name="password"
+                               class="form-control form-control-lg bg-light-custom border-custom" required/>
+                        <#if messagesPerField.existsError('password')>
+                            <span class="text-danger">${kcSanitize(messagesPerField.get('password'))?no_esc}</span>
+                        </#if>
+                    </div>
 
-            <@registerCommons.termsAcceptance/>
+                    <div class="mb-4">
+                        <label for="password-confirm" class="form-label fw-semibold fs-5">Confirm Password</label>
+                        <input type="password" id="password-confirm" name="password-confirm"
+                               class="form-control form-control-lg bg-light-custom border-custom" required/>
+                        <#if messagesPerField.existsError('password-confirm')>
+                            <span class="text-danger">${kcSanitize(messagesPerField.get('password-confirm'))?no_esc}</span>
+                        </#if>
+                    </div>
 
-            <#if recaptchaRequired?? && (recaptchaVisible!false)>
-                <div class="form-group">
-                    <div class="g-recaptcha" data-size="compact" data-sitekey="${recaptchaSiteKey}" data-action="${recaptchaAction}"></div>
-                </div>
-            </#if>
-
-            <div class="kc-form-options-wrapper">
-                <span><a href="${url.loginUrl}">${kcSanitize(msg("backToLogin"))?no_esc}</a></span>
+                    <div class="d-grid mb-4">
+                        <button type="submit"
+                                class="btn bg-primary-custom text-white btn-lg py-3 fs-5 fw-semibold">
+                            Create account
+                        </button>
+                    </div>
+                </form>
             </div>
-
-            <#if recaptchaRequired?? && !(recaptchaVisible!false)>
-                <script>
-                    function onSubmitRecaptcha(token) {
-                        document.getElementById("kc-register-form").requestSubmit();
-                    }
-                </script>
-                <div class="kc-form-buttons">
-                    <button class="btn bg-primary-custom text-white btn-lg py-3 fs-5 fw-semibold g-recaptcha" 
-                        data-sitekey="${recaptchaSiteKey}" data-callback='onSubmitRecaptcha' data-action='${recaptchaAction}' type="submit">
-                        ${msg("doRegister")}
-                    </button>
-                </div>
-            <#else>
-                <div class="kc-form-buttons">
-                    <button type="submit" class="btn bg-primary-custom text-white btn-lg py-3 fs-5 fw-semibold">
-                        ${msg("doRegister")}
-                    </button>
-                </div>
-            </#if>
-
-            <!-- Social Media Icons -->
-            <div class="social-icons">
-                <div class="social-icon">
-                    <img src="${url.resourcesPath}/img/google.png" alt="google logo" />
-                </div>
-                <div class="social-icon">
-                    <img src="${url.resourcesPath}/img/facebook.png" alt="facebook logo" />
-                </div>
-                <div class="social-icon">
-                    <img src="${url.resourcesPath}/img/apple.png" alt="apple logo" />
-                </div>
-            </div>
-
-            <!-- Footer -->
-            <footer class="text-center mt-4">
-                <small class="text-muted-custom">© 2024 NASD Plc. All rights reserved</small>
-            </footer>
-        </form>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script>
-            // Password toggle functionality
-            document.addEventListener('DOMContentLoaded', function() {
-                const passwordToggle = document.getElementById("password-toggle");
-                const confirmPasswordToggle = document.getElementById("confirm-password-toggle");
-
-                if (passwordToggle) {
-                    passwordToggle.addEventListener("click", () => {
-                        const passwordInput = document.getElementById("password");
-                        if (passwordInput.type === "password") {
-                            passwordInput.type = "text";
-                            passwordToggle.classList.remove("bi-eye");
-                            passwordToggle.classList.add("bi-eye-slash");
-                        } else {
-                            passwordInput.type = "password";
-                            passwordToggle.classList.remove("bi-eye-slash");
-                            passwordToggle.classList.add("bi-eye");
-                        }
-                    });
-                }
-
-                if (confirmPasswordToggle) {
-                    confirmPasswordToggle.addEventListener("click", () => {
-                        const confirmPasswordInput = document.getElementById("password-confirm");
-                        if (confirmPasswordInput.type === "password") {
-                            confirmPasswordInput.type = "text";
-                            confirmPasswordToggle.classList.remove("bi-eye");
-                            confirmPasswordToggle.classList.add("bi-eye-slash");
-                        } else {
-                            confirmPasswordInput.type = "password";
-                            confirmPasswordToggle.classList.remove("bi-eye-slash");
-                            confirmPasswordToggle.classList.add("bi-eye");
-                        }
-                    });
-                }
-            });
-        </script>
+        </section>
+    </main>
     </#if>
 </@layout.registrationLayout>
