@@ -1,98 +1,41 @@
- 
-      // Carousel functionality
-      let currentSlide = 1;
-      const totalSlides = 3;
-      let autoSlideInterval;
+document.addEventListener('DOMContentLoaded', function() {
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+    
+    if (togglePassword && passwordInput) {
+      togglePassword.addEventListener('click', function() {
+        // Toggle type attribute
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        
+        // Toggle icon
+        togglePassword.querySelector('i').classList.toggle('fa-eye');
+        togglePassword.querySelector('i').classList.toggle('fa-eye-slash');
+      });
+    }
+  });
+  
 
-      function showSlide(slideNumber) {
-        // Hide all images
-        for (let i = 1; i <= totalSlides; i++) {
-          const img = document.getElementById(`carousel-img-${i}`);
-          const indicator = document.getElementById(`indicator-${i}`);
-          if (img) img.classList.remove("active");
-          if (indicator) indicator.className = "carousel-indicator";
-        }
+// DISABLING BUTTON
+function checkInputs() {
+    let emailValue = document.getElementById("email").value.trim();
+    let passwordValue = document.getElementById("password").value.trim();
+    let submitButton = document.getElementById("button");
 
-        // Show current image
-        const currentImg = document.getElementById(`carousel-img-${slideNumber}`);
-        const currentIndicator = document.getElementById(`indicator-${slideNumber}`);
-        if (currentImg) currentImg.classList.add("active");
-        if (currentIndicator) currentIndicator.className = "carousel-indicator-active";
+    // Enable button if both fields are filled
+    submitButton.disabled = !(passwordValue && emailValue);
+}
 
-        // Update navigation buttons
-        const prevBtn = document.getElementById("carousel-prev");
-        const nextBtn = document.getElementById("carousel-next");
-        if (prevBtn) prevBtn.style.display = slideNumber === 1 ? "none" : "block";
-        if (nextBtn) nextBtn.style.display = slideNumber === totalSlides ? "none" : "block";
-      }
+// Attach event listeners
+document.getElementById("email").addEventListener("input", checkInputs);
+document.getElementById("password").addEventListener("input", checkInputs);
 
-      function nextSlide() {
-        if (currentSlide < totalSlides) {
-          currentSlide++;
-          showSlide(currentSlide);
-        }
-      }
 
-      function prevSlide() {
-        if (currentSlide > 1) {
-          currentSlide--;
-          showSlide(currentSlide);
-        }
-      }
 
-      function startAutoSlide() {
-        autoSlideInterval = setInterval(() => {
-          if (currentSlide < totalSlides) {
-            nextSlide();
-          } else {
-            currentSlide = 1;
-            showSlide(currentSlide);
-          }
-        }, 5000);
-      }
+//RDIRECT
 
-      function stopAutoSlide() {
-        clearInterval(autoSlideInterval);
-      }
+document.getElementById('button').addEventListener('click', function(event) {
+  event.preventDefault(); 
 
-      // Event listeners for carousel
-      const nextBtn = document.getElementById("carousel-next");
-      const prevBtn = document.getElementById("carousel-prev");
-
-      if (nextBtn) {
-        nextBtn.addEventListener("click", () => {
-          stopAutoSlide();
-          nextSlide();
-          startAutoSlide();
-        });
-      }
-
-      if (prevBtn) {
-        prevBtn.addEventListener("click", () => {
-          stopAutoSlide();
-          prevSlide();
-          startAutoSlide();
-        });
-      }
-
-      // Start auto-slide
-      startAutoSlide();
-
-      // Password toggle functionality
-      const passwordToggle = document.getElementById("password-toggle");
-      if (passwordToggle) {
-        passwordToggle.addEventListener("click", () => {
-          const passwordInput = document.getElementById("password");
-          const toggle = document.getElementById("password-toggle");
-
-          if (passwordInput.type === "password") {
-            passwordInput.type = "text";
-            toggle.classList.remove("bi-eye");
-            toggle.classList.add("bi-eye-slash");
-          } else {
-            passwordInput.type = "password";
-            toggle.classList.remove("bi-eye-slash");
-            toggle.classList.add("bi-eye");
-          }
-        });
-      }
+  window.location.href = "../otp/otp.html"; 
+});
