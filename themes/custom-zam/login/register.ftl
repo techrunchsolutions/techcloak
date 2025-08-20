@@ -4,7 +4,7 @@
         <title>Sign Up - NASD ZAM</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet"/>
-        <link rel="stylesheet" href="${url.resourcesPath}/css/styles.css"/>
+        <link rel="stylesheet" href="${url.resourcesPath}/css/register.css"/>
     <#elseif section == "form">
     <main class="position-relative min-vh-100">
         <!-- Left promotional content -->
@@ -92,3 +92,4 @@
     </main>
     </#if>
 </@layout.registrationLayout>
+
