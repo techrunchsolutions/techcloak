@@ -15,7 +15,38 @@
             min-height: 100vh;
             display: flex;
           }
-          
+
+#kc-info-wrapper{
+display:none;
+}
+
+html, body {
+overflow-x: hidden;
+}
+
+#kc-header, #kc-page-title {
+    display: none;
+}
+
+.login-pf-header{
+display:none;
+}
+
+.login-pf-page {
+    padding-top: 0;
+}
+
+.card-pf {
+max-width: 15000px;
+border-top: none;
+}
+
+@media (min-width: 768px) {
+    .login-pf-page .card-pf {
+        padding: 0;
+    }
+}
+
           .left-content {
             width: 50%;
             position: relative;
