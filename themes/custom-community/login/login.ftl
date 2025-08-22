@@ -1,385 +1,150 @@
 <#import "template.ftl" as layout>
-<#import "passkeys.ftl" as passkeys>
 <@layout.registrationLayout displayMessage=!messagesPerField.existsError('username','password') displayInfo=realm.password && realm.registrationAllowed && !registrationDisabled??; section>
-    <#if section = "header">
-        ${msg("loginAccountTitle")}
-    <#elseif section = "form">
-        <style>
+<#if section = "header">
+    <title>Connect - Login</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+    <link rel="stylesheet" as="style" onload="this.rel='stylesheet'"
+          href="https://fonts.googleapis.com/css2?display=swap&family=Be+Vietnam+Pro:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700;900"/>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style>
+        .animate-shake {animation: shake 0.3s ease-in-out;}
+        @keyframes shake {
+            0%,100% {transform: translateX(0);}
+            25% {transform: translateX(-5px);}
+            75% {transform: translateX(5px);}
+        }
+        .input-focus:focus {box-shadow: 0 0 0 3px rgba(42,93,234,0.2);}
+        .checkbox:checked {background-color: #2a5dea; border-color: #2a5dea;}
+        .animate-gradient {
+            background: linear-gradient(-45deg, #2a5dea, #8a3ffc, #2a5dea);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+        }
+        @keyframes gradientShift {
+            0% {background-position:0% 50%;}
+            50% {background-position:100% 50%;}
+            100% {background-position:0% 50%;}
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+    </style>
+<#elseif section = "form">
 
-.card-pf {
-    max-width: 15000px; 
-}
+<body class="bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen"
+      style="font-family: 'Be Vietnam Pro', 'Noto Sans', sans-serif">
+<div class="flex min-h-screen relative z-10">
 
-#kc-info-wrapper {
-    display: none;
-}
-
-#kc-page-title {
-display: none;
-}
-
-.login-pf-page-header{
-display:none;
-}
-
-.login-pf-page {
-    padding-top: 0;
-}
-
-@media (min-width: 768px) {
-    .login-pf-page .card-pf {
-        padding: 0;
-    }
-}
-
-.login-pf-header{
-display:none;
-}
-
-html, body {
-overflow: hidden;
-}
-
-            body {
-                font-family: 'Spline Sans', 'Noto Sans', sans-serif;
-            }
-            .login-container {
-                min-height: 100vh;
-                width: 100%;
-                background-color: #e0f2fe;
-                display: flex;
-            }
-            .left-panel {
-                width: 50%;
-                height: 100vh;
-                background-image: url('https://img.freepik.com/premium-vector/business-training-illustration-concept-flat-illustration-isolated-white-background_701961-9696.jpg');
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-            }
-            .right-panel {
-                width: 50%;
-                height: 100vh;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                color: #0f172a;
-            }
-            .form-title {
-                color: #0369a1;
-                font-size: 28px;
-                font-weight: bold;
-                line-height: 1.2;
-                padding-bottom: 12px;
-                margin-bottom: 24px;
-            }
-            .form-wrapper {
-                width: 75%;
-                max-width: 400px;
-            }
-            .form-group {
-                margin-bottom: 16px;
-            }
-            .form-input {
-                width: 100%;
-                border-radius: 12px;
-                color: #1e293b;
-                border: 1px solid #7dd3fc;
-                background-color: white;
-                height: 56px;
-                padding: 16px;
-                font-size: 16px;
-                outline: none;
-                transition: all 0.2s;
-            }
-            .form-input:focus {
-                ring: 2px solid #0ea5e9;
-                border-color: #0ea5e9;
-                box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2);
-            }
-            .form-input::placeholder {
-                color: #94a3b8;
-            }
-            .password-group {
-                position: relative;
-            }
-            .password-toggle {
-                position: absolute;
-                right: 16px;
-                top: 50%;
-                transform: translateY(-50%);
-                background: none;
-                border: none;
-                cursor: pointer;
-                color: #64748b;
-                font-size: 18px;
-            }
-            .forgot-password {
-                color: #0369a1;
-                font-size: 14px;
-                text-decoration: underline;
-                margin-bottom: 16px;
-                cursor: pointer;
-                display: inline-block;
-            }
-            .forgot-password:hover {
-                color: #1e40af;
-            }
-            .login-button {
-                width: 100%;
-                height: 48px;
-                background-color: white;
-                border: 1px solid #60a5fa;
-                color: #0369a1;
-                font-weight: bold;
-                border-radius: 12px;
-                transition: all 0.2s;
-                cursor: pointer;
-                font-size: 16px;
-            }
-            .login-button:hover {
-                background-color: #bae6fd;
-            }
-            .login-button:disabled {
-                opacity: 0.6;
-                cursor: not-allowed;
-            }
-            .error-message {
-                color: #dc2626;
-                font-size: 14px;
-                margin-top: 8px;
-                display: block;
-            }
-            .remember-me {
-                display: flex;
-                align-items: center;
-                margin-bottom: 16px;
-                font-size: 14px;
-                color: #475569;
-            }
-            .remember-me input {
-                margin-right: 8px;
-                width: auto;
-                height: auto;
-            }
-            .registration-link {
-                margin-top: 24px;
-                text-align: center;
-                color: #64748b;
-            }
-            .registration-link a {
-                color: #0369a1;
-                text-decoration: underline;
-            }
-            .registration-link a:hover {
-                color: #1e40af;
-            }
-            .social-providers {
-                margin-top: 32px;
-                width: 75%;
-                max-width: 400px;
-            }
-            .social-providers hr {
-                margin: 16px 0;
-                border: none;
-                height: 1px;
-                background-color: #cbd5e1;
-            }
-            .social-providers h2 {
-                text-align: center;
-                color: #475569;
-                font-size: 16px;
-                margin-bottom: 16px;
-            }
-            .social-list {
-                list-style: none;
-                padding: 0;
-                margin: 0;
-            }
-            .social-list li {
-                margin-bottom: 12px;
-            }
-            .social-button {
-                display: block;
-                width: 100%;
-                padding: 12px 16px;
-                background-color: white;
-                border: 1px solid #cbd5e1;
-                border-radius: 8px;
-                text-decoration: none;
-                color: #475569;
-                text-align: center;
-                transition: all 0.2s;
-            }
-            .social-button:hover {
-                background-color: #f1f5f9;
-                border-color: #94a3b8;
-            }
-            
-            @media (max-width: 768px) {
-                .login-container {
-                    flex-direction: column;
-                }
-                .left-panel, .right-panel {
-                    width: 100%;
-                    height: auto;
-                    min-height: 50vh;
-                }
-                .right-panel {
-                    padding: 32px 16px;
-                }
-                .form-wrapper, .social-providers {
-                    width: 90%;
-                }
-            }
-        </style>
-
-        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
-        <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;700;900&family=Spline+Sans:wght@400;500;700"
-        />
-
-        <div class="login-container">
-            <!-- Left: Tech training/coaching community photo -->
-            <div class="left-panel"></div>
-
-            <!-- Right: Login Form -->
-            <div class="right-panel">
-                <h2 class="form-title">Welcome back</h2>
-
-                <div class="form-wrapper">
-                    <#if realm.password>
-                        <form id="kc-form-login" onsubmit="login.disabled = true; return true;" action="${url.loginAction}" method="post">
-                            <#if !usernameHidden??>
-                                <div class="form-group">
-                                    <input 
-                                        tabindex="2" 
-                                        id="username" 
-                                        class="form-input" 
-                                        name="username" 
-                                        value="${(login.username!'')}"  
-                                        type="text"
-                                        placeholder="<#if !realm.loginWithEmailAllowed>${msg("username")}<#elseif !realm.registrationEmailAsUsername>${msg("usernameOrEmail")}<#else>${msg("email")}</#if>"
-                                        autofocus 
-                                        autocomplete="${(enableWebAuthnConditionalUI?has_content)?then('username webauthn', 'username')}"
-                                        aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
-                                        dir="ltr"
-                                    />
-                                    <#if messagesPerField.existsError('username','password')>
-                                        <span class="error-message" aria-live="polite">
-                                            ${kcSanitize(messagesPerField.getFirstError('username','password'))?no_esc}
-                                        </span>
-                                    </#if>
-                                </div>
-                            </#if>
-
-                            <div class="form-group">
-                                <div class="password-group">
-                                    <input 
-                                        tabindex="3" 
-                                        id="password" 
-                                        class="form-input" 
-                                        name="password" 
-                                        type="password" 
-                                        placeholder="${msg("password")}"
-                                        autocomplete="current-password"
-                                        aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
-                                    />
-                                    <button 
-                                        class="password-toggle" 
-                                        type="button" 
-                                        aria-label="${msg("showPassword")}"
-                                        aria-controls="password" 
-                                        data-password-toggle 
-                                        tabindex="4"
-                                        data-icon-show="${properties.kcFormPasswordVisibilityIconShow!'👁'}" 
-                                        data-icon-hide="${properties.kcFormPasswordVisibilityIconHide!'👁'}"
-                                        data-label-show="${msg('showPassword')}" 
-                                        data-label-hide="${msg('hidePassword')}">
-                                        <span aria-hidden="true">👁</span>
-                                    </button>
-                                </div>
-                                <#if usernameHidden?? && messagesPerField.existsError('username','password')>
-                                    <span class="error-message" aria-live="polite">
-                                        ${kcSanitize(messagesPerField.getFirstError('username','password'))?no_esc}
-                                    </span>
-                                </#if>
-                            </div>
-
-                            <#if realm.rememberMe && !usernameHidden??>
-                                <div class="remember-me">
-                                    <input 
-                                        tabindex="5" 
-                                        id="rememberMe" 
-                                        name="rememberMe" 
-                                        type="checkbox" 
-                                        <#if login.rememberMe??>checked</#if>
-                                    />
-                                    <label for="rememberMe">${msg("rememberMe")}</label>
-                                </div>
-                            </#if>
-
-                            <#if realm.resetPasswordAllowed>
-                                <a tabindex="6" href="${url.loginResetCredentialsUrl}" class="forgot-password">
-                                    ${msg("doForgotPassword")}
-                                </a>
-                            </#if>
-
-                            <input type="hidden" id="id-hidden-input" name="credentialId" <#if auth.selectedCredential?has_content>value="${auth.selectedCredential}"</#if>/>
-                            <button 
-                                tabindex="7" 
-                                class="login-button" 
-                                name="login" 
-                                id="kc-login" 
-                                type="submit">
-                                ${msg("doLogIn")}
-                            </button>
-                        </form>
-                    </#if>
-                </div>
-
-                <!-- Registration Link -->
-                <#if realm.password && realm.registrationAllowed && !registrationDisabled??>
-                    <div class="registration-link">
-                        <span>${msg("noAccount")} <a tabindex="8" href="${url.registrationUrl}">${msg("doRegister")}</a></span>
-                    </div>
-                </#if>
-
-                <!-- Social Providers -->
-                <#if realm.password && social?? && social.providers?has_content>
-                    <div class="social-providers">
-                        <hr/>
-                        <h2>${msg("identity-provider-login-label")}</h2>
-                        <ul class="social-list">
-                            <#list social.providers as p>
-                                <li>
-                                    <a 
-                                        data-once-link 
-                                        id="social-${p.alias}"
-                                        class="social-button"
-                                        href="${p.loginUrl}">
-                                        <#if p.iconClasses?has_content>
-                                            <i class="${p.iconClasses!}" aria-hidden="true"></i>
-                                        </#if>
-                                        <span>${p.displayName!}</span>
-                                    </a>
-                                </li>
-                            </#list>
-                        </ul>
-                    </div>
-                </#if>
-            </div>
+    <!-- Left branding -->
+    <div class="hidden lg:flex w-1/2 flex-col justify-between p-12 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
+        <div class="flex items-center gap-3 mb-12">
+            <div class="size-10"><svg viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M36.7 44C34 44 31.6 39.8 30.4 33.7C29.1 39.8 26.7 44 24 44C21.3 44 18.9 39.8 17.6 33.7C16.4 39.8 14 44 11.3 44C7.3 44 4 35 4 24C4 13 7.3 4 11.3 4C14 4 16.4 8.2 17.6 14.3C18.9 8.2 21.3 4 24 4C26.7 4 29.1 8.2 30.4 14.3C31.6 8.2 34 4 36.7 4C40.7 4 44 13 44 24C44 35 40.7 44 36.7 44Z"/></svg></div>
+            <h1 class="text-2xl font-bold">Connect</h1>
         </div>
+        <div class="max-w-md"><h2 class="text-4xl font-bold mb-6">Join our community of professionals</h2><p class="text-lg opacity-90 mb-8">Connect with coaches, expand your network, and accelerate your career growth with our platform.</p></div>
+    </div>
 
-        <@passkeys.conditionalUIData />
-        <script type="module" src="${url.resourcesPath}/js/passwordVisibility.js"></script>
+    <!-- Login form -->
+    <div class="w-full lg:w-1/2 flex items-center justify-center p-8">
+        <div class="w-full max-w-md">
+            <div class="flex justify-center mb-8 lg:hidden">
+                <h1 class="text-3xl font-bold gradient-text">Connect</h1>
+            </div>
 
-    <#elseif section = "info" >
-        <!-- Info section handled in main form above -->
-    <#elseif section = "socialProviders" >
-        <!-- Social providers handled in main form above -->
-    </#if>
+            <div class="glass-effect rounded-2xl shadow-xl p-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">${msg("loginAccountTitle")}</h2>
+                <p class="text-gray-600 mb-6">Sign in to your account to continue</p>
 
+                <form id="kc-form-login" class="space-y-5" action="${url.loginAction}" method="post">
+                    <!-- Username/Email -->
+                    <div>
+                        <label for="username" class="block text-sm font-medium text-gray-700 mb-1">
+                            <#if !realm.loginWithEmailAllowed>${msg("username")}
+                            <#elseif !realm.registrationEmailAsUsername>${msg("usernameOrEmail")}
+                            <#else>${msg("email")}</#if>
+                        </label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-envelope text-gray-400"></i>
+                            </div>
+                            <input type="text" id="username" name="username"
+                                   value="${(login.username!'')}"
+                                   class="input-focus pl-10 pr-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                                   autocomplete="username"
+                                   aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"/>
+                        </div>
+                        <#if messagesPerField.existsError('username','password')>
+                            <p class="text-red-600 text-sm mt-1">${kcSanitize(messagesPerField.getFirstError('username','password'))?no_esc}</p>
+                        </#if>
+                    </div>
+
+                    <!-- Password -->
+                    <div>
+                        <div class="flex justify-between items-center mb-1">
+                            <label for="password" class="block text-sm font-medium text-gray-700">${msg("password")}</label>
+                            <#if realm.resetPasswordAllowed>
+                                <a href="${url.loginResetCredentialsUrl}" class="text-sm text-blue-600 hover:text-blue-800">${msg("doForgotPassword")}</a>
+                            </#if>
+                        </div>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-lock text-gray-400"></i>
+                            </div>
+                            <input type="password" id="password" name="password"
+                                   class="input-focus pl-10 pr-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                                   autocomplete="current-password"/>
+                            <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                <i class="fas fa-eye text-gray-400 hover:text-gray-600"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Remember Me -->
+                    <#if realm.rememberMe>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="rememberMe" name="rememberMe"
+                                   class="checkbox h-4 w-4 text-blue-600 border-gray-300 rounded"
+                                   <#if login.rememberMe??>checked</#if>/>
+                            <label for="rememberMe" class="ml-2 block text-sm text-gray-700">${msg("rememberMe")}</label>
+                        </div>
+                    </#if>
+
+                    <!-- Submit -->
+                    <div>
+                        <input type="hidden" name="credentialId" id="id-hidden-input"
+                               <#if auth.selectedCredential?has_content>value="${auth.selectedCredential}"</#if>/>
+                        <button type="submit" id="kc-login"
+                                class="animate-gradient w-full py-3 px-4 rounded-lg text-white font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            ${msg("doLogIn")}
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <#if realm.password && realm.registrationAllowed && !registrationDisabled??>
+                <div class="text-center mt-6">
+                    <span>${msg("noAccount")} <a href="${url.registrationUrl}" class="text-blue-600 hover:underline">${msg("doRegister")}</a></span>
+                </div>
+            </#if>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("togglePassword").addEventListener("click", function () {
+        const pwd = document.getElementById("password");
+        pwd.type = pwd.type === "password" ? "text" : "password";
+        this.querySelector("i").classList.toggle("fa-eye");
+        this.querySelector("i").classList.toggle("fa-eye-slash");
+    });
+</script>
+
+</#if>
 </@layout.registrationLayout>
