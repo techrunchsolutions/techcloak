@@ -1,5 +1,4 @@
 <#import "template.ftl" as layout>
-<#import "register-commons.ftl" as registerCommons>
 
 <@layout.registrationLayout displayMessage=messagesPerField.exists('global') displayRequiredFields=true; section>
 <#if section = "header">
@@ -12,41 +11,23 @@
 <#elseif section = "form">
 
 <style>
-.login-pf-page {
-    padding-top: 0;
-}
-
-.login-pf-page-header{
-display:none;
-}
-
-@media (min-width: 768px) {
-    .login-pf-page .card-pf {
-        padding: 0;
-    }
-}
-
-.card-pf {
-    max-width: 15000px; 
-}
-
-.login-pf-header {
-display:none;
-}
-
+.login-pf-page { padding-top: 0; }
+.login-pf-page-header, .login-pf-header { display: none; }
+.card-pf { max-width: 15000px; }
 </style>
 
 <div class="flex min-h-screen w-full bg-sky-100" style="font-family: 'Spline Sans', 'Noto Sans', sans-serif">
     <!-- Left Image -->
     <div class="w-1/2 h-screen bg-center bg-no-repeat bg-cover"
-         style="background-image: url('https://img.freepik.com/premium-vector/business-training-illustration-concept-flat-illustration-isolated-white-background_701961-9696.jpg');">
-    </div>
+         style="background-image: url('https://img.freepik.com/premium-vector/business-training-illustration-concept-flat-illustration-isolated-white-background_701961-9696.jpg');"></div>
 
     <!-- Registration Form -->
     <div class="w-1/2 h-screen flex flex-col justify-center items-center text-slate-900">
         <h2 class="text-sky-700 text-[28px] font-bold leading-tight pb-3">${msg("registerTitle")}</h2>
 
         <form id="kc-register-form" class="w-3/4" action="${url.registrationAction}" method="post" novalidate>
+            <!-- Hidden username (for backend compatibility) -->
+            <input type="hidden" name="username" value="${(user.email!'')}"/>
 
             <!-- Email Field -->
             <div class="mb-4">
@@ -84,10 +65,7 @@ display:none;
                 <p id="confirm-error" class="text-red-600 text-sm hidden mt-1">Passwords do not match</p>
             </div>
 
-            <!-- Terms -->
-            <@registerCommons.termsAcceptance/>
-
-            <!-- Submit Button -->
+            <!-- Submit -->
             <div>
                 <input id="register-btn"
                        class="w-full h-12 bg-gray-300 cursor-not-allowed border border-sky-400 text-sky-700 font-bold rounded-xl transition-colors duration-200"
@@ -102,7 +80,6 @@ display:none;
     </div>
 </div>
 
-<!-- JS Validation & Toggle -->
 <script>
     const emailInput = document.getElementById('email');
     const passInput = document.getElementById('password');
@@ -124,25 +101,16 @@ display:none;
     function checkValidity() {
         let valid = true;
 
-        // Email check
-        if (!validateEmail(emailInput.value.trim())) {
-            emailError.classList.remove('hidden');
-            valid = false;
-        } else emailError.classList.add('hidden');
+        if (!validateEmail(emailInput.value.trim())) { emailError.classList.remove('hidden'); valid = false; }
+        else emailError.classList.add('hidden');
 
-        // Password check
-        if (!validatePassword(passInput.value)) {
-            passError.classList.remove('hidden');
-            valid = false;
-        } else passError.classList.add('hidden');
+        if (!validatePassword(passInput.value)) { passError.classList.remove('hidden'); valid = false; }
+        else passError.classList.add('hidden');
 
-        // Confirm password check
         if (passInput.value !== confirmInput.value || confirmInput.value === '') {
-            confirmError.classList.remove('hidden');
-            valid = false;
+            confirmError.classList.remove('hidden'); valid = false;
         } else confirmError.classList.add('hidden');
 
-        // Enable/disable button
         registerBtn.disabled = !valid;
         registerBtn.classList.toggle('bg-gray-300', !valid);
         registerBtn.classList.toggle('cursor-not-allowed', !valid);
@@ -150,11 +118,8 @@ display:none;
         registerBtn.classList.toggle('hover:bg-sky-200', valid);
     }
 
-    [emailInput, passInput, confirmInput].forEach(input => {
-        input.addEventListener('input', checkValidity);
-    });
+    [emailInput, passInput, confirmInput].forEach(input => input.addEventListener('input', checkValidity));
 
-    // Password visibility toggles
     document.getElementById('toggle-password').addEventListener('click', () => {
         passInput.type = passInput.type === 'password' ? 'text' : 'password';
         document.getElementById('toggle-password').textContent = passInput.type === 'password' ? 'Show' : 'Hide';
@@ -167,4 +132,3 @@ display:none;
 </script>
 </#if>
 </@layout.registrationLayout>
-
