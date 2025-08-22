@@ -43,7 +43,7 @@
 <div class="flex min-h-screen relative z-10">
 
     <!-- Left branding -->
-    <div class="hidden lg:flex w-1/2 flex-col justify-between p-12 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
+    <div class="lg:flex w-1/2 flex-col justify-between p-12 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
         <div class="flex items-center gap-3 mb-12">
             <div class="size-10"><svg viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M36.7 44C34 44 31.6 39.8 30.4 33.7C29.1 39.8 26.7 44 24 44C21.3 44 18.9 39.8 17.6 33.7C16.4 39.8 14 44 11.3 44C7.3 44 4 35 4 24C4 13 7.3 4 11.3 4C14 4 16.4 8.2 17.6 14.3C18.9 8.2 21.3 4 24 4C26.7 4 29.1 8.2 30.4 14.3C31.6 8.2 34 4 36.7 4C40.7 4 44 13 44 24C44 35 40.7 44 36.7 44Z"/></svg></div>
             <h1 class="text-2xl font-bold">Connect</h1>
@@ -54,7 +54,7 @@
     <!-- Login form -->
     <div class="w-full lg:w-1/2 flex items-center justify-center p-8">
         <div class="w-full max-w-md">
-            <div class="flex justify-center mb-8 lg:hidden">
+            <div class="flex justify-center mb-8 lg">
                 <h1 class="text-3xl font-bold gradient-text">Connect</h1>
             </div>
 
