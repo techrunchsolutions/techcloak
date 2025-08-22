@@ -290,10 +290,6 @@ display: none;
     <!-- Login form -->
     <div class="w-full lg:w-1/2 flex items-center justify-center p-8">
         <div class="w-full max-w-md">
-            <div class="flex justify-center mb-8 lg animate-fade-in">
-                <h1 class="text-3xl font-bold gradient-text">Connect</h1>
-            </div>
-
             <div class="glass-effect rounded-2xl shadow-xl p-8 animate-fade-in" style="animation-delay: 0.2s">
                 <h2 class="text-2xl font-bold text-gray-800 mb-2">Welcome back</h2>
                 <p class="text-gray-600 mb-6 text-sm">Sign in to your account to continue</p>
