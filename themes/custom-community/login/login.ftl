@@ -11,6 +11,72 @@
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <style>
+        /* Reset Keycloak default styles */
+        body {
+            background: none !important;
+            font-family: 'Be Vietnam Pro', 'Noto Sans', sans-serif !important;
+        }
+        
+        #kc-header-wrapper {
+            display: none !important;
+        }
+        
+        .login-pf body {
+            background: none !important;
+        }
+        
+        .login-pf-page {
+            background: none !important;
+            padding-top: 0 !important;
+        }
+        
+        .card-pf {
+            background: none !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            max-width: none !important;
+        }
+        
+        #kc-content {
+            width: 100% !important;
+        }
+        
+        #kc-content-wrapper {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        
+        #kc-form-wrapper {
+            padding: 0 !important;
+        }
+        
+        #kc-form-options {
+            display: none !important;
+        }
+        
+        #kc-info-wrapper {
+            display: none !important;
+        }
+        
+        #kc-header {
+            display: none !important;
+        }
+        
+        .login-pf-page-header {
+            display: none !important;
+        }
+        
+        h1#kc-page-title {
+            display: none !important;
+        }
+        
+        .login-pf-signup {
+            display: none !important;
+        }
+        
+        /* Your custom styles */
         @media (min-width: 768px) {
             .login-pf-page .login-pf-header {
                 margin-bottom: 0; 
@@ -109,9 +175,9 @@
         }
 
         .animate-gradient {
-            background: linear-gradient(-45deg, #2a5dea, #8a3ffc, #2a5dea);
-            background-size: 400% 400%;
-            animation: gradientShift 8s ease infinite;
+            background: linear-gradient(-45deg, #2a5dea, #8a3ffc, #2a5dea) !important;
+            background-size: 400% 400% !important;
+            animation: gradientShift 8s ease infinite !important;
         }
 
         .animate-shake {
@@ -136,96 +202,34 @@
         }
 
         .glass-effect {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.7) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+            border: 1px solid rgba(255, 255, 255, 0.18) !important;
         }
 
         .input-focus:focus {
-            box-shadow: 0 0 0 3px rgba(42, 93, 234, 0.2);
+            box-shadow: 0 0 0 3px rgba(42, 93, 234, 0.2) !important;
         }
 
         .checkbox:checked {
-            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
-            background-color: #2a5dea;
-            border-color: #2a5dea;
-        }
-
-        .login-pf-page-header {
-            display: none;
-        }
-
-        h1#kc-page-title {
-            display: none;
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e") !important;
+            background-color: #2a5dea !important;
+            border-color: #2a5dea !important;
         }
 
         .comtext {
             color: white !important;
         }
 
-        .login-pf-page {
-            padding-top: 0;
-            border: none;
-        }
-
-        @media (min-width: 768px) {
-            .login-pf-page .card-pf {
-                padding: 0;
-            }
-        }
-
-        .login-pf-page .card-pf {
-            padding: 0;
-            margin-bottom: 0;
-        }
-
-        .card-pf {
-            padding: 0;
-            max-width: 15000px; 
-        }
-
-        .login-pf-header {
-            display: none;
-        }
-
-        #kc-content-wrapper {
-            margin-top: 0;
-        }
-
-        .login-pf-signup {
-            display: none;
-        }
-
-        .animate-shake {animation: shake 0.3s ease-in-out;}
-        @keyframes shake {
-            0%,100% {transform: translateX(0);}
-            25% {transform: translateX(-5px);}
-            75% {transform: translateX(5px);}
-        }
-        .input-focus:focus {box-shadow: 0 0 0 3px rgba(42,93,234,0.2);}
-        .checkbox:checked {background-color: #2a5dea; border-color: #2a5dea;}
-        .animate-gradient {
-            background: linear-gradient(-45deg, #2a5dea, #8a3ffc, #2a5dea);
-            background-size: 400% 400%;
-            animation: gradientShift 8s ease infinite;
-        }
-        @keyframes gradientShift {
-            0% {background-position:0% 50%;}
-            50% {background-position:100% 50%;}
-            100% {background-position:0% 50%;}
-        }
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
+        .animate-shake {animation: shake 0.3s ease-in-out !important;}
+        .input-focus:focus {box-shadow: 0 0 0 3px rgba(42,93,234,0.2) !important;}
+        .checkbox:checked {background-color: #2a5dea !important; border-color: #2a5dea !important;}
     </style>
 <#elseif section = "form">
 
 <body class="bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen"
-      style="font-family: 'Be Vietnam Pro', 'Noto Sans', sans-serif">
+      style="font-family: 'Be Vietnam Pro', 'Noto Sans', sans-serif !important">
 
 <div class="fixed top-0 left-0 w-full h-full overflow-hidden z-0">
     <div class="absolute -top-20 -left-20 w-72 h-72 bg-blue-200 rounded-full opacity-20 animate-float" style="animation-delay: 0s"></div>
@@ -314,7 +318,7 @@
                 <h2 class="text-2xl font-bold text-gray-800 mb-2">Welcome back</h2>
                 <p class="text-gray-600 mb-6 text-sm">Sign in to your account to continue</p>
 
-                <#if message?has_content>
+                <#if message?has_content && (message.type != 'warning' || !isAppInitiatedAction??)>
                     <div class="alert alert-${message.type}">
                         <#if message.type = 'success'><span class="${properties.kcFeedbackSuccessIcon!}"></span></#if>
                         <#if message.type = 'warning'><span class="${properties.kcFeedbackWarningIcon!}"></span></#if>
