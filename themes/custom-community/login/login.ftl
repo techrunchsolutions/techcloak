@@ -11,14 +11,40 @@
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <style>
-        @media (min-width: 768px) {
-            .login-pf-page .login-pf-header {
-                margin-bottom: 0; 
-            }
+        /* Reset Keycloak styles that interfere with our layout */
+        #kc-container-wrapper {
+            position: static !important;
+            padding: 0 !important;
         }
-
-        .login-pf-page .login-pf-header {
-            margin-bottom: 0; 
+        
+        #kc-content-wrapper {
+            width: 100% !important;
+            max-width: none !important;
+        }
+        
+        #kc-content {
+            width: 100% !important;
+            padding: 0 !important;
+        }
+        
+        #kc-form-wrapper {
+            width: 100% !important;
+        }
+        
+        .login-pf-page {
+            background: none !important;
+            padding-top: 0 !important;
+            display: flex !important;
+            min-height: 100vh !important;
+        }
+        
+        .card-pf {
+            background: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            width: 100% !important;
+            max-width: none !important;
         }
 
         @keyframes fadeIn {
@@ -169,12 +195,6 @@
             border: none;
         }
 
-        @media (min-width: 768px) {
-            .login-pf-page .card-pf {
-                padding: 0;
-            }
-        }
-
         .login-pf-page .card-pf {
             padding: 0;
             margin-bottom: 0;
@@ -183,6 +203,8 @@
         .card-pf {
             padding: 0;
             max-width: 15000px; 
+            border-top: none; 
+            border-color: white;
         }
 
         .login-pf-header {
@@ -198,34 +220,10 @@
         }
 
         .animate-shake {animation: shake 0.3s ease-in-out;}
-        @keyframes shake {
-            0%,100% {transform: translateX(0);}
-            25% {transform: translateX(-5px);}
-            75% {transform: translateX(5px);}
-        }
         .input-focus:focus {box-shadow: 0 0 0 3px rgba(42,93,234,0.2);}
         .checkbox:checked {background-color: #2a5dea; border-color: #2a5dea;}
-        .animate-gradient {
-            background: linear-gradient(-45deg, #2a5dea, #8a3ffc, #2a5dea);
-            background-size: 400% 400%;
-            animation: gradientShift 8s ease infinite;
-        }
-        @keyframes gradientShift {
-            0% {background-position:0% 50%;}
-            50% {background-position:100% 50%;}
-            100% {background-position:0% 50%;}
-        }
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
     </style>
 <#elseif section = "form">
-
-<body class="bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen"
-      style="font-family: 'Be Vietnam Pro', 'Noto Sans', sans-serif">
 
 <div class="fixed top-0 left-0 w-full h-full overflow-hidden z-0">
     <div class="absolute -top-20 -left-20 w-72 h-72 bg-blue-200 rounded-full opacity-20 animate-float" style="animation-delay: 0s"></div>
@@ -314,14 +312,27 @@
                 <h2 class="text-2xl font-bold text-gray-800 mb-2">Welcome back</h2>
                 <p class="text-gray-600 mb-6 text-sm">Sign in to your account to continue</p>
 
-                <#if message?has_content>
-                    <div class="alert alert-${message.type}">
-                        <#if message.type = 'success'><span class="${properties.kcFeedbackSuccessIcon!}"></span></#if>
-                        <#if message.type = 'warning'><span class="${properties.kcFeedbackWarningIcon!}"></span></#if>
-                        <#if message.type = 'error'><span class="${properties.kcFeedbackErrorIcon!}"></span></#if>
-                        <#if message.type = 'info'><span class="${properties.kcFeedbackInfoIcon!}"></span></#if>
-                        <span class="kc-feedback-text">${kcSanitize(message.summary)?no_esc}</span>
-                    </div>
+                <#if message?has_content && (message.type != 'warning' || !isAppInitiatedAction??)>
+                    <#if message.type = 'success'>
+                        <div class="alert alert-success">
+                            <span class="kc-feedback-text">${kcSanitize(message.summary)?no_esc}</span>
+                        </div>
+                    </#if>
+                    <#if message.type = 'warning'>
+                        <div class="alert alert-warning">
+                            <span class="kc-feedback-text">${kcSanitize(message.summary)?no_esc}</span>
+                        </div>
+                    </#if>
+                    <#if message.type = 'error'>
+                        <div class="alert alert-danger">
+                            <span class="kc-feedback-text">${kcSanitize(message.summary)?no_esc}</span>
+                        </div>
+                    </#if>
+                    <#if message.type = 'info'>
+                        <div class="alert alert-info">
+                            <span class="kc-feedback-text">${kcSanitize(message.summary)?no_esc}</span>
+                        </div>
+                    </#if>
                 </#if>
 
                 <form id="kc-form-login" class="space-y-5" action="${url.loginAction}" method="post">
