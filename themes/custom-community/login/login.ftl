@@ -11,6 +11,42 @@
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <style>
+.login-pf-page-header {
+display: none;
+}
+
+.login-pf-page {
+    padding-top: 0;
+}
+
+@media (min-width: 768px) {
+    .login-pf-page .card-pf {
+        padding: 0;
+    }
+}
+
+.login-pf-page .card-pf {
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.card-pf {
+    padding: 0;
+    max-width: 500px; 
+}
+
+.login-pf-header {
+display: none;
+}
+
+#kc-content-wrapper {
+    margin-top: 0;
+}
+
+.login-pf-signup {
+display: none;
+}
+
         .animate-shake {animation: shake 0.3s ease-in-out;}
         @keyframes shake {
             0%,100% {transform: translateX(0);}
@@ -59,7 +95,7 @@
             </div>
 
             <div class="glass-effect rounded-2xl shadow-xl p-8">
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">${msg("loginAccountTitle")}</h2>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Welcome back</h2>
                 <p class="text-gray-600 mb-6">Sign in to your account to continue</p>
 
                 <form id="kc-form-login" class="space-y-5" action="${url.loginAction}" method="post">
@@ -129,9 +165,6 @@
             </div>
 
             <#if realm.password && realm.registrationAllowed && !registrationDisabled??>
-                <div class="text-center mt-6">
-                    <span>${msg("noAccount")} <a href="${url.registrationUrl}" class="text-blue-600 hover:underline">${msg("doRegister")}</a></span>
-                </div>
             </#if>
         </div>
     </div>
