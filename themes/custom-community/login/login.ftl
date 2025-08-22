@@ -184,6 +184,7 @@ color: white !important;
 .card-pf {
     padding: 0;
     max-width: 15000px; 
+    border: none;
 }
 
 .login-pf-header {
