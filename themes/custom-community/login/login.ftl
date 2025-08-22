@@ -227,14 +227,23 @@ display: none;
 
 <body class="bg-gradient-to-br from-blue-50 to-indigo-50 min-h-screen"
       style="font-family: 'Be Vietnam Pro', 'Noto Sans', sans-serif">
+
+<div class="fixed top-0 left-0 w-full h-full overflow-hidden z-0">
+      <div class="absolute -top-20 -left-20 w-72 h-72 bg-blue-200 rounded-full opacity-20 animate-float" style="animation-delay: 0s"></div>
+      <div class="absolute top-1/4 -right-20 w-64 h-64 bg-purple-200 rounded-full opacity-20 animate-float" style="animation-delay: 1s"></div>
+
+      <div class="absolute bottom-20 left-1/4 w-56 h-56 bg-indigo-200 rounded-full opacity-20 animate-float" style="animation-delay: 2s"></div>
+      <div class="absolute bottom-0 right-1/4 w-48 h-48 bg-blue-300 rounded-full opacity-20 animate-float" style="animation-delay: 3s"></div>
+    </div>
+
 <div class="flex min-h-screen relative z-10">
 
     <!-- Left branding -->
     <div class="lg:flex w-1/2 flex-col justify-between p-12 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
-        <div class="flex items-center gap-3 mb-12">
+        <div class="flex items-center gap-3 mb-12 animate-fade-in">
             <div class="size-10"><svg viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M36.7 44C34 44 31.6 39.8 30.4 33.7C29.1 39.8 26.7 44 24 44C21.3 44 18.9 39.8 17.6 33.7C16.4 39.8 14 44 11.3 44C7.3 44 4 35 4 24C4 13 7.3 4 11.3 4C14 4 16.4 8.2 17.6 14.3C18.9 8.2 21.3 4 24 4C26.7 4 29.1 8.2 30.4 14.3C31.6 8.2 34 4 36.7 4C40.7 4 44 13 44 24C44 35 40.7 44 36.7 44Z"/></svg></div>
         </div>
-        <div class="max-w-md"><h2 class="text-4xl font-bold mb-6">Join our community of professionals</h2><p class="text-lg opacity-90 mb-8 comtext">Connect with coaches, expand your network, and accelerate your career growth with our platform.</p>
+        <div class="max-w-md animate-fade-in" style="animation-delay: 0.3s"><h2 class="text-4xl font-bold mb-6">Join our community of professionals</h2><p class="text-lg opacity-90 mb-8 comtext">Connect with coaches, expand your network, and accelerate your career growth with our platform.</p>
 <div class="space-y-6">
             <div class="flex items-center">
               <div class="flex-shrink-0 h-10 w-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center mr-4">
@@ -281,11 +290,11 @@ display: none;
     <!-- Login form -->
     <div class="w-full lg:w-1/2 flex items-center justify-center p-8">
         <div class="w-full max-w-md">
-            <div class="flex justify-center mb-8 lg">
+            <div class="flex justify-center mb-8 lg animate-fade-in">
                 <h1 class="text-3xl font-bold gradient-text">Connect</h1>
             </div>
 
-            <div class="glass-effect rounded-2xl shadow-xl p-8">
+            <div class="glass-effect rounded-2xl shadow-xl p-8 animate-fade-in" style="animation-delay: 0.2s">
                 <h2 class="text-2xl font-bold text-gray-800 mb-2">Welcome back</h2>
                 <p class="text-gray-600 mb-6 text-sm">Sign in to your account to continue</p>
 
