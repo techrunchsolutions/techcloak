@@ -84,7 +84,48 @@ display: none;
             <div class="size-10"><svg viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M36.7 44C34 44 31.6 39.8 30.4 33.7C29.1 39.8 26.7 44 24 44C21.3 44 18.9 39.8 17.6 33.7C16.4 39.8 14 44 11.3 44C7.3 44 4 35 4 24C4 13 7.3 4 11.3 4C14 4 16.4 8.2 17.6 14.3C18.9 8.2 21.3 4 24 4C26.7 4 29.1 8.2 30.4 14.3C31.6 8.2 34 4 36.7 4C40.7 4 44 13 44 24C44 35 40.7 44 36.7 44Z"/></svg></div>
             <h1 class="text-2xl font-bold">Connect</h1>
         </div>
-        <div class="max-w-md"><h2 class="text-4xl font-bold mb-6">Join our community of professionals</h2><p class="text-lg opacity-90 mb-8">Connect with coaches, expand your network, and accelerate your career growth with our platform.</p></div>
+        <div class="max-w-md"><h2 class="text-4xl font-bold mb-6">Join our community of professionals</h2><p class="text-lg opacity-90 mb-8">Connect with coaches, expand your network, and accelerate your career growth with our platform.</p>
+<div class="space-y-6">
+            <div class="flex items-center">
+              <div class="flex-shrink-0 h-10 w-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center mr-4">
+                <i class="fas fa-users text-white"></i>
+              </div>
+              <p class="text-lg">Connect with industry experts</p>
+            </div>
+            <div class="flex items-center">
+              <div class="flex-shrink-0 h-10 w-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center mr-4">
+                <i class="fas fa-graduation-cap text-white"></i>
+              </div>
+              <p class="text-lg">Personalized coaching sessions</p>
+            </div>
+            <div class="flex items-center">
+              <div class="flex-shrink-0 h-10 w-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center mr-4">
+                <i class="fas fa-briefcase text-white"></i>
+              </div>
+              <p class="text-lg">Career advancement opportunities</p>
+            </div>
+          </div>
+</div>
+<div class="animate-fade-in" style="animation-delay: 0.6s">
+          <div class="flex items-center space-x-2 mb-4">
+            <div class="w-8 h-8 rounded-full border-2 border-white overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=100&amp;q=80" alt="User" class="w-full h-full object-cover">
+            </div>
+            <div class="w-8 h-8 rounded-full border-2 border-white overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=100&amp;q=80" alt="User" class="w-full h-full object-cover">
+            </div>
+            <div class="w-8 h-8 rounded-full border-2 border-white overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=100&amp;q=80" alt="User" class="w-full h-full object-cover">
+            </div>
+            <div class="w-8 h-8 rounded-full border-2 border-white overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=100&amp;q=80" alt="User" class="w-full h-full object-cover">
+            </div>
+          </div>
+          <p class="text-sm opacity-80">
+            Join thousands of professionals who are already growing their
+            careers with Connect
+          </p>
+        </div>
     </div>
 
     <!-- Login form -->
