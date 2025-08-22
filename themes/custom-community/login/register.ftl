@@ -10,6 +10,32 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
 <#elseif section = "form">
+
+<style>
+.login-pf-page {
+    padding-top: 0;
+}
+
+.login-pf-page-header{
+display:none;
+}
+
+@media (min-width: 768px) {
+    .login-pf-page .card-pf {
+        padding: 0;
+    }
+}
+
+.card-pf {
+    max-width: 15000px; 
+}
+
+.login-pf-header {
+display:none;
+}
+
+</style>
+
 <div class="flex min-h-screen w-full bg-sky-100" style="font-family: 'Spline Sans', 'Noto Sans', sans-serif">
     <!-- Left Image -->
     <div class="w-1/2 h-screen bg-center bg-no-repeat bg-cover"
@@ -141,3 +167,4 @@
 </script>
 </#if>
 </@layout.registrationLayout>
+
