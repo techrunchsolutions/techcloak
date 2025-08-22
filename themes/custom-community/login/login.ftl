@@ -5,6 +5,37 @@
         ${msg("loginAccountTitle")}
     <#elseif section = "form">
         <style>
+
+.card-pf {
+    max-width: 15000px; 
+}
+
+#kc-info-wrapper {
+    display: none;
+}
+
+.login-pf-page-header{
+display:none;
+}
+
+.login-pf-page {
+    padding-top: 0;
+}
+
+@media (min-width: 768px) {
+    .login-pf-page .card-pf {
+        padding: 0;
+    }
+}
+
+.login-pf-header{
+display:none;
+}
+
+html, body {
+overflow: hidden;
+}
+
             body {
                 font-family: 'Spline Sans', 'Noto Sans', sans-serif;
             }
