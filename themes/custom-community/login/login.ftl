@@ -20,7 +20,7 @@ h1#kc-page-title {
 }
 
 html, body {
-display: none;
+overflow: hidden;
 }
 
 .comtext {
