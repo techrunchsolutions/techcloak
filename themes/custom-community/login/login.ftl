@@ -14,6 +14,10 @@
     display: none;
 }
 
+#kc-page-title {
+display: none;
+}
+
 .login-pf-page-header{
 display:none;
 }
