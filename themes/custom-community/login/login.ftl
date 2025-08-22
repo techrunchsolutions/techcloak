@@ -11,6 +11,148 @@
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <style>
+
+@media (min-width: 768px) {
+    .login-pf-page .login-pf-header {
+        margin-bottom: 0; 
+    }
+}
+
+.login-pf-page .login-pf-header {
+        margin-bottom: 0; 
+    }
+
+@keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateX(-20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-5px);
+        }
+        100% {
+          transform: translateY(0px);
+        }
+      }
+
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-5px);
+        }
+        75% {
+          transform: translateX(5px);
+        }
+      }
+
+      .animate-fade-in {
+        animation: fadeIn 0.6s ease-out forwards;
+      }
+
+      .animate-slide-in {
+        animation: slideIn 0.5s ease-out forwards;
+      }
+
+      .animate-pulse-slow {
+        animation: pulse 3s infinite ease-in-out;
+      }
+
+      .animate-float {
+        animation: float 4s infinite ease-in-out;
+      }
+
+      .animate-gradient {
+        background: linear-gradient(-45deg, #2a5dea, #8a3ffc, #2a5dea);
+        background-size: 400% 400%;
+        animation: gradientShift 8s ease infinite;
+      }
+
+      .animate-shake {
+        animation: shake 0.3s ease-in-out;
+      }
+
+      .btn-transition {
+        transition: all 0.2s ease;
+      }
+
+      .btn-transition:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+
+      .gradient-text {
+        background: linear-gradient(90deg, #2a5dea, #8a3ffc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .glass-effect {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+      }
+
+      .input-focus:focus {
+        box-shadow: 0 0 0 3px rgba(42, 93, 234, 0.2);
+      }
+
+      .checkbox:checked {
+        background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+        background-color: #2a5dea;
+        border-color: #2a5dea;
+      }
+
 .login-pf-page-header {
 display: none;
 }
@@ -19,16 +161,13 @@ h1#kc-page-title {
     display: none;
 }
 
-html, body {
-overflow: hidden;
-}
-
 .comtext {
 color: white !important;
 }
 
 .login-pf-page {
     padding-top: 0;
+    border: none;
 }
 
 @media (min-width: 768px) {
@@ -94,7 +233,6 @@ display: none;
     <div class="lg:flex w-1/2 flex-col justify-between p-12 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
         <div class="flex items-center gap-3 mb-12">
             <div class="size-10"><svg viewBox="0 0 48 48" fill="white" xmlns="http://www.w3.org/2000/svg"><path d="M36.7 44C34 44 31.6 39.8 30.4 33.7C29.1 39.8 26.7 44 24 44C21.3 44 18.9 39.8 17.6 33.7C16.4 39.8 14 44 11.3 44C7.3 44 4 35 4 24C4 13 7.3 4 11.3 4C14 4 16.4 8.2 17.6 14.3C18.9 8.2 21.3 4 24 4C26.7 4 29.1 8.2 30.4 14.3C31.6 8.2 34 4 36.7 4C40.7 4 44 13 44 24C44 35 40.7 44 36.7 44Z"/></svg></div>
-            <h1 class="text-2xl font-bold">Connect</h1>
         </div>
         <div class="max-w-md"><h2 class="text-4xl font-bold mb-6">Join our community of professionals</h2><p class="text-lg opacity-90 mb-8 comtext">Connect with coaches, expand your network, and accelerate your career growth with our platform.</p>
 <div class="space-y-6">
@@ -149,7 +287,7 @@ display: none;
 
             <div class="glass-effect rounded-2xl shadow-xl p-8">
                 <h2 class="text-2xl font-bold text-gray-800 mb-2">Welcome back</h2>
-                <p class="text-gray-600 mb-6">Sign in to your account to continue</p>
+                <p class="text-gray-600 mb-6 text-sm">Sign in to your account to continue</p>
 
                 <form id="kc-form-login" class="space-y-5" action="${url.loginAction}" method="post">
                     <!-- Username/Email -->
