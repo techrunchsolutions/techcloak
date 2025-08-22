@@ -32,7 +32,7 @@ display: none;
 
 .card-pf {
     padding: 0;
-    max-width: 500px; 
+    max-width: 15000px; 
 }
 
 .login-pf-header {
