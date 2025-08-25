@@ -16,6 +16,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+.lafo {
+margin-bottom: 1.5rem;
+}
+
+.hos-text {
+color: white !important;
+}
+
 .login-pf .container {
      padding-top: 0; 
      padding-bottom: 0; 
@@ -134,7 +142,7 @@ html, body {
                         <h1>MediCare</h1>
                     </div>
                     <h2>Join the Healthcare Revolution</h2>
-                    <p>
+                    <p class="hos-text">
                         Create your account and start managing healthcare operations with
                         cutting-edge technology and intuitive design.
                     </p>
@@ -271,7 +279,7 @@ html, body {
                                 </#if>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group lafo">
                                 <label for="password-confirm">Confirm Password</label>
                                 <div class="input-wrapper">
                                     <i class="fas fa-lock input-icon"></i>
@@ -362,4 +370,5 @@ html, body {
     <script type="module" src="${url.resourcesPath}/js/passwordVisibility.js"></script>
     </#if>
 </@layout.registrationLayout>
+
 
