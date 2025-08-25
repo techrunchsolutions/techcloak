@@ -17,7 +17,7 @@
     
     <style>
 .lafo {
-margin-bottom: 1.5rem;
+margin-bottom: 1.5rem !important;
 }
 
 .hos-text {
@@ -370,5 +370,6 @@ html, body {
     <script type="module" src="${url.resourcesPath}/js/passwordVisibility.js"></script>
     </#if>
 </@layout.registrationLayout>
+
 
 
