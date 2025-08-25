@@ -30,6 +30,38 @@
         .login-pf-page {
             padding-top: 0px;
         }
+
+        .login-pf .container {
+     padding-top: 0; 
+     padding-bottom: 0; 
+     padding-top: 0; 
+}
+
+        @media (min-width: 768px) {
+    .login-pf .container {
+        bottom: auto;
+        padding-left: 0;
+        position: unset;
+        width: 100%;
+        padding-right: 0;
+    }
+}
+
+html, body {
+    overflow-x: unset;
+}
+
+.container {
+     padding-right: 0; 
+     padding-left: 0; 
+}
+
+@media (max-width: 767px) {
+    .login-pf .container {
+         padding-top: 0; 
+         padding-bottom: 0; 
+    }
+}
         
         @media (min-width: 768px) {
             .login-pf-page .card-pf {
