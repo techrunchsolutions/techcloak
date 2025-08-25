@@ -16,6 +16,38 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+.login-pf .container {
+     padding-top: 0; 
+     padding-bottom: 0; 
+     padding-top: 0; 
+}
+
+        @media (min-width: 768px) {
+    .login-pf .container {
+        bottom: auto;
+        padding-left: 0;
+        position: unset;
+        width: 100%;
+        padding-right: 0;
+    }
+}
+
+html, body {
+    overflow-x: unset;
+}
+
+.container {
+     padding-right: 0; 
+     padding-left: 0; 
+}
+
+@media (max-width: 767px) {
+    .login-pf .container {
+         padding-top: 0; 
+         padding-bottom: 0; 
+    }
+}
+
         /* Override Keycloak default styling */
         #kc-info-wrapper {
             display: none;
@@ -330,3 +362,4 @@
     <script type="module" src="${url.resourcesPath}/js/passwordVisibility.js"></script>
     </#if>
 </@layout.registrationLayout>
+
