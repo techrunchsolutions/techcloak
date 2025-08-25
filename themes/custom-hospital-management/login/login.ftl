@@ -106,10 +106,16 @@ html, body {
             padding: 4px;
             border-radius: 4px;
             transition: color 0.2s;
+            z-index: 10;
         }
         
         .password-toggle-btn:hover {
             color: #374151;
+        }
+        
+        .password-toggle-btn:focus {
+            outline: 2px solid #3b82f6;
+            outline-offset: 2px;
         }
         
         .input-wrapper {
@@ -193,7 +199,7 @@ html, body {
                                     <input tabindex="3" id="password" name="password" type="password" 
                                            placeholder="Enter your password" autocomplete="current-password"
                                            aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>" required>
-                                    <button class="password-toggle-btn" type="button" aria-label="${msg("showPassword")}"
+                                    <button class="password-toggle-btn" type="button" aria-label="Show password"
                                             aria-controls="password" data-password-toggle tabindex="4">
                                         <i class="fas fa-eye" aria-hidden="true"></i>
                                     </button>
@@ -258,29 +264,53 @@ html, body {
     <@passkeys.conditionalUIData />
     
     <script>
-        // Custom password visibility toggle
-        document.addEventListener('DOMContentLoaded', function() {
-            const toggleBtn = document.querySelector('[data-password-toggle]');
-            const passwordInput = document.getElementById('password');
-            
-            if (toggleBtn && passwordInput) {
-                toggleBtn.addEventListener('click', function() {
-                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                    passwordInput.setAttribute('type', type);
+        // Password visibility toggle functionality
+        (function() {
+            function initPasswordToggle() {
+                const toggleBtn = document.querySelector('[data-password-toggle]');
+                const passwordInput = document.getElementById('password');
+                
+                if (!toggleBtn || !passwordInput) {
+                    console.warn('Password toggle elements not found');
+                    return;
+                }
+                
+                toggleBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const currentType = passwordInput.getAttribute('type');
+                    const newType = currentType === 'password' ? 'text' : 'password';
+                    
+                    passwordInput.setAttribute('type', newType);
                     
                     const icon = toggleBtn.querySelector('i');
-                    if (type === 'text') {
+                    if (newType === 'text') {
                         icon.className = 'fas fa-eye-slash';
-                        toggleBtn.setAttribute('aria-label', '${msg("hidePassword")}');
+                        toggleBtn.setAttribute('aria-label', 'Hide password');
                     } else {
                         icon.className = 'fas fa-eye';
-                        toggleBtn.setAttribute('aria-label', '${msg("showPassword")}');
+                        toggleBtn.setAttribute('aria-label', 'Show password');
+                    }
+                });
+                
+                // Handle keyboard accessibility
+                toggleBtn.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggleBtn.click();
                     }
                 });
             }
-        });
+            
+            // Initialize when DOM is ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initPasswordToggle);
+            } else {
+                initPasswordToggle();
+            }
+        })();
     </script>
-    <script type="module" src="${url.resourcesPath}/js/passwordVisibility.js"></script>
+    
     <#elseif section = "info">
         <#-- This section is handled within the form section above -->
     <#elseif section = "socialProviders">
