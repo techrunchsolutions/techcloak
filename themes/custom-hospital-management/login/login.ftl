@@ -11,6 +11,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+.hos-text {
+color: white !important;
+}
+
         /* Override Keycloak default styling */
         #kc-info-wrapper {
             display: none;
@@ -128,7 +132,7 @@ html, body {
                         <h1>MediCare</h1>
                     </div>
                     <h2 id="hero-title">Welcome to the Future of Healthcare</h2>
-                    <p id="hero-description">Streamlined hospital management system designed to enhance patient care and operational efficiency.</p>
+                    <p class="hos-text" id="hero-description">Streamlined hospital management system designed to enhance patient care and operational efficiency.</p>
                     <div class="features">
                         <div class="feature">
                             <i class="fas fa-users feature-icon"></i>
