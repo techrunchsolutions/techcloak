@@ -76,6 +76,7 @@
             padding: 4px;
             border-radius: 4px;
             transition: color 0.2s;
+            z-index: 10;
         }
         
         .password-toggle-btn:hover {
@@ -86,15 +87,8 @@
             position: relative;
         }
         
-        .input-wrapper input[type="password"],
-        .input-wrapper input[type="text"],
-        .input-wrapper input[type="email"] {
+        .input-wrapper input[type="password"] {
             padding-right: 2.5rem;
-        }
-        
-        /* Hide original Keycloak password visibility buttons */
-        .kc-form-password-visibility-button {
-            display: none;
         }
     </style>
 
@@ -145,140 +139,124 @@
                     </div>
 
                     <form class="auth-form" id="kc-register-form" action="${url.registrationAction}" method="post">
-                        <@userProfileCommons.userProfileFormFields; callback, attribute>
-                            <#if callback = "beforeField">
-                                <#-- Handle first name field -->
-                                <#if attribute.name == 'firstName'>
-                                    <div class="form-row">
-                                        <div class="form-group">
-                                            <label for="${attribute.name}">
-                                                ${advancedMsg(attribute.displayName!'')}<#if attribute.required> *</#if>
-                                            </label>
-                                            <div class="input-wrapper">
-                                                <i class="fas fa-user input-icon"></i>
-                                                <@userProfileCommons.inputFieldByType attribute=attribute/>
-                                            </div>
-                                            <#if messagesPerField.existsError('${attribute.name}')>
-                                                <span class="error-message">
-                                                    ${kcSanitize(messagesPerField.get('${attribute.name}'))?no_esc}
-                                                </span>
-                                            </#if>
-                                        </div>
-                                        
-                                <#-- Handle last name field within the same row -->
-                                <#elseif attribute.name == 'lastName'>
-                                        <div class="form-group">
-                                            <label for="${attribute.name}">
-                                                ${advancedMsg(attribute.displayName!'')}<#if attribute.required> *</#if>
-                                            </label>
-                                            <div class="input-wrapper">
-                                                <i class="fas fa-user input-icon"></i>
-                                                <@userProfileCommons.inputFieldByType attribute=attribute/>
-                                            </div>
-                                            <#if messagesPerField.existsError('${attribute.name}')>
-                                                <span class="error-message">
-                                                    ${kcSanitize(messagesPerField.get('${attribute.name}'))?no_esc}
-                                                </span>
-                                            </#if>
-                                        </div>
-                                    </div>
-                                    
-                                <#-- Handle email field -->
-                                <#elseif attribute.name == 'email'>
-                                    <div class="form-group">
-                                        <label for="${attribute.name}">
-                                            ${advancedMsg(attribute.displayName!'')}<#if attribute.required> *</#if>
-                                        </label>
-                                        <div class="input-wrapper">
-                                            <i class="fas fa-envelope input-icon"></i>
-                                            <@userProfileCommons.inputFieldByType attribute=attribute/>
-                                        </div>
-                                        <#if messagesPerField.existsError('${attribute.name}')>
-                                            <span class="error-message">
-                                                ${kcSanitize(messagesPerField.get('${attribute.name}'))?no_esc}
-                                            </span>
-                                        </#if>
-                                    </div>
-                                    
-                                <#-- Handle username field -->
-                                <#elseif attribute.name == 'username'>
-                                    <div class="form-group">
-                                        <label for="${attribute.name}">
-                                            ${advancedMsg(attribute.displayName!'')}<#if attribute.required> *</#if>
-                                        </label>
-                                        <div class="input-wrapper">
-                                            <i class="fas fa-user input-icon"></i>
-                                            <@userProfileCommons.inputFieldByType attribute=attribute/>
-                                        </div>
-                                        <#if messagesPerField.existsError('${attribute.name}')>
-                                            <span class="error-message">
-                                                ${kcSanitize(messagesPerField.get('${attribute.name}'))?no_esc}
-                                            </span>
-                                        </#if>
-                                    </div>
-                                    
-                                <#-- Handle other fields with generic styling -->
-                                <#else>
-                                    <div class="form-group">
-                                        <label for="${attribute.name}">
-                                            ${advancedMsg(attribute.displayName!'')}<#if attribute.required> *</#if>
-                                        </label>
-                                        <div class="input-wrapper">
-                                            <i class="fas fa-briefcase input-icon"></i>
-                                            <@userProfileCommons.inputFieldByType attribute=attribute/>
-                                        </div>
-                                        <#if messagesPerField.existsError('${attribute.name}')>
-                                            <span class="error-message">
-                                                ${kcSanitize(messagesPerField.get('${attribute.name}'))?no_esc}
-                                            </span>
-                                        </#if>
-                                    </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-user input-icon"></i>
+                                    <input type="text" id="firstName" name="firstName" placeholder="Enter first name" 
+                                           value="${(register.formData.firstName!'')}" required>
+                                </div>
+                                <#if messagesPerField.existsError('firstName')>
+                                    <span class="error-message">
+                                        ${kcSanitize(messagesPerField.get('firstName'))?no_esc}
+                                    </span>
                                 </#if>
-                            </#if>
-                            
-                            <#if callback = "afterField">
-                                <#-- Render password fields after username or email -->
-                                <#if passwordRequired?? && (attribute.name == 'username' || (attribute.name == 'email' && realm.registrationEmailAsUsername))>
-                                    <div class="form-group">
-                                        <label for="password">${msg("password")} *</label>
-                                        <div class="input-wrapper">
-                                            <i class="fas fa-lock input-icon"></i>
-                                            <input type="password" id="password" name="password" placeholder="Create a password" 
-                                                   autocomplete="new-password"
-                                                   aria-invalid="<#if messagesPerField.existsError('password','password-confirm')>true</#if>" required>
-                                            <button class="password-toggle-btn" type="button" aria-label="${msg('showPassword')}"
-                                                    aria-controls="password" data-password-toggle="password">
-                                                <i class="fas fa-eye" aria-hidden="true"></i>
-                                            </button>
-                                        </div>
-                                        <#if messagesPerField.existsError('password')>
-                                            <span class="error-message">
-                                                ${kcSanitize(messagesPerField.get('password'))?no_esc}
-                                            </span>
-                                        </#if>
-                                    </div>
+                            </div>
 
-                                    <div class="form-group">
-                                        <label for="password-confirm">${msg("passwordConfirm")} *</label>
-                                        <div class="input-wrapper">
-                                            <i class="fas fa-lock input-icon"></i>
-                                            <input type="password" id="password-confirm" name="password-confirm" 
-                                                   placeholder="Confirm your password" autocomplete="new-password"
-                                                   aria-invalid="<#if messagesPerField.existsError('password-confirm')>true</#if>" required>
-                                            <button class="password-toggle-btn" type="button" aria-label="${msg('showPassword')}"
-                                                    aria-controls="password-confirm" data-password-toggle="password-confirm">
-                                                <i class="fas fa-eye" aria-hidden="true"></i>
-                                            </button>
-                                        </div>
-                                        <#if messagesPerField.existsError('password-confirm')>
-                                            <span class="error-message">
-                                                ${kcSanitize(messagesPerField.get('password-confirm'))?no_esc}
-                                            </span>
-                                        </#if>
-                                    </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-user input-icon"></i>
+                                    <input type="text" id="lastName" name="lastName" placeholder="Enter last name" 
+                                           value="${(register.formData.lastName!'')}" required>
+                                </div>
+                                <#if messagesPerField.existsError('lastName')>
+                                    <span class="error-message">
+                                        ${kcSanitize(messagesPerField.get('lastName'))?no_esc}
+                                    </span>
                                 </#if>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-envelope input-icon"></i>
+                                <input type="email" id="email" name="email" placeholder="Enter your email" 
+                                       value="${(register.formData.email!'')}" required>
+                            </div>
+                            <#if messagesPerField.existsError('email')>
+                                <span class="error-message">
+                                    ${kcSanitize(messagesPerField.get('email'))?no_esc}
+                                </span>
                             </#if>
-                        </@userProfileCommons.userProfileFormFields>
+                        </div>
+
+                        <#if !realm.registrationEmailAsUsername>
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-user input-icon"></i>
+                                    <input type="text" id="username" name="username" placeholder="Enter username" 
+                                           value="${(register.formData.username!'')}" required>
+                                </div>
+                                <#if messagesPerField.existsError('username')>
+                                    <span class="error-message">
+                                        ${kcSanitize(messagesPerField.get('username'))?no_esc}
+                                    </span>
+                                </#if>
+                            </div>
+                        </#if>
+
+                        <!-- Custom role field if needed -->
+                        <div class="form-group">
+                            <label for="user.attributes.role">Role</label>
+                            <div class="input-wrapper">
+                                <i class="fas fa-briefcase input-icon"></i>
+                                <select id="user.attributes.role" name="user.attributes.role" required>
+                                    <option value="">Select your role</option>
+                                    <option value="doctor" <#if (register.formData['user.attributes.role']!'') == 'doctor'>selected</#if>>Doctor</option>
+                                    <option value="nurse" <#if (register.formData['user.attributes.role']!'') == 'nurse'>selected</#if>>Nurse</option>
+                                    <option value="admin" <#if (register.formData['user.attributes.role']!'') == 'admin'>selected</#if>>Administrator</option>
+                                    <option value="pharmacist" <#if (register.formData['user.attributes.role']!'') == 'pharmacist'>selected</#if>>Pharmacist</option>
+                                    <option value="technician" <#if (register.formData['user.attributes.role']!'') == 'technician'>selected</#if>>Medical Technician</option>
+                                </select>
+                            </div>
+                            <#if messagesPerField.existsError('user.attributes.role')>
+                                <span class="error-message">
+                                    ${kcSanitize(messagesPerField.get('user.attributes.role'))?no_esc}
+                                </span>
+                            </#if>
+                        </div>
+
+                        <#if passwordRequired??>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-lock input-icon"></i>
+                                    <input type="password" id="password" name="password" placeholder="Create a password" 
+                                           autocomplete="new-password" required>
+                                    <button class="password-toggle-btn" type="button" aria-label="${msg('showPassword')}"
+                                            onclick="togglePassword('password')">
+                                        <i class="fas fa-eye" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <#if messagesPerField.existsError('password')>
+                                    <span class="error-message">
+                                        ${kcSanitize(messagesPerField.get('password'))?no_esc}
+                                    </span>
+                                </#if>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password-confirm">Confirm Password</label>
+                                <div class="input-wrapper">
+                                    <i class="fas fa-lock input-icon"></i>
+                                    <input type="password" id="password-confirm" name="password-confirm" 
+                                           placeholder="Confirm your password" autocomplete="new-password" required>
+                                    <button class="password-toggle-btn" type="button" aria-label="${msg('showPassword')}"
+                                            onclick="togglePassword('password-confirm')">
+                                        <i class="fas fa-eye" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <#if messagesPerField.existsError('password-confirm')>
+                                    <span class="error-message">
+                                        ${kcSanitize(messagesPerField.get('password-confirm'))?no_esc}
+                                    </span>
+                                </#if>
+                            </div>
+                        </#if>
 
                         <@registerCommons.termsAcceptance/>
 
@@ -333,31 +311,21 @@
     </div>
 
     <script>
-        // Custom password visibility toggle
-        document.addEventListener('DOMContentLoaded', function() {
-            const toggleBtns = document.querySelectorAll('[data-password-toggle]');
+        function togglePassword(fieldId) {
+            const passwordField = document.getElementById(fieldId);
+            const toggleBtn = passwordField.parentNode.querySelector('.password-toggle-btn');
+            const icon = toggleBtn.querySelector('i');
             
-            toggleBtns.forEach(function(toggleBtn) {
-                const targetId = toggleBtn.getAttribute('data-password-toggle');
-                const passwordInput = document.getElementById(targetId);
-                
-                if (passwordInput) {
-                    toggleBtn.addEventListener('click', function() {
-                        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                        passwordInput.setAttribute('type', type);
-                        
-                        const icon = toggleBtn.querySelector('i');
-                        if (type === 'text') {
-                            icon.className = 'fas fa-eye-slash';
-                            toggleBtn.setAttribute('aria-label', '${msg("hidePassword")}');
-                        } else {
-                            icon.className = 'fas fa-eye';
-                            toggleBtn.setAttribute('aria-label', '${msg("showPassword")}');
-                        }
-                    });
-                }
-            });
-        });
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                icon.className = 'fas fa-eye-slash';
+                toggleBtn.setAttribute('aria-label', '${msg("hidePassword")}');
+            } else {
+                passwordField.type = 'password';
+                icon.className = 'fas fa-eye';
+                toggleBtn.setAttribute('aria-label', '${msg("showPassword")}');
+            }
+        }
     </script>
     <script type="module" src="${url.resourcesPath}/js/passwordVisibility.js"></script>
     </#if>
