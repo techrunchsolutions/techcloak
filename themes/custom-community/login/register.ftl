@@ -25,6 +25,10 @@
 display: none;
 }
 
+.login-pf-header {
+display: none;
+}
+
 h1#kc-page-title {
     display: none;
 }
@@ -149,6 +153,7 @@ display: none;
 </div>
 </#if>
 </@layout.registrationLayout>
+
 
 
 
