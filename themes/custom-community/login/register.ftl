@@ -12,7 +12,7 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <style>
 
-#email-error {
+.general-error {
 color: red !important;
 }
 
@@ -89,19 +89,55 @@ display: none;
 </div>
 
 <div class="flex min-h-screen relative z-10">
-    <!-- Left branding (reuse same content from login.ftl left panel) -->
+     <!-- Left branding -->
     <div class="desktop-left-panel w-1/2 flex-col justify-between p-12 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
         <div class="flex items-center gap-3 mb-12 animate-fade-in">
-            <div class="size-10 animate-pulse-slow">
-                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z" fill="white"/>
-                </svg>
-            </div>
+            <div class="size-10 animate-pulse-slow"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z" fill="white"/></svg></div>
             <h1 class="text-2xl font-bold">Connect</h1>
         </div>
-        <div class="max-w-md animate-fade-in">
-            <h2 class="text-4xl font-bold mb-6">Create your account</h2>
-            <p class="text-lg opacity-90 mb-8 comtext">Join our platform and start connecting with professionals today.</p>
+        <div class="max-w-md animate-fade-in" style="animation-delay: 0.3s">
+            <h2 class="text-4xl font-bold mb-6">Join our community of professionals</h2>
+            <p class="text-lg opacity-90 mb-8 comtext">Connect with coaches, expand your network, and accelerate your career growth with our platform.</p>
+            <div class="space-y-6">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0 h-10 w-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center mr-4">
+                    <i class="fas fa-users text-white"></i>
+                  </div>
+                  <p class="text-lg comtext">Connect with industry experts</p>
+                </div>
+                <div class="flex items-center">
+                  <div class="flex-shrink-0 h-10 w-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center mr-4">
+                    <i class="fas fa-graduation-cap text-white"></i>
+                  </div>
+                  <p class="text-lg comtext">Personalized coaching sessions</p>
+                </div>
+                <div class="flex items-center">
+                  <div class="flex-shrink-0 h-10 w-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center mr-4">
+                    <i class="fas fa-briefcase text-white"></i>
+                  </div>
+                  <p class="text-lg comtext">Career advancement opportunities</p>
+                </div>
+            </div>
+        </div>
+        <div class="animate-fade-in" style="animation-delay: 0.6s">
+          <div class="flex items-center space-x-2 mb-4">
+            <div class="w-8 h-8 rounded-full border-2 border-white overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=100&amp;q=80" alt="User" class="w-full h-full object-cover">
+            </div>
+            <div class="w-8 h-8 rounded-full border-2 border-white overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=100&amp;q=80" alt="User" class="w-full h-full object-cover">
+            </div>
+            <div class="w-8 h-8 rounded-full border-2 border-white overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=100&amp;q=80" alt="User" class="w-full h-full object-cover">
+            </div>
+            <div class="w-8 h-8 rounded-full border-2 border-white overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=100&amp;q=80" alt="User" class="w-full h-full object-cover">
+            </div>
+          </div>
+          <p class="text-sm opacity-80 comtext">
+            Join thousands of professionals who are already growing their
+            careers with Connect
+          </p>
         </div>
     </div>
 
@@ -146,7 +182,7 @@ display: none;
         <input type="email" id="email" name="email"
                class="input-focus px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
                placeholder="you@example.com" autocomplete="email" required/>
-        <p id="email-error" class="text-red-500 text-xs mt-1 hidden">Please enter a valid email address.</p>
+        <p id="email-error" class="text-red-500 text-xs mt-1 general-error hidden">Please enter a valid email address.</p>
     </div>
 
     <!-- Password -->
@@ -159,7 +195,7 @@ display: none;
                 class="absolute inset-y-0 right-3 flex items-center text-gray-500">
             <i class="fa-solid fa-eye"></i>
         </button>
-        <p id="password-error" class="text-red-500 text-xs mt-1 hidden">
+        <p id="password-error" class="text-red-500 text-xs mt-1 general-error hidden">
             Must be at least 8 characters, include uppercase, lowercase, and a special character.
         </p>
     </div>
@@ -174,7 +210,7 @@ display: none;
                 class="absolute inset-y-0 right-3 flex items-center text-gray-500">
             <i class="fa-solid fa-eye"></i>
         </button>
-        <p id="password-confirm-error" class="text-red-500 text-xs mt-1 hidden">
+        <p id="password-confirm-error" class="text-red-500 text-xs mt-1 general-error hidden">
             Passwords do not match.
         </p>
     </div>
@@ -283,6 +319,7 @@ function validateForm() {
 
 </#if>
 </@layout.registrationLayout>
+
 
 
 
