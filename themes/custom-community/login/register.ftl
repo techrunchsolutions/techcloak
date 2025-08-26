@@ -119,40 +119,142 @@ display: none;
                 <p class="text-gray-600 mb-6 text-sm">Create an account to start connecting</p>
 
                 <form id="kc-register-form" action="${url.registrationAction}" method="post" class="space-y-5">
-                    <@userProfileCommons.userProfileFormFields/>
+    <!-- First & Last Name -->
+    <div class="flex gap-4">
+        <div class="w-1/2">
+            <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">${msg("firstName")}</label>
+            <input type="text" id="firstName" name="firstName"
+                   class="input-focus px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                   placeholder="First Name" required/>
+        </div>
+        <div class="w-1/2">
+            <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">${msg("lastName")}</label>
+            <input type="text" id="lastName" name="lastName"
+                   class="input-focus px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+                   placeholder="Last Name" required/>
+        </div>
+    </div>
 
-                    <!-- Password -->
-                    <div>
-                        <label for="password" class="block text-sm font-medium text-gray-700 mb-1">${msg("password")}</label>
-                        <input type="password" id="password" name="password"
-                               class="input-focus px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
-                               placeholder="••••••••" autocomplete="new-password"/>
-                    </div>
+    <!-- Email -->
+    <div>
+        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">${msg("email")}</label>
+        <input type="email" id="email" name="email"
+               class="input-focus px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+               placeholder="you@example.com" autocomplete="email" required/>
+        <p id="email-error" class="text-red-500 text-xs mt-1 hidden">Please enter a valid email address.</p>
+    </div>
 
-                    <!-- Confirm Password -->
-                    <div>
-                        <label for="password-confirm" class="block text-sm font-medium text-gray-700 mb-1">${msg("passwordConfirm")}</label>
-                        <input type="password" id="password-confirm" name="password-confirm"
-                               class="input-focus px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
-                               placeholder="••••••••" autocomplete="new-password"/>
-                    </div>
+    <!-- Password -->
+    <div class="relative">
+        <label for="password" class="block text-sm font-medium text-gray-700 mb-1">${msg("password")}</label>
+        <input type="password" id="password" name="password"
+               class="input-focus px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full pr-10"
+               placeholder="••••••••" autocomplete="new-password" required/>
+        <button type="button" id="toggle-password"
+                class="absolute inset-y-0 right-3 flex items-center text-gray-500">
+            <i class="fa-solid fa-eye"></i>
+        </button>
+        <p id="password-error" class="text-red-500 text-xs mt-1 hidden">
+            Must be at least 8 characters, include uppercase, lowercase, and a special character.
+        </p>
+    </div>
 
-                    <!-- Submit -->
-                    <button type="submit"
-                            class="animate-gradient w-full py-3 px-4 rounded-lg text-white font-medium btn-transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
-                        ${msg("doRegister")}
-                    </button>
+    <!-- Confirm Password -->
+    <div class="relative">
+        <label for="password-confirm" class="block text-sm font-medium text-gray-700 mb-1">${msg("passwordConfirm")}</label>
+        <input type="password" id="password-confirm" name="password-confirm"
+               class="input-focus px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full pr-10"
+               placeholder="••••••••" autocomplete="new-password" required/>
+        <button type="button" id="toggle-password-confirm"
+                class="absolute inset-y-0 right-3 flex items-center text-gray-500">
+            <i class="fa-solid fa-eye"></i>
+        </button>
+        <p id="password-confirm-error" class="text-red-500 text-xs mt-1 hidden">
+            Passwords do not match.
+        </p>
+    </div>
 
-                    <p class="text-center text-sm text-gray-600 mt-4">
-                        Already have an account? <a href="${url.loginUrl}" class="text-blue-600 hover:underline">${msg("backToLogin")}</a>
-                    </p>
-                </form>
+    <!-- Submit -->
+    <button type="submit"
+            class="animate-gradient w-full py-3 px-4 rounded-lg text-white font-medium btn-transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+        ${msg("doRegister")}
+    </button>
+
+    <p class="text-center text-sm text-gray-600 mt-4">
+        Already have an account? <a href="${url.loginUrl}" class="text-blue-600 hover:underline">${msg("backToLogin")}</a>
+    </p>
+</form>
+
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    const emailInput = document.getElementById('email');
+    const emailError = document.getElementById('email-error');
+
+    const passwordInput = document.getElementById('password');
+    const passwordError = document.getElementById('password-error');
+
+    const confirmInput = document.getElementById('password-confirm');
+    const confirmError = document.getElementById('password-confirm-error');
+
+    const togglePassword = document.getElementById('toggle-password');
+    const togglePasswordConfirm = document.getElementById('toggle-password-confirm');
+
+    // Email Validation
+    emailInput.addEventListener('input', () => {
+        const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value);
+        emailError.classList.toggle('hidden', valid || emailInput.value === '');
+    });
+
+    // Password Validation
+    passwordInput.addEventListener('input', () => {
+        const valid = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/.test(passwordInput.value);
+        passwordError.classList.toggle('hidden', valid || passwordInput.value === '');
+        checkConfirmPassword();
+    });
+
+    // Confirm Password Validation
+    confirmInput.addEventListener('input', checkConfirmPassword);
+
+    function checkConfirmPassword() {
+        const matches = confirmInput.value === passwordInput.value;
+        confirmError.classList.toggle('hidden', matches || confirmInput.value === '');
+    }
+
+    // Toggle Visibility
+    togglePassword.addEventListener('click', () => {
+        const type = passwordInput.type === 'password' ? 'text' : 'password';
+        passwordInput.type = type;
+        togglePassword.innerHTML = type === 'password' ? '<i class="fa-solid fa-eye"></i>' : '<i class="fa-solid fa-eye-slash"></i>';
+    });
+
+    togglePasswordConfirm.addEventListener('click', () => {
+        const type = confirmInput.type === 'password' ? 'text' : 'password';
+        confirmInput.type = type;
+        togglePasswordConfirm.innerHTML = type === 'password' ? '<i class="fa-solid fa-eye"></i>' : '<i class="fa-solid fa-eye-slash"></i>';
+    });
+
+    // Final Submit Validation
+    document.getElementById('kc-register-form').addEventListener('submit', (e) => {
+        if (!emailInput.value || !passwordInput.value || !confirmInput.value ||
+            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value) ||
+            !/^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/.test(passwordInput.value) ||
+            confirmInput.value !== passwordInput.value) {
+            e.preventDefault();
+            emailInput.dispatchEvent(new Event('input'));
+            passwordInput.dispatchEvent(new Event('input'));
+            confirmInput.dispatchEvent(new Event('input'));
+        }
+    });
+</script>
+
+
 </#if>
 </@layout.registrationLayout>
+
 
 
 
