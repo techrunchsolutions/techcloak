@@ -186,34 +186,36 @@ display: none;
     </div>
 
     <!-- Password -->
-    <div class="relative">
-        <label for="password" class="block text-sm font-medium text-gray-700 mb-1">${msg("password")}</label>
-        <input type="password" id="password" name="password"
-               class="input-focus px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full pr-10"
-               placeholder="••••••••" autocomplete="new-password" required/>
-        <button type="button" id="toggle-password"
-                class="absolute inset-y-0 right-3 flex items-center text-gray-500">
-            <i class="fa-solid fa-eye"></i>
-        </button>
-        <p id="password-error" class="text-red-500 text-xs mt-1 general-error hidden">
-            Must be at least 8 characters, include uppercase, lowercase, and a special character.
-        </p>
-    </div>
+    <!-- Password -->
+<div class="relative">
+    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">${msg("password")}</label>
+    <input type="password" id="password" name="password"
+           class="input-focus px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full pr-10"
+           placeholder="••••••••" autocomplete="new-password" required/>
+    <button type="button" id="toggle-password"
+            class="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500">
+        <i class="fa-solid fa-eye"></i>
+    </button>
+    <p id="password-error" class="text-red-500 text-xs mt-1 general-error hidden">
+        Must be at least 8 characters, include uppercase, lowercase, and a special character.
+    </p>
+</div>
 
-    <!-- Confirm Password -->
-    <div class="relative">
-        <label for="password-confirm" class="block text-sm font-medium text-gray-700 mb-1">${msg("passwordConfirm")}</label>
-        <input type="password" id="password-confirm" name="password-confirm"
-               class="input-focus px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full pr-10"
-               placeholder="••••••••" autocomplete="new-password" required/>
-        <button type="button" id="toggle-password-confirm"
-                class="absolute inset-y-0 right-3 flex items-center text-gray-500">
-            <i class="fa-solid fa-eye"></i>
-        </button>
-        <p id="password-confirm-error" class="text-red-500 text-xs mt-1 general-error hidden">
-            Passwords do not match.
-        </p>
-    </div>
+<!-- Confirm Password -->
+<div class="relative">
+    <label for="password-confirm" class="block text-sm font-medium text-gray-700 mb-1">${msg("passwordConfirm")}</label>
+    <input type="password" id="password-confirm" name="password-confirm"
+           class="input-focus px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full pr-10"
+           placeholder="••••••••" autocomplete="new-password" required/>
+    <button type="button" id="toggle-password-confirm"
+            class="absolute top-1/2 right-3 -translate-y-1/2 text-gray-500">
+        <i class="fa-solid fa-eye"></i>
+    </button>
+    <p id="password-confirm-error" class="text-red-500 text-xs mt-1 general-error hidden">
+        Passwords do not match.
+    </p>
+</div>
+
 
     <!-- Submit -->
     <button type="submit" id="register-btn"
@@ -319,6 +321,7 @@ function validateForm() {
 
 </#if>
 </@layout.registrationLayout>
+
 
 
 
