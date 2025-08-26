@@ -11,7 +11,61 @@
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <style>
-        /* (Reuse your login.ftl's full CSS styles here exactly as-is) */
+        @media (min-width: 768px) {
+    .login-pf-page .login-pf-header {
+        margin-bottom: 0; 
+    }
+}
+
+.login-pf-page .login-pf-header {
+        margin-bottom: 0; 
+    }
+
+.login-pf-page-header {
+display: none;
+}
+
+h1#kc-page-title {
+    display: none;
+}
+
+.comtext {
+color: white !important;
+}
+
+.login-pf-page {
+    padding-top: 0;
+    border: none;
+}
+
+@media (min-width: 768px) {
+    .login-pf-page .card-pf {
+        padding: 0;
+    }
+}
+
+.login-pf-page .card-pf {
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.card-pf {
+    padding: 0;
+    max-width: 15000px; 
+    border: none;
+}
+
+.login-pf-header {
+display: none;
+}
+
+#kc-content-wrapper {
+    margin-top: 0;
+}
+
+.login-pf-signup {
+display: none;
+}
     </style>
 <#elseif section = "form">
 
@@ -95,5 +149,6 @@
 </div>
 </#if>
 </@layout.registrationLayout>
+
 
 
