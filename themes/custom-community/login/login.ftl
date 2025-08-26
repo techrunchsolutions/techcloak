@@ -426,6 +426,11 @@ display: none;
             </div>
 
             <#if realm.password && realm.registrationAllowed && !registrationDisabled??>
+            <p class="text-center text-sm text-gray-600 mt-4">
+    Don't have an account? 
+    <a href="${url.registrationUrl}" class="text-blue-600 hover:underline">Create one</a>
+</p>
+
             </#if>
         </div>
     </div>
