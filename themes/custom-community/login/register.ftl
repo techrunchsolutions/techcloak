@@ -180,8 +180,8 @@ display: none;
     </div>
 
     <!-- Submit -->
-    <button type="submit"
-            class="animate-gradient w-full py-3 px-4 rounded-lg text-white font-medium btn-transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+    <button type="submit" id="register-btn"
+            class="animate-gradient w-full py-3 px-4 rounded-lg text-white font-medium btn-transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 opacity-50 cursor-not-allowed">
         ${msg("doRegister")}
     </button>
 
@@ -254,11 +254,36 @@ display: none;
             confirmInput.dispatchEvent(new Event('input'));
         }
     });
+
+const registerBtn = document.getElementById('register-btn');
+
+// Validation check function
+function validateForm() {
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value);
+    const passwordValid = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/.test(passwordInput.value);
+    const confirmValid = confirmInput.value === passwordInput.value && passwordValid;
+    const firstNameValid = document.getElementById('firstName').value.trim() !== '';
+    const lastNameValid = document.getElementById('lastName').value.trim() !== '';
+
+    const formValid = emailValid && passwordValid && confirmValid && firstNameValid && lastNameValid;
+
+    registerBtn.disabled = !formValid;
+    registerBtn.classList.toggle('opacity-50', !formValid);
+    registerBtn.classList.toggle('cursor-not-allowed', !formValid);
+}
+
+// Add event listeners to all fields
+[emailInput, passwordInput, confirmInput,
+ document.getElementById('firstName'),
+ document.getElementById('lastName')]
+.forEach(input => input.addEventListener('input', validateForm));
+
 </script>
 
 
 </#if>
 </@layout.registrationLayout>
+
 
 
 
