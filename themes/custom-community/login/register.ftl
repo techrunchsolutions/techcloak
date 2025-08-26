@@ -206,6 +206,52 @@ display: none;
         background-color: #2a5dea;
         border-color: #2a5dea;
       }
+
+        .animate-shake {animation: shake 0.3s ease-in-out;}
+        @keyframes shake {
+            0%,100% {transform: translateX(0);}
+            25% {transform: translateX(-5px);}
+            75% {transform: translateX(5px);}
+        }
+        .input-focus:focus {box-shadow: 0 0 0 3px rgba(42,93,234,0.2);}
+        .checkbox:checked {background-color: #2a5dea; border-color: #2a5dea;}
+        .animate-gradient {
+            background: linear-gradient(-45deg, #2a5dea, #8a3ffc, #2a5dea);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+        }
+        @keyframes gradientShift {
+            0% {background-position:0% 50%;}
+            50% {background-position:100% 50%;}
+            100% {background-position:0% 50%;}
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        /* Responsive left panel */
+        .desktop-left-panel {
+            display: none;
+        }
+        
+        @media (min-width: 1024px) {
+            .desktop-left-panel {
+                display: flex !important;
+            }
+            .mobile-right-panel {
+                width: 50% !important;
+            }
+        }
+        
+        @media (max-width: 1023px) {
+            .mobile-right-panel {
+                width: 100% !important;
+            }
+        }
+
     </style>
 <#elseif section = "form">
 
@@ -452,6 +498,7 @@ function validateForm() {
 
 </#if>
 </@layout.registrationLayout>
+
 
 
 
