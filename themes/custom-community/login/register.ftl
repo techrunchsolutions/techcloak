@@ -11,6 +11,11 @@
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <style>
+
+#email-error {
+color: red !important;
+}
+
         @media (min-width: 768px) {
     .login-pf-page .login-pf-header {
         margin-bottom: 0; 
@@ -26,7 +31,7 @@ display: none;
 }
 
 .login-pf-header {
-display: none;
+display: none !important;
 }
 
 h1#kc-page-title {
@@ -181,7 +186,7 @@ display: none;
     </button>
 
     <p class="text-center text-sm text-gray-600 mt-4">
-        Already have an account? <a href="${url.loginUrl}" class="text-blue-600 hover:underline">${msg("backToLogin")}</a>
+        Already have an account? <a href="${url.loginUrl}" class="text-blue-600 hover:underline">Login</a>
     </p>
 </form>
 
@@ -254,6 +259,7 @@ display: none;
 
 </#if>
 </@layout.registrationLayout>
+
 
 
 
