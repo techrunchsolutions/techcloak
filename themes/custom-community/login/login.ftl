@@ -331,7 +331,7 @@
 </div>
 
 <!-- Desktop layout -->
-<div class="hidden lg:flex min-h-screen relative z-10">
+<div class="lg:flex min-h-screen relative z-10 hidden lg:block">
     <!-- Left branding panel (desktop only) -->
     <div class="desktop-left-panel w-1/2 flex-col justify-between p-12 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
         <div class="flex items-center gap-3 mb-12 animate-fade-in">
@@ -492,7 +492,7 @@
     <!-- Mobile content -->
     <div class="mobile-content">
         <div class="mobile-form-container">
-            <div class="mobile-glass-effect mobile-form-card shadow-xl mobile-fade-in" style="animation-delay: 0.2s">
+            <div class="mobile-glass-effect mobile-form-card mobile-fade-in" style="animation-delay: 0.2s">
                 <form id="kc-form-login-mobile" action="${url.loginAction}" method="post" class="space-y-6">
                     <!-- Username/Email -->
                     <div class="mobile-slide-down" style="animation-delay: 0.3s">
