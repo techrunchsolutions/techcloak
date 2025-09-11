@@ -215,14 +215,29 @@
         }
 
         /* Desktop layout (1024px and up) */
-        .desktop-left-panel {
+        .desktop-layout {
             display: none;
         }
 
+        .mobile-layout {
+            display: block;
+        }
+
         @media (min-width: 1024px) {
-            .desktop-left-panel {
+            .desktop-layout {
                 display: flex !important;
             }
+
+            .mobile-layout {
+                display: none !important;
+            }
+
+            .desktop-left-panel {
+                display: flex !important;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+
             .responsive-right-panel {
                 width: 50% !important;
             }
@@ -238,8 +253,12 @@
 
         /* Mobile layout (below 1024px) */
         @media (max-width: 1023px) {
-            .responsive-right-panel {
-                width: 100% !important;
+            .desktop-layout {
+                display: none !important;
+            }
+
+            .mobile-layout {
+                display: block !important;
             }
 
             /* Mobile-specific background */
@@ -331,9 +350,9 @@
 </div>
 
 <!-- Desktop layout -->
-<div class="lg:flex min-h-screen relative z-10 hidden lg:block">
+<div class="desktop-layout min-h-screen relative z-10">
     <!-- Left branding panel (desktop only) -->
-    <div class="desktop-left-panel w-1/2 flex-col justify-between p-12 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
+    <div class="desktop-left-panel w-1/2 p-12 bg-gradient-to-br from-blue-600 to-purple-600 text-white">
         <div class="flex items-center gap-3 mb-12 animate-fade-in">
             <div class="size-10 animate-pulse-slow">
                 <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -388,7 +407,7 @@
     </div>
 
     <!-- Desktop login form -->
-    <div class="responsive-right-panel w-full flex items-center justify-center p-8">
+    <div class="responsive-right-panel w-1/2 flex items-center justify-center p-8">
         <div class="w-full max-w-md">
             <div class="glass-effect rounded-2xl shadow-xl p-8 animate-fade-in" style="animation-delay: 0.2s">
                 <h2 class="text-2xl font-bold text-gray-800 mb-2">Welcome back</h2>
@@ -473,7 +492,7 @@
 </div>
 
 <!-- Mobile layout -->
-<div class="lg:hidden mobile-container relative z-10">
+<div class="mobile-layout mobile-container relative z-10">
     <!-- Mobile header -->
     <div class="mobile-header">
         <div class="text-center mobile-fade-in">
