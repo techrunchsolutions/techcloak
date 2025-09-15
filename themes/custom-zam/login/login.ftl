@@ -5,176 +5,97 @@
         ${msg("loginAccountTitle")}
     <#elseif section = "form">
         <style>
-          /* Custom CSS for the login page */
+          /* ===== CSS VARIABLES ===== */
+          :root {
+            --primary-color: #0066cc;
+            --primary-hover: #0052a3;
+            --error-color: #dc3545;
+            --success-color: #28a745;
+            --text-primary: #333;
+            --text-secondary: #6c757d;
+            --background-light: #f8f9fa;
+            --border-color: #dee2e6;
+            --border-radius: 8px;
+            --transition: 0.3s ease;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --input-height: 60px;
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+            --spacing-xl: 40px;
+            --spacing-xxl: 48px;
+          }
+
+          /* ===== RESET & BASE STYLES ===== */
           body {
             background-color: white !important;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: var(--font-family);
           }
 
-          .login-container {
-            min-height: 100vh;
-            display: flex;
+          html, body {
+            overflow-x: hidden;
           }
 
-.login-pf-page-header,
-        .login-pf-header,
-        h1#kc-page-title,
-        .login-pf-signup {
+          /* ===== KEYCLOAK OVERRIDES ===== */
+          .login-pf-page-header,
+          .login-pf-header,
+          h1#kc-page-title,
+          .login-pf-signup,
+          #kc-info-wrapper,
+          #kc-header,
+          #kc-page-title,
+          .login-pf-header {
             display: none !important;
-        }
+          }
 
-        .login-pf-page {
+          .login-pf-page {
             padding-top: 0;
             border: none;
-        }
+          }
 
-        .login-pf-page .card-pf {
+          .login-pf-page .card-pf {
             padding: 0;
             margin-bottom: 0;
             border: none;
             max-width: none;
-        }
+          }
 
-        #kc-content-wrapper {
+          #kc-content-wrapper {
             margin-top: 0;
-        }
+          }
 
-#kc-info-wrapper{
-display:none;
-}
+          .card-pf {
+            max-width: 15000px;
+            border-top: none;
+          }
 
-html, body {
-overflow-x: hidden;
-}
+          .kc-login #kc-form,
+          .kc-login #kc-form-wrapper {
+            width: 100% !important;
+          }
 
-#kc-header, #kc-page-title {
-    display: none;
-}
+          @media (min-width: 768px) {
+            .login-pf-page .card-pf {
+              padding: 0;
+            }
+          }
 
-.login-pf-header{
-display:none;
-}
+          /* ===== LAYOUT COMPONENTS ===== */
+          .auth-container {
+            min-height: 100vh;
+            display: flex;
+          }
 
-.login-pf-page {
-    padding-top: 0;
-}
-
-.card-pf {
-max-width: 15000px;
-border-top: none;
-}
-
-@media (min-width: 768px) {
-    .login-pf-page .card-pf {
-        padding: 0;
-    }
-}
-
-          .left-content {
+          .auth-sidebar {
             width: 50%;
             position: relative;
             overflow: hidden;
             display: none;
           }
 
-          @media (min-width: 992px) {
-            .left-content { display: block; }
-            .main-content { width: 50%; }
-          }
-
-          @media (max-width: 991px) {
-            .main-content { width: 100%; }
-          }
-
-          .background-container {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            overflow: hidden;
-          }
-
-          .carousel-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-          }
-
-          .carousel-image.active {
-            opacity: 1;
-          }
-
-          .decorative-ellipse-red {
-            position: absolute;
-            top: 20%;
-            right: 10%;
-            z-index: 2;
-          }
-
-          .decorative-ellipse {
-            position: absolute;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.1);
-          }
-
-          .decorative-ellipse-gray-large {
-            width: 200px;
-            height: 200px;
-            top: 10%;
-            left: 10%;
-          }
-
-          .decorative-ellipse-gray-medium {
-            width: 100px;
-            height: 100px;
-            bottom: 30%;
-            right: 20%;
-          }
-
-          .decorative-ellipse-gray-small {
-            width: 60px;
-            height: 60px;
-            bottom: 10%;
-            left: 30%;
-          }
-
-          .promotional-section {
-            position: absolute;
-            bottom: 40px;
-            left: 40px;
-            right: 40px;
-            z-index: 3;
-            backdrop-filter: blur(10px);
-            background: rgba(0, 0, 0, 0.4) !important;
-            border-radius: 12px;
-            padding: 24px;
-            color: white;
-          }
-
-          .carousel-indicator {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.5);
-            transition: all 0.3s ease;
-            display: inline-block;
-          }
-
-          .carousel-indicator-active {
-            width: 24px;
-            height: 8px;
-            border-radius: 4px;
-            background-color: white;
-            transition: all 0.3s ease;
-            display: inline-block;
-          }
-
-          .main-content {
-            padding: 40px;
+          .auth-main {
+            padding: var(--spacing-xl);
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -182,205 +103,81 @@ border-top: none;
             overflow-y: auto;
           }
 
-          .brand-header {
-            text-align: center;
-            margin-bottom: 32px;
-            margin-top: 40px;
+          @media (min-width: 992px) {
+            .auth-sidebar {
+              display: block;
+            }
+            .auth-main {
+              width: 50%;
+            }
           }
 
-          .brand-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+          @media (max-width: 991px) {
+            .auth-main {
+              width: 100%;
+            }
           }
 
-          .brand-title {
-            font-weight: bold;
-            font-size: 1.25rem;
-            margin: 0;
-            color: #333;
-          }
-
-          .page-title {
-            text-align: center;
-            margin-bottom: 48px;
-          }
-
-          .page-title h2 {
-            font-weight: bold;
-            font-size: 2.5rem;
-            color: #333;
-            margin: 0;
-          }
-
-          .login-form {
-            max-width: 532px;
-            margin: 0 auto;
-          }
-
-          .form-group {
-            margin-bottom: 24px;
-          }
-
-          .form-label {
-            font-weight: 600;
-            font-size: 1.25rem;
-            color: #333;
-            margin-bottom: 8px;
-            display: block;
-          }
-
-          .form-control-custom {
-            width: 100%;
-            height: 60px;
-            padding: 16px;
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-          }
-
-          .form-control-custom:focus {
-            outline: none;
-            border-color: #0066cc;
-            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
-          }
-
-          .form-control-custom.error {
-            border-color: #dc3545;
-          }
-
-          .input-container {
+          /* ===== CAROUSEL COMPONENTS ===== */
+          .carousel-container {
             position: relative;
-          }
-
-          .password-toggle {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #6c757d;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          }
-
-          .password-toggle svg {
-            width: 20px;
-            height: 20px;
-          }
-
-          .form-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-            gap: 16px;
-          }
-
-          .btn-link-custom {
-            background: none;
-            border: none;
-            color: #0066cc;
-            text-decoration: underline;
-            cursor: pointer;
-            padding: 0;
-            font-size: 1rem;
-          }
-
-          .remember-me {
-            margin-bottom: 16px;
-          }
-
-          .remember-me input {
-            margin-right: 8px;
-          }
-
-          .terms-text {
-            text-align: center;
-            margin-bottom: 24px;
-            color: #6c757d;
-            font-size: 0.9rem;
-          }
-
-          .btn-primary-custom {
             width: 100%;
-            height: 60px;
-            background-color: #0066cc;
-            border: none;
-            border-radius: 8px;
+            height: 100vh;
+            overflow: hidden;
+          }
+
+          .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.5s var(--transition);
+          }
+
+          .carousel-slide--active {
+            opacity: 1;
+          }
+
+          .carousel-overlay {
+            position: absolute;
+            bottom: var(--spacing-xl);
+            left: var(--spacing-xl);
+            right: var(--spacing-xl);
+            z-index: 3;
+            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            padding: var(--spacing-md);
             color: white;
-            font-size: 1.25rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-bottom: 24px;
           }
 
-          .btn-primary-custom:hover:not(:disabled) {
-            background-color: #0052a3;
-          }
-
-          .btn-primary-custom:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-          }
-
-          .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            margin: 32px 0;
-          }
-
-          .social-icon {
-            width: 48px;
-            height: 48px;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-          }
-
-          .social-icon:hover {
-            background-color: #f8f9fa;
-          }
-
-          .social-icon img {
-            width: 24px;
-            height: 24px;
-          }
-
-          .footer-text {
+          .carousel-content {
             text-align: center;
-            color: #6c757d;
+            margin-bottom: var(--spacing-md);
+          }
+
+          .carousel-title {
+            font-weight: 600;
+            font-size: 1.25rem;
+            margin-bottom: var(--spacing-sm);
+          }
+
+          .carousel-description {
             font-size: 0.9rem;
+            line-height: 1.4;
           }
 
-          .error-message {
-            color: #dc3545;
-            font-size: 0.875rem;
-            margin-top: 4px;
-          }
-
-          .carousel-nav {
+          .carousel-controls {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 16px;
+            gap: var(--spacing-sm);
           }
 
-          .carousel-btn {
+          .carousel-button {
             background: none;
             border: none;
             color: white;
@@ -394,115 +191,270 @@ border-top: none;
           .carousel-indicators {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: var(--spacing-xs);
           }
 
-          /* Bootstrap integration */
-          .kc-login #kc-form {
-            width: 100% !important;
+          .carousel-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            transition: all var(--transition);
+            display: inline-block;
           }
 
-          .kc-login #kc-form-wrapper {
-            width: 100% !important;
+          .carousel-indicator--active {
+            width: 24px;
+            height: 8px;
+            border-radius: 4px;
+            background-color: white;
+          }
+
+          /* ===== DECORATIVE ELEMENTS ===== */
+          .decorative-element {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+          }
+
+          .decorative-element--red {
+            top: 20%;
+            right: 10%;
+            z-index: 2;
+          }
+
+          .decorative-element--large {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 10%;
+          }
+
+          .decorative-element--medium {
+            width: 100px;
+            height: 100px;
+            bottom: 30%;
+            right: 20%;
+          }
+
+          .decorative-element--small {
+            width: 60px;
+            height: 60px;
+            bottom: 10%;
+            left: 30%;
+          }
+
+          /* ===== BRAND COMPONENTS ===== */
+          .brand-header {
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+          }
+
+          .brand-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-xs);
+          }
+
+          .brand-title {
+            font-weight: bold;
+            font-size: 1.25rem;
+            margin: 0;
+            color: var(--text-primary);
+          }
+
+          /* ===== PAGE TITLE ===== */
+          .page-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xxl);
+          }
+
+          .page-title {
+            font-weight: bold;
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            margin: 0;
+          }
+
+          /* ===== FORM COMPONENTS ===== */
+          .auth-form {
+            max-width: 532px;
+            margin: 0 auto;
+          }
+
+          .form-field {
+            margin-bottom: var(--spacing-md);
+          }
+
+          .form-label {
+            font-weight: 600;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-xs);
+            display: block;
+          }
+
+          .form-input {
+            width: 100%;
+            height: var(--input-height);
+            padding: var(--spacing-sm);
+            background-color: var(--background-light);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: border-color var(--transition);
+          }
+
+          .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+          }
+
+          .form-input--error {
+            border-color: var(--error-color);
+          }
+
+          .input-wrapper {
+            position: relative;
+          }
+
+          .input-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--text-secondary);
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .input-toggle svg {
+            width: 20px;
+            height: 20px;
+          }
+
+          /* ===== FORM ACTIONS ===== */
+          .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+          }
+
+          .link-button {
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            text-decoration: underline;
+            cursor: pointer;
+            padding: 0;
+            font-size: 1rem;
+          }
+
+          .checkbox-field {
+            margin-bottom: var(--spacing-sm);
+          }
+
+          .checkbox-field input {
+            margin-right: var(--spacing-xs);
+          }
+
+          .terms-text {
+            text-align: center;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+          }
+
+          /* ===== BUTTONS ===== */
+          .btn-primary {
+            width: 100%;
+            height: var(--input-height);
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: var(--border-radius);
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color var(--transition);
+            margin-bottom: var(--spacing-md);
+          }
+
+          .btn-primary:hover:not(:disabled) {
+            background-color: var(--primary-hover);
+          }
+
+          .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+          }
+
+          /* ===== UTILITY COMPONENTS ===== */
+          .error-message {
+            color: var(--error-color);
+            font-size: 0.875rem;
+            margin-top: 4px;
+          }
+
+          .footer-text {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
           }
         </style>
 
-        <div class="login-container">
-          <!-- Left Content (Hidden on smaller screens) -->
-          <div class="left-content">
-            <div class="background-container">
-              <!-- Background Images -->
-              <img
-                src="${url.resourcesPath}/img/car1.png"
-                alt=""
-                class="carousel-image active"
-                id="carousel-img-1"
-              />
-              <img
-                src="${url.resourcesPath}/img/car2.png"
-                alt=""
-                class="carousel-image"
-                id="carousel-img-2"
-              />
-              <img
-                src="${url.resourcesPath}/img/car3.png"
-                alt=""
-                class="carousel-image"
-                id="carousel-img-3"
-              />
+        <div class="auth-container">
+          <!-- Sidebar with Carousel -->
+          <div class="auth-sidebar">
+            <div class="carousel-container">
+              <!-- Carousel Images -->
+              <img src="${url.resourcesPath}/img/car1.png" alt="" class="carousel-slide carousel-slide--active" id="slide-1" />
+              <img src="${url.resourcesPath}/img/car2.png" alt="" class="carousel-slide" id="slide-2" />
+              <img src="${url.resourcesPath}/img/car3.png" alt="" class="carousel-slide" id="slide-3" />
 
               <!-- Decorative Elements -->
-              <svg
-                class="decorative-ellipse-red"
-                width="120"
-                height="120"
-                viewBox="0 0 179 95"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <ellipse
-                  cx="89.5"
-                  cy="86"
-                  rx="89.5"
-                  ry="86"
-                  fill="#EC232A"
-                ></ellipse>
+              <svg class="decorative-element decorative-element--red" width="120" height="120" viewBox="0 0 179 95" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <ellipse cx="89.5" cy="86" rx="89.5" ry="86" fill="#EC232A"></ellipse>
               </svg>
+              <div class="decorative-element decorative-element--large"></div>
+              <div class="decorative-element decorative-element--medium"></div>
+              <div class="decorative-element decorative-element--small"></div>
 
-              <div class="decorative-ellipse decorative-ellipse-gray-large"></div>
-              <div class="decorative-ellipse decorative-ellipse-gray-medium"></div>
-              <div class="decorative-ellipse decorative-ellipse-gray-small"></div>
-
-              <!-- Promotional Section -->
-              <div class="promotional-section">
-                <h3 style="font-weight: 600; font-size: 1.25rem; text-align: center; margin-bottom: 16px;">
-                  Discover your communication potential
-                </h3>
-                <p style="text-align: center; margin-bottom: 24px; font-size: 0.9rem; line-height: 1.4;">
-                  Tired of using non-privacy communication system? Customize your
-                  organization chat and branding the way its suit you and your
-                  business. We have all the parameters and functionalities you need
-                  to push your business communication to the next level.
-                </p>
-                <div class="carousel-nav">
-                  <button
-                    class="carousel-btn"
-                    id="carousel-prev"
-                    style="display: none"
-                    type="button"
-                  >
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      style="transform: rotate(90deg)"
-                    >
-                      <path
-                        d="M8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13ZM14 8C14 11.3137 11.3137 14 8 14C4.68629 14 2 11.3137 2 8C2 4.68629 4.68629 2 8 2C11.3137 2 14 4.68629 14 8ZM7.35355 5.14645L9.85355 7.64645C10.0488 7.84171 10.0488 8.15829 9.85355 8.35355L7.35355 10.8536C7.15829 11.0488 6.84171 11.0488 6.64645 10.8536C6.45118 10.6583 6.45118 10.3417 6.64645 10.1464L8.79289 8L6.64645 5.85355C6.45118 5.65829 6.45118 5.34171 6.64645 5.14645C6.84171 4.95118 7.15829 4.95118 7.35355 5.14645Z"
-                        fill="white"
-                      ></path>
+              <!-- Carousel Overlay -->
+              <div class="carousel-overlay">
+                <div class="carousel-content">
+                  <h3 class="carousel-title">Discover your communication potential</h3>
+                  <p class="carousel-description">
+                    Tired of using non-privacy communication system? Customize your
+                    organization chat and branding the way its suit you and your
+                    business. We have all the parameters and functionalities you need
+                    to push your business communication to the next level.
+                  </p>
+                </div>
+                <div class="carousel-controls">
+                  <button class="carousel-button" id="prev-btn" style="display: none" type="button">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(90deg)">
+                      <path d="M8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13ZM14 8C14 11.3137 11.3137 14 8 14C4.68629 14 2 11.3137 2 8C2 4.68629 4.68629 2 8 2C11.3137 2 14 4.68629 14 8ZM7.35355 5.14645L9.85355 7.64645C10.0488 7.84171 10.0488 8.15829 9.85355 8.35355L7.35355 10.8536C7.15829 11.0488 6.84171 11.0488 6.64645 10.8536C6.45118 10.6583 6.45118 10.3417 6.64645 10.1464L8.79289 8L6.64645 5.85355C6.45118 5.65829 6.45118 5.34171 6.64645 5.14645C6.84171 4.95118 7.15829 4.95118 7.35355 5.14645Z" fill="white"></path>
                     </svg>
                   </button>
                   <div class="carousel-indicators">
-                    <div class="carousel-indicator-active" id="indicator-1"></div>
+                    <div class="carousel-indicator carousel-indicator--active" id="indicator-1"></div>
                     <div class="carousel-indicator" id="indicator-2"></div>
                     <div class="carousel-indicator" id="indicator-3"></div>
                   </div>
-                  <button class="carousel-btn" id="carousel-next" type="button">
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      style="transform: rotate(-90deg)"
-                    >
-                      <path
-                        d="M8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13ZM14 8C14 11.3137 11.3137 14 8 14C4.68629 14 2 11.3137 2 8C2 4.68629 4.68629 2 8 2C11.3137 2 14 4.68629 14 8ZM7.35355 5.14645L9.85355 7.64645C10.0488 7.84171 10.0488 8.15829 9.85355 8.35355L7.35355 10.8536C7.15829 11.0488 6.84171 11.0488 6.64645 10.8536C6.45118 10.6583 6.45118 10.3417 6.64645 10.1464L8.79289 8L6.64645 5.85355C6.45118 5.65829 6.45118 5.34171 6.64645 5.14645C6.84171 4.95118 7.15829 4.95118 7.35355 5.14645Z"
-                        fill="white"
-                      ></path>
+                  <button class="carousel-button" id="next-btn" type="button">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(-90deg)">
+                      <path d="M8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13ZM14 8C14 11.3137 11.3137 14 8 14C4.68629 14 2 11.3137 2 8C2 4.68629 4.68629 2 8 2C11.3137 2 14 4.68629 14 8ZM7.35355 5.14645L9.85355 7.64645C10.0488 7.84171 10.0488 8.15829 9.85355 8.35355L7.35355 10.8536C7.15829 11.0488 6.84171 11.0488 6.64645 10.8536C6.45118 10.6583 6.45118 10.3417 6.64645 10.1464L8.79289 8L6.64645 5.85355C6.45118 5.65829 6.45118 5.34171 6.64645 5.14645C6.84171 4.95118 7.15829 4.95118 7.35355 5.14645Z" fill="white"></path>
                     </svg>
                   </button>
                 </div>
@@ -510,29 +462,29 @@ border-top: none;
             </div>
           </div>
 
-          <!-- Main Content Area -->
-          <div class="main-content">
-            <!-- Header with Logo -->
-            <div class="brand-header">
+          <!-- Main Content -->
+          <main class="auth-main">
+            <!-- Brand Header -->
+            <header class="brand-header">
               <div class="brand-logo">
                 <img src="${url.resourcesPath}/img/NASD Product logos.png" alt="NASD Logo" />
                 <h1 class="brand-title">NASD-Communication System</h1>
               </div>
-            </div>
+            </header>
 
             <!-- Page Title -->
-            <div class="page-title">
-              <h2>Login to your account</h2>
+            <div class="page-header">
+              <h2 class="page-title">Login to your account</h2>
             </div>
 
-            <!-- Keycloak Login Form -->
+            <!-- Login Form -->
             <div id="kc-form">
               <div id="kc-form-wrapper">
                 <#if realm.password>
-                  <form id="kc-form-login" onsubmit="login.disabled = true; return true;" action="${url.loginAction}" method="post" class="login-form">
+                  <form id="kc-form-login" onsubmit="login.disabled = true; return true;" action="${url.loginAction}" method="post" class="auth-form">
 
                     <#if !usernameHidden??>
-                      <div class="form-group">
+                      <div class="form-field">
                         <label for="username" class="form-label">
                           <#if !realm.loginWithEmailAllowed>
                             ${msg("username")}
@@ -545,7 +497,7 @@ border-top: none;
                         <input
                           tabindex="2"
                           id="username"
-                          class="form-control-custom <#if messagesPerField.existsError('username','password')>error</#if>"
+                          class="form-input <#if messagesPerField.existsError('username','password')>form-input--error</#if>"
                           name="username"
                           value="${(login.username!'')}"
                           type="text"
@@ -564,13 +516,13 @@ border-top: none;
                       </div>
                     </#if>
 
-                    <div class="form-group">
+                    <div class="form-field">
                       <label for="password" class="form-label">Password</label>
-                      <div class="input-container">
+                      <div class="input-wrapper">
                         <input
                           tabindex="3"
                           id="password"
-                          class="form-control-custom <#if messagesPerField.existsError('username','password')>error</#if>"
+                          class="form-input <#if messagesPerField.existsError('username','password')>form-input--error</#if>"
                           name="password"
                           type="password"
                           autocomplete="current-password"
@@ -579,7 +531,7 @@ border-top: none;
                           style="padding-right: 50px;"
                           required
                         />
-                        <span class="password-toggle" id="password-toggle">
+                        <span class="input-toggle" id="password-toggle">
                           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
                           </svg>
@@ -594,7 +546,7 @@ border-top: none;
 
                     <div class="form-actions">
                       <#if realm.resetPasswordAllowed>
-                        <a tabindex="6" href="${url.loginResetCredentialsUrl}" class="btn-link-custom">
+                        <a tabindex="6" href="${url.loginResetCredentialsUrl}" class="link-button">
                           Forgot password?
                         </a>
                       <#else>
@@ -602,14 +554,14 @@ border-top: none;
                       </#if>
 
                       <#if realm.registrationAllowed && !registrationDisabled??>
-                        <a tabindex="8" href="${url.registrationUrl}" class="btn-link-custom">
+                        <a tabindex="8" href="${url.registrationUrl}" class="link-button">
                           Create account
                         </a>
                       </#if>
                     </div>
 
                     <#if realm.rememberMe && !usernameHidden??>
-                      <div class="remember-me">
+                      <div class="checkbox-field">
                         <label>
                           <input tabindex="5" id="rememberMe" name="rememberMe" type="checkbox" <#if login.rememberMe??>checked</#if>>
                           ${msg("rememberMe")}
@@ -619,19 +571,13 @@ border-top: none;
 
                     <div class="terms-text">
                       By registering, you agree to ZAM's
-                      <button type="button" class="btn-link-custom" style="font-size: 0.9rem;">Terms of Service</button>
+                      <button type="button" class="link-button" style="font-size: 0.9rem;">Terms of Service</button>
                       and
-                      <button type="button" class="btn-link-custom" style="font-size: 0.9rem;">Privacy Policy</button>
+                      <button type="button" class="link-button" style="font-size: 0.9rem;">Privacy Policy</button>
                     </div>
 
                     <input type="hidden" id="id-hidden-input" name="credentialId" <#if auth.selectedCredential?has_content>value="${auth.selectedCredential}"</#if>/>
-                    <button
-                      tabindex="7"
-                      class="btn-primary-custom"
-                      name="login"
-                      id="kc-login"
-                      type="submit"
-                    >
+                    <button tabindex="7" class="btn-primary" name="login" id="kc-login" type="submit">
                       Sign in
                     </button>
                   </form>
@@ -640,120 +586,140 @@ border-top: none;
             </div>
 
             <!-- Footer -->
-            <div class="footer-text">
+            <footer class="footer-text">
               © 2024 NASD Plc. All rights reserved
-            </div>
-          </div>
+            </footer>
+          </main>
         </div>
 
         <script>
-          // Carousel functionality
-          let currentSlide = 1;
-          const totalSlides = 3;
-          let autoSlideInterval;
+          // ===== CAROUSEL MODULE =====
+          const CarouselManager = {
+            currentSlide: 1,
+            totalSlides: 3,
+            autoSlideInterval: null,
 
-          function showSlide(slideNumber) {
-            // Hide all images
-            for (let i = 1; i <= totalSlides; i++) {
-              const img = document.getElementById('carousel-img-' + i);
-              const indicator = document.getElementById('indicator-' + i);
-              if (img) img.classList.remove("active");
-              if (indicator) indicator.className = "carousel-indicator";
-            }
+            init() {
+              this.bindEvents();
+              this.startAutoSlide();
+            },
 
-            // Show current image
-            const currentImg = document.getElementById('carousel-img-' + slideNumber);
-            const currentIndicator = document.getElementById('indicator-' + slideNumber);
-            if (currentImg) currentImg.classList.add("active");
-            if (currentIndicator) currentIndicator.className = "carousel-indicator-active";
+            bindEvents() {
+              const nextBtn = document.getElementById('next-btn');
+              const prevBtn = document.getElementById('prev-btn');
 
-            // Update navigation buttons
-            const prevBtn = document.getElementById("carousel-prev");
-            const nextBtn = document.getElementById("carousel-next");
-            if (prevBtn) prevBtn.style.display = slideNumber === 1 ? "none" : "block";
-            if (nextBtn) nextBtn.style.display = slideNumber === totalSlides ? "none" : "block";
-          }
-
-          function nextSlide() {
-            if (currentSlide < totalSlides) {
-              currentSlide++;
-              showSlide(currentSlide);
-            }
-          }
-
-          function prevSlide() {
-            if (currentSlide > 1) {
-              currentSlide--;
-              showSlide(currentSlide);
-            }
-          }
-
-          function startAutoSlide() {
-            autoSlideInterval = setInterval(function() {
-              if (currentSlide < totalSlides) {
-                nextSlide();
-              } else {
-                currentSlide = 1;
-                showSlide(currentSlide);
+              if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                  this.stopAutoSlide();
+                  this.nextSlide();
+                  this.startAutoSlide();
+                });
               }
-            }, 5000);
-          }
 
-          function stopAutoSlide() {
-            if (autoSlideInterval) {
-              clearInterval(autoSlideInterval);
-            }
-          }
+              if (prevBtn) {
+                prevBtn.addEventListener('click', () => {
+                  this.stopAutoSlide();
+                  this.prevSlide();
+                  this.startAutoSlide();
+                });
+              }
+            },
 
-          // Initialize when DOM is ready
-          document.addEventListener('DOMContentLoaded', function() {
-            // Event listeners for carousel
-            const nextBtn = document.getElementById("carousel-next");
-            const prevBtn = document.getElementById("carousel-prev");
+            showSlide(slideNumber) {
+              // Update slides
+              for (let i = 1; i <= this.totalSlides; i++) {
+                const slide = document.getElementById(`slide-${i}`);
+                const indicator = document.getElementById(`indicator-${i}`);
 
-            if (nextBtn) {
-              nextBtn.addEventListener("click", function() {
-                stopAutoSlide();
-                nextSlide();
-                startAutoSlide();
-              });
-            }
-
-            if (prevBtn) {
-              prevBtn.addEventListener("click", function() {
-                stopAutoSlide();
-                prevSlide();
-                startAutoSlide();
-              });
-            }
-
-            // Start auto-slide
-            startAutoSlide();
-
-            // Password toggle functionality
-            const passwordToggle = document.getElementById("password-toggle");
-            const passwordInput = document.getElementById("password");
-
-            if (passwordToggle && passwordInput) {
-              passwordToggle.addEventListener("click", function() {
-                if (passwordInput.type === "password") {
-                  passwordInput.type = "text";
-                  passwordToggle.innerHTML = `
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
-                      <path d="M3 3l18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                  `;
-                } else {
-                  passwordInput.type = "password";
-                  passwordToggle.innerHTML = `
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
-                    </svg>
-                  `;
+                if (slide) {
+                  slide.classList.toggle('carousel-slide--active', i === slideNumber);
                 }
-              });
+
+                if (indicator) {
+                  indicator.classList.toggle('carousel-indicator--active', i === slideNumber);
+                }
+              }
+
+              // Update navigation buttons
+              const prevBtn = document.getElementById('prev-btn');
+              const nextBtn = document.getElementById('next-btn');
+
+              if (prevBtn) prevBtn.style.display = slideNumber === 1 ? 'none' : 'block';
+              if (nextBtn) nextBtn.style.display = slideNumber === this.totalSlides ? 'none' : 'block';
+            },
+
+            nextSlide() {
+              if (this.currentSlide < this.totalSlides) {
+                this.currentSlide++;
+                this.showSlide(this.currentSlide);
+              }
+            },
+
+            prevSlide() {
+              if (this.currentSlide > 1) {
+                this.currentSlide--;
+                this.showSlide(this.currentSlide);
+              }
+            },
+
+            startAutoSlide() {
+              this.autoSlideInterval = setInterval(() => {
+                if (this.currentSlide < this.totalSlides) {
+                  this.nextSlide();
+                } else {
+                  this.currentSlide = 1;
+                  this.showSlide(this.currentSlide);
+                }
+              }, 5000);
+            },
+
+            stopAutoSlide() {
+              if (this.autoSlideInterval) {
+                clearInterval(this.autoSlideInterval);
+              }
             }
+          };
+
+          // ===== PASSWORD TOGGLE MODULE =====
+          const PasswordToggle = {
+            init() {
+              this.setupToggle('password', 'password-toggle');
+            },
+
+            setupToggle(inputId, toggleId) {
+              const input = document.getElementById(inputId);
+              const toggle = document.getElementById(toggleId);
+
+              if (input && toggle) {
+                toggle.addEventListener('click', () => {
+                  this.toggleVisibility(input, toggle);
+                });
+              }
+            },
+
+            toggleVisibility(input, toggle) {
+              const isPassword = input.type === 'password';
+              input.type = isPassword ? 'text' : 'password';
+              toggle.innerHTML = this.getToggleIcon(isPassword);
+            },
+
+            getToggleIcon(showPassword) {
+              const basePath = 'M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z';
+              const hiddenPath = showPassword ? '<path d="M3 3l18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>' : '';
+
+              return `
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="${basePath}" fill="currentColor"/>
+                  ${hiddenPath}
+                </svg>
+              `;
+            }
+          };
+
+          // ===== APPLICATION INITIALIZATION =====
+          document.addEventListener('DOMContentLoaded', () => {
+            CarouselManager.init();
+            PasswordToggle.init();
           });
         </script>
 
