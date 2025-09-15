@@ -2,11 +2,15 @@
 <@layout.registrationLayout displayMessage=messagesPerField.exists('global') displayRequiredFields=true; section>
     <#if section == "header">
         <title>Sign Up - NASD ZAM</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet"/>
-        <link rel="stylesheet" href="${url.resourcesPath}/css/register.css"/>
     <#elseif section == "form">
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+/* Hide default Keycloak elements */
 .login-pf-page-header,
 .login-pf-header,
 h1#kc-page-title,
@@ -31,15 +35,20 @@ h1#kc-page-title,
 }
 
 body {
-    background-color: white !important;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 .register-container {
     min-height: 100vh;
     display: flex;
+    position: relative;
+    overflow: hidden;
 }
 
+/* Left Content - Enhanced Carousel */
 .left-content {
     width: 50%;
     position: relative;
@@ -71,13 +80,75 @@ body {
     height: 100%;
     object-fit: cover;
     opacity: 0;
-    transition: opacity 0.5s ease-in-out;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: scale(1.1);
 }
 
 .carousel-image.active {
     opacity: 1;
+    transform: scale(1);
 }
 
+/* Enhanced decorative elements */
+.decorative-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3));
+    z-index: 1;
+}
+
+.floating-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+    backdrop-filter: blur(10px);
+    animation: float 6s ease-in-out infinite;
+}
+
+.shape-1 {
+    width: 200px;
+    height: 200px;
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.shape-2 {
+    width: 120px;
+    height: 120px;
+    top: 60%;
+    right: 15%;
+    animation-delay: 2s;
+}
+
+.shape-3 {
+    width: 80px;
+    height: 80px;
+    bottom: 20%;
+    left: 30%;
+    animation-delay: 4s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-20px) rotate(5deg); }
+    66% { transform: translateY(10px) rotate(-3deg); }
+}
+
+/* Main Content - Enhanced */
 .main-content {
     padding: 40px;
     display: flex;
@@ -85,98 +156,209 @@ body {
     justify-content: flex-start;
     min-height: 100vh;
     overflow-y: auto;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.95));
+    backdrop-filter: blur(20px);
+    position: relative;
 }
 
+.main-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23000" opacity="0.02"/><circle cx="75" cy="75" r="1" fill="%23000" opacity="0.02"/><circle cx="50" cy="10" r="1" fill="%23000" opacity="0.02"/><circle cx="10" cy="90" r="1" fill="%23000" opacity="0.02"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    pointer-events: none;
+    z-index: 1;
+}
+
+.main-content > * {
+    position: relative;
+    z-index: 2;
+}
+
+/* Enhanced brand header */
 .brand-header {
     text-align: center;
-    margin-bottom: 32px;
-    margin-top: 40px;
+    margin-bottom: 40px;
+    margin-top: 20px;
+    animation: fadeInDown 1s ease-out;
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .brand-logo {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 12px;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4));
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 350px;
+    margin: 0 auto;
+    transition: transform 0.3s ease;
+}
+
+.brand-logo:hover {
+    transform: translateY(-2px);
+}
+
+.brand-logo img {
+    transition: transform 0.3s ease;
+}
+
+.brand-logo:hover img {
+    transform: scale(1.05);
 }
 
 .brand-title {
-    font-weight: bold;
-    font-size: 1.25rem;
+    font-weight: 700;
+    font-size: 1.3rem;
     margin: 0;
-    color: #333;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
+/* Enhanced page title */
 .page-title {
     text-align: center;
-    margin-bottom: 48px;
+    margin-bottom: 40px;
+    animation: fadeInUp 1s ease-out 0.2s both;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .page-title h2 {
-    font-weight: bold;
-    font-size: 2.5rem;
-    color: #333;
+    font-weight: 700;
+    font-size: 2.8rem;
+    background: linear-gradient(135deg, #1e293b, #475569);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin: 0;
+    position: relative;
 }
 
+.page-title h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 2px;
+}
+
+/* Enhanced form styling */
 .register-form {
-    max-width: 532px;
+    max-width: 520px;
     margin: 0 auto;
+    animation: fadeInUp 1s ease-out 0.4s both;
 }
 
 .form-group {
-    margin-bottom: 24px;
+    margin-bottom: 28px;
+    position: relative;
 }
 
 .form-label {
     font-weight: 600;
-    font-size: 1.25rem;
-    color: #333;
-    margin-bottom: 8px;
+    font-size: 1.1rem;
+    color: #374151;
+    margin-bottom: 12px;
     display: block;
+    transition: all 0.3s ease;
 }
 
 .form-control-custom {
     width: 100%;
-    height: 60px;
-    padding: 16px;
-    background-color: #f8f9fa;
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: border-color 0.3s ease;
+    height: 64px;
+    padding: 20px 24px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.9));
+    border: 2px solid rgba(203, 213, 225, 0.5);
+    border-radius: 16px;
+    font-size: 1.1rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 .form-control-custom:focus {
     outline: none;
-    border-color: #0066cc;
-    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+    border-color: #667eea;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1), 0 8px 30px rgba(102, 126, 234, 0.15);
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.95);
 }
 
 .form-control-custom.error {
-    border-color: #dc3545;
+    border-color: #ef4444;
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
+    animation: shake 0.5s ease-in-out;
 }
 
 .form-control-custom.valid {
-    border-color: #28a745;
+    border-color: #10b981;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
 }
 
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.form-control-custom::placeholder {
+    color: #9ca3af;
+    transition: opacity 0.3s ease;
+}
+
+.form-control-custom:focus::placeholder {
+    opacity: 0.7;
+}
+
+/* Enhanced input container */
 .input-container {
     position: relative;
 }
 
 .password-toggle {
     position: absolute;
-    right: 15px;
+    right: 20px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    color: #6c757d;
-    width: 20px;
-    height: 20px;
+    color: #6b7280;
+    width: 24px;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+.password-toggle:hover {
+    color: #667eea;
+    background: rgba(102, 126, 234, 0.1);
+    transform: translateY(-50%) scale(1.1);
 }
 
 .password-toggle svg {
@@ -184,35 +366,68 @@ body {
     height: 20px;
 }
 
+/* Enhanced primary button */
 .btn-primary-custom {
     width: 100%;
-    height: 60px;
-    background-color: #0066cc;
+    height: 64px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border: none;
-    border-radius: 8px;
+    border-radius: 16px;
     color: white;
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-bottom: 24px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
+}
+
+.btn-primary-custom::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
 }
 
 .btn-primary-custom:hover:not(:disabled) {
-    background-color: #0052a3;
+    background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary-custom:hover:not(:disabled)::before {
+    left: 100%;
+}
+
+.btn-primary-custom:active {
+    transform: translateY(-1px);
 }
 
 .btn-primary-custom:disabled {
     opacity: 0.6;
     cursor: not-allowed;
-    background-color: #6c757d;
+    background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
+    transform: none;
+    box-shadow: 0 4px 15px rgba(156, 163, 175, 0.3);
 }
 
+/* Enhanced validation messages */
 .error-message {
-    color: #dc3545;
-    font-size: 0.875rem;
-    margin-top: 4px;
+    color: #ef4444;
+    font-size: 0.9rem;
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: rgba(239, 68, 68, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid #ef4444;
     display: none;
+    animation: slideInLeft 0.3s ease-out;
 }
 
 .error-message.show {
@@ -220,21 +435,151 @@ body {
 }
 
 .success-message {
-    color: #28a745;
-    font-size: 0.875rem;
-    margin-top: 4px;
+    color: #10b981;
+    font-size: 0.9rem;
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: rgba(16, 185, 129, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid #10b981;
     display: none;
+    animation: slideInLeft 0.3s ease-out;
 }
 
 .success-message.show {
     display: block;
 }
 
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Enhanced footer */
 .footer-text {
     text-align: center;
-    color: #6c757d;
+    color: #6b7280;
     font-size: 0.9rem;
-    margin-top: 32px;
+    margin-top: 40px;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(248, 250, 252, 0.4));
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(203, 213, 225, 0.2);
+}
+
+/* Enhanced row styling */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -12px;
+}
+
+.col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding: 0 12px;
+}
+
+.g-4 {
+    gap: 1.5rem;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem;
+}
+
+/* Responsive enhancements */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 20px;
+    }
+
+    .page-title h2 {
+        font-size: 2.2rem;
+    }
+
+    .brand-title {
+        font-size: 1.1rem;
+    }
+
+    .form-control-custom {
+        height: 56px;
+        padding: 16px 20px;
+        font-size: 1rem;
+    }
+
+    .btn-primary-custom {
+        height: 56px;
+        font-size: 1.1rem;
+    }
+
+    .col-md-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .row {
+        margin: 0;
+    }
+
+    .col-md-6 {
+        padding: 0;
+    }
+}
+
+/* Loading animation for buttons */
+.btn-loading {
+    position: relative;
+    color: transparent !important;
+}
+
+.btn-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Enhanced focus states */
+.form-control-custom:focus + .form-label,
+.form-control-custom:not(:placeholder-shown) + .form-label {
+    color: #667eea;
+    transform: scale(0.9);
+}
+
+/* Validation icons */
+.validation-icon {
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.form-control-custom.valid ~ .validation-icon.success {
+    opacity: 1;
+    color: #10b981;
+}
+
+.form-control-custom.error ~ .validation-icon.error {
+    opacity: 1;
+    color: #ef4444;
 }
 </style>
 
@@ -245,115 +590,169 @@ body {
             <img src="${url.resourcesPath}/img/car4.png" class="carousel-image active"/>
             <img src="${url.resourcesPath}/img/car5.png" class="carousel-image"/>
             <img src="${url.resourcesPath}/img/car6.png" class="carousel-image"/>
+
+            <div class="decorative-overlay"></div>
+            <div class="floating-shapes">
+                <div class="shape shape-1"></div>
+                <div class="shape shape-2"></div>
+                <div class="shape shape-3"></div>
+            </div>
         </div>
     </div>
 
     <!-- Main Content Area -->
     <div class="main-content">
         <!-- Header with Logo -->
-        <div class="brand-header">
+        <header class="brand-header">
             <div class="brand-logo">
                 <img src="${url.resourcesPath}/img/NASD Product logos.png" alt="NASD Logo" />
                 <h1 class="brand-title">NASD ZAM</h1>
             </div>
-        </div>
+        </header>
 
         <!-- Page Title -->
-        <div class="page-title">
+        <section class="page-title">
             <h2>Create your account</h2>
-        </div>
+        </section>
 
         <!-- Registration Form -->
-        <form id="kc-register-form" action="${url.registrationAction}" method="post" class="register-form">
-            <div class="row g-4 mb-4">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="firstName" class="form-label">First Name</label>
-                        <input type="text" id="firstName" name="firstName"
-                               value="${(register.formData.firstName!'')}"
-                               class="form-control-custom" required/>
-                        <div class="error-message" id="firstName-error">First name is required</div>
-                        <#if messagesPerField.existsError('firstName')>
-                            <div class="error-message show">${kcSanitize(messagesPerField.get('firstName'))?no_esc}</div>
-                        </#if>
+        <main>
+            <form id="kc-register-form" action="${url.registrationAction}" method="post" class="register-form">
+                <div class="row g-4 mb-4">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" id="firstName" name="firstName"
+                                   value="${(register.formData.firstName!'')}"
+                                   class="form-control-custom"
+                                   placeholder="Enter your first name"
+                                   required/>
+                            <div class="validation-icon success">✓</div>
+                            <div class="validation-icon error">✗</div>
+                            <div class="error-message" id="firstName-error">First name is required</div>
+                            <#if messagesPerField.existsError('firstName')>
+                                <div class="error-message show">${kcSanitize(messagesPerField.get('firstName'))?no_esc}</div>
+                            </#if>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" id="lastName" name="lastName"
+                                   value="${(register.formData.lastName!'')}"
+                                   class="form-control-custom"
+                                   placeholder="Enter your last name"
+                                   required/>
+                            <div class="validation-icon success">✓</div>
+                            <div class="validation-icon error">✗</div>
+                            <div class="error-message" id="lastName-error">Last name is required</div>
+                            <#if messagesPerField.existsError('lastName')>
+                                <div class="error-message show">${kcSanitize(messagesPerField.get('lastName'))?no_esc}</div>
+                            </#if>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="lastName" class="form-label">Last Name</label>
-                        <input type="text" id="lastName" name="lastName"
-                               value="${(register.formData.lastName!'')}"
-                               class="form-control-custom" required/>
-                        <div class="error-message" id="lastName-error">Last name is required</div>
-                        <#if messagesPerField.existsError('lastName')>
-                            <div class="error-message show">${kcSanitize(messagesPerField.get('lastName'))?no_esc}</div>
-                        </#if>
+
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" name="email"
+                           value="${(register.formData.email!'')}"
+                           class="form-control-custom"
+                           placeholder="Enter your email address"
+                           required/>
+                    <div class="validation-icon success">✓</div>
+                    <div class="validation-icon error">✗</div>
+                    <div class="error-message" id="email-error">Please enter a valid email address</div>
+                    <div class="success-message" id="email-success">Valid email address</div>
+                    <#if messagesPerField.existsError('email')>
+                        <div class="error-message show">${kcSanitize(messagesPerField.get('email'))?no_esc}</div>
+                    </#if>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="input-container">
+                        <input type="password" id="password" name="password"
+                               class="form-control-custom"
+                               style="padding-right: 100px;"
+                               placeholder="Create a strong password"
+                               required/>
+                        <div class="validation-icon success">✓</div>
+                        <div class="validation-icon error">✗</div>
+                        <span class="password-toggle" id="password-toggle">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
+                            </svg>
+                        </span>
                     </div>
+                    <div class="error-message" id="password-error">Password must be at least 8 characters with uppercase, lowercase, and special character</div>
+                    <div class="success-message" id="password-success">Password meets requirements</div>
+                    <#if messagesPerField.existsError('password')>
+                        <div class="error-message show">${kcSanitize(messagesPerField.get('password'))?no_esc}</div>
+                    </#if>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" id="email" name="email"
-                       value="${(register.formData.email!'')}"
-                       class="form-control-custom" required/>
-                <div class="error-message" id="email-error">Please enter a valid email address</div>
-                <div class="success-message" id="email-success">Valid email address</div>
-                <#if messagesPerField.existsError('email')>
-                    <div class="error-message show">${kcSanitize(messagesPerField.get('email'))?no_esc}</div>
-                </#if>
-            </div>
-
-            <div class="form-group">
-                <label for="password" class="form-label">Password</label>
-                <div class="input-container">
-                    <input type="password" id="password" name="password"
-                           class="form-control-custom" style="padding-right: 50px;" required/>
-                    <span class="password-toggle" id="password-toggle">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
-                        </svg>
-                    </span>
+                <div class="form-group">
+                    <label for="password-confirm" class="form-label">Confirm Password</label>
+                    <div class="input-container">
+                        <input type="password" id="password-confirm" name="password-confirm"
+                               class="form-control-custom"
+                               style="padding-right: 100px;"
+                               placeholder="Confirm your password"
+                               required/>
+                        <div class="validation-icon success">✓</div>
+                        <div class="validation-icon error">✗</div>
+                        <span class="password-toggle" id="password-confirm-toggle">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="error-message" id="password-confirm-error">Passwords do not match</div>
+                    <div class="success-message" id="password-confirm-success">Passwords match</div>
+                    <#if messagesPerField.existsError('password-confirm')>
+                        <div class="error-message show">${kcSanitize(messagesPerField.get('password-confirm'))?no_esc}</div>
+                    </#if>
                 </div>
-                <div class="error-message" id="password-error">Password must be at least 8 characters with uppercase, lowercase, and special character</div>
-                <div class="success-message" id="password-success">Password meets requirements</div>
-                <#if messagesPerField.existsError('password')>
-                    <div class="error-message show">${kcSanitize(messagesPerField.get('password'))?no_esc}</div>
-                </#if>
-            </div>
 
-            <div class="form-group">
-                <label for="password-confirm" class="form-label">Confirm Password</label>
-                <div class="input-container">
-                    <input type="password" id="password-confirm" name="password-confirm"
-                           class="form-control-custom" style="padding-right: 50px;" required/>
-                    <span class="password-toggle" id="password-confirm-toggle">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
-                        </svg>
-                    </span>
-                </div>
-                <div class="error-message" id="password-confirm-error">Passwords do not match</div>
-                <div class="success-message" id="password-confirm-success">Passwords match</div>
-                <#if messagesPerField.existsError('password-confirm')>
-                    <div class="error-message show">${kcSanitize(messagesPerField.get('password-confirm'))?no_esc}</div>
-                </#if>
-            </div>
-
-            <button type="submit" id="submit-btn" class="btn-primary-custom" disabled>
-                Create account
-            </button>
-        </form>
+                <button type="submit" id="submit-btn" class="btn-primary-custom" disabled>
+                    Create account
+                </button>
+            </form>
+        </main>
 
         <!-- Footer -->
-        <div class="footer-text">
+        <footer class="footer-text">
             © 2024 NASD Plc. All rights reserved
-        </div>
+        </footer>
     </div>
 </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Enhanced carousel functionality
+    let currentSlide = 0;
+    const totalSlides = 3;
+    let autoSlideInterval;
+
+    function showSlide(slideNumber) {
+        const images = document.querySelectorAll('.carousel-image');
+        images.forEach((img, index) => {
+            img.classList.toggle('active', index === slideNumber);
+        });
+    }
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % totalSlides;
+        showSlide(currentSlide);
+    }
+
+    function startAutoSlide() {
+        autoSlideInterval = setInterval(nextSlide, 5000);
+    }
+
+    startAutoSlide();
+
     // Form validation state
     const validationState = {
         firstName: false,
@@ -372,7 +771,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const passwordInput = document.getElementById('password');
     const passwordConfirmInput = document.getElementById('password-confirm');
 
-    // Password toggle functionality
+    // Enhanced password toggle functionality
     function setupPasswordToggle(inputId, toggleId) {
         const input = document.getElementById(inputId);
         const toggle = document.getElementById(toggleId);
@@ -402,7 +801,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setupPasswordToggle('password', 'password-toggle');
     setupPasswordToggle('password-confirm', 'password-confirm-toggle');
 
-    // Validation functions
+    // Enhanced validation functions
     function validateEmail(email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
@@ -420,108 +819,77 @@ document.addEventListener('DOMContentLoaded', function() {
         if (isValid) {
             inputElement.classList.remove('error');
             inputElement.classList.add('valid');
-            errorElement.classList.remove('show');
-            successElement.classList.add('show');
+            if (errorElement) errorElement.classList.remove('show');
+            if (successElement) successElement.classList.add('show');
         } else {
             inputElement.classList.add('error');
             inputElement.classList.remove('valid');
-            errorElement.classList.add('show');
-            successElement.classList.remove('show');
+            if (errorElement) errorElement.classList.add('show');
+            if (successElement) successElement.classList.remove('show');
         }
     }
 
     function updateSubmitButton() {
         const allValid = Object.values(validationState).every(state => state);
         submitBtn.disabled = !allValid;
+
+        if (allValid) {
+            submitBtn.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+            submitBtn.style.cursor = 'pointer';
+        } else {
+            submitBtn.style.background = 'linear-gradient(135deg, #9ca3af 0%, #6b7280 100%)';
+            submitBtn.style.cursor = 'not-allowed';
+        }
     }
 
-    // First name validation
-    if (firstNameInput) {
-        firstNameInput.addEventListener('input', function() {
-            const isValid = this.value.trim().length > 0;
-            validationState.firstName = isValid;
+    // Enhanced input validation with real-time feedback
+    function setupInputValidation(input, validationKey, validationFn, errorId, successId) {
+        if (!input) return;
 
-            const errorElement = document.getElementById('firstName-error');
-            if (this.value.length > 0) {
-                if (isValid) {
-                    this.classList.remove('error');
-                    errorElement.classList.remove('show');
-                } else {
-                    this.classList.add('error');
-                    errorElement.classList.add('show');
-                }
-            }
-            updateSubmitButton();
-        });
-    }
+        input.addEventListener('input', function() {
+            const value = this.value.trim();
+            const isValid = validationFn ? validationFn(value) : value.length > 0;
+            validationState[validationKey] = isValid;
 
-    // Last name validation
-    if (lastNameInput) {
-        lastNameInput.addEventListener('input', function() {
-            const isValid = this.value.trim().length > 0;
-            validationState.lastName = isValid;
+            const errorElement = document.getElementById(errorId);
+            const successElement = successId ? document.getElementById(successId) : null;
 
-            const errorElement = document.getElementById('lastName-error');
-            if (this.value.length > 0) {
-                if (isValid) {
-                    this.classList.remove('error');
-                    errorElement.classList.remove('show');
-                } else {
-                    this.classList.add('error');
-                    errorElement.classList.add('show');
-                }
-            }
-            updateSubmitButton();
-        });
-    }
-
-    // Email validation
-    if (emailInput) {
-        emailInput.addEventListener('input', function() {
-            const isValid = validateEmail(this.value);
-            validationState.email = isValid;
-
-            const errorElement = document.getElementById('email-error');
-            const successElement = document.getElementById('email-success');
-
-            if (this.value.length > 0) {
+            if (value.length > 0) {
                 updateValidationUI(this, isValid, errorElement, successElement);
             } else {
                 this.classList.remove('error', 'valid');
-                errorElement.classList.remove('show');
-                successElement.classList.remove('show');
+                if (errorElement) errorElement.classList.remove('show');
+                if (successElement) successElement.classList.remove('show');
+                validationState[validationKey] = false;
             }
             updateSubmitButton();
         });
-    }
 
-    // Password validation
-    if (passwordInput) {
-        passwordInput.addEventListener('input', function() {
-            const isValid = validatePassword(this.value);
-            validationState.password = isValid;
-
-            const errorElement = document.getElementById('password-error');
-            const successElement = document.getElementById('password-success');
-
-            if (this.value.length > 0) {
-                updateValidationUI(this, isValid, errorElement, successElement);
-            } else {
-                this.classList.remove('error', 'valid');
-                errorElement.classList.remove('show');
-                successElement.classList.remove('show');
+        // Enhanced focus effects
+        input.addEventListener('focus', function() {
+            this.parentElement.style.transform = 'translateY(-2px)';
+            const label = this.parentElement.querySelector('.form-label');
+            if (label) {
+                label.style.color = '#667eea';
             }
+        });
 
-            // Re-validate password confirmation
-            if (passwordConfirmInput && passwordConfirmInput.value.length > 0) {
-                passwordConfirmInput.dispatchEvent(new Event('input'));
+        input.addEventListener('blur', function() {
+            this.parentElement.style.transform = 'translateY(0)';
+            const label = this.parentElement.querySelector('.form-label');
+            if (label && this.value.length === 0) {
+                label.style.color = '#374151';
             }
-
-            updateSubmitButton();
         });
     }
 
-    // Password confirmation validation
+    // Setup validation for all inputs
+    setupInputValidation(firstNameInput, 'firstName', null, 'firstName-error');
+    setupInputValidation(lastNameInput, 'lastName', null, 'lastName-error');
+    setupInputValidation(emailInput, 'email', validateEmail, 'email-error', 'email-success');
+    setupInputValidation(passwordInput, 'password', validatePassword, 'password-error', 'password-success');
+
+    // Special handling for password confirmation
     if (passwordConfirmInput) {
         passwordConfirmInput.addEventListener('input', function() {
             const isValid = this.value === passwordInput.value && this.value.length > 0;
@@ -536,13 +904,45 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.classList.remove('error', 'valid');
                 errorElement.classList.remove('show');
                 successElement.classList.remove('show');
+                validationState.passwordConfirm = false;
             }
             updateSubmitButton();
+        });
+
+        // Re-validate password confirmation when password changes
+        if (passwordInput) {
+            passwordInput.addEventListener('input', function() {
+                if (passwordConfirmInput.value.length > 0) {
+                    passwordConfirmInput.dispatchEvent(new Event('input'));
+                }
+            });
+        }
+    }
+
+    // Enhanced form submission
+    if (form && submitBtn) {
+        form.addEventListener('submit', function(e) {
+            const allValid = Object.values(validationState).every(state => state);
+            if (!allValid) {
+                e.preventDefault();
+                return false;
+            }
+
+            submitBtn.classList.add('btn-loading');
+            submitBtn.disabled = true;
+
+            // Add a slight delay to show the loading state
+            setTimeout(() => {
+                // Form will submit naturally
+            }, 500);
         });
     }
 
     // Initial validation state
     updateSubmitButton();
+
+    // Add smooth scroll behavior for better UX
+    document.documentElement.style.scrollBehavior = 'smooth';
 });
 </script>
     </#if>
