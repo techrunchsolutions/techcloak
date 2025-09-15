@@ -5,39 +5,11 @@
         ${msg("loginAccountTitle")}
     <#elseif section = "form">
         <style>
-          /* ===== CSS VARIABLES ===== */
-          :root {
-            --primary-color: #0066cc;
-            --primary-hover: #0052a3;
-            --error-color: #dc3545;
-            --success-color: #28a745;
-            --text-primary: #333;
-            --text-secondary: #6c757d;
-            --background-light: #f8f9fa;
-            --border-color: #dee2e6;
-            --border-radius: 8px;
-            --transition: 0.3s ease;
-            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            --input-height: 60px;
-            --spacing-xs: 8px;
-            --spacing-sm: 16px;
-            --spacing-md: 24px;
-            --spacing-lg: 32px;
-            --spacing-xl: 40px;
-            --spacing-xxl: 48px;
-          }
-
-          /* ===== RESET & BASE STYLES ===== */
           body {
             background-color: white !important;
-            font-family: var(--font-family);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
           }
 
-          html, body {
-            overflow-x: hidden;
-          }
-
-          /* ===== KEYCLOAK OVERRIDES ===== */
           .login-pf-page-header,
           .login-pf-header,
           h1#kc-page-title,
@@ -75,13 +47,16 @@
             width: 100% !important;
           }
 
+          html, body {
+            overflow-x: hidden;
+          }
+
           @media (min-width: 768px) {
             .login-pf-page .card-pf {
               padding: 0;
             }
           }
 
-          /* ===== LAYOUT COMPONENTS ===== */
           .auth-container {
             min-height: 100vh;
             display: flex;
@@ -95,7 +70,7 @@
           }
 
           .auth-main {
-            padding: var(--spacing-xl);
+            padding: 40px;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
@@ -118,7 +93,6 @@
             }
           }
 
-          /* ===== CAROUSEL COMPONENTS ===== */
           .carousel-container {
             position: relative;
             width: 100%;
@@ -134,35 +108,35 @@
             height: 100%;
             object-fit: cover;
             opacity: 0;
-            transition: opacity 0.5s var(--transition);
+            transition: opacity 0.5s ease;
           }
 
-          .carousel-slide--active {
+          .carousel-slide-active {
             opacity: 1;
           }
 
           .carousel-overlay {
             position: absolute;
-            bottom: var(--spacing-xl);
-            left: var(--spacing-xl);
-            right: var(--spacing-xl);
+            bottom: 40px;
+            left: 40px;
+            right: 40px;
             z-index: 3;
             backdrop-filter: blur(10px);
             background: rgba(0, 0, 0, 0.4);
             border-radius: 12px;
-            padding: var(--spacing-md);
+            padding: 24px;
             color: white;
           }
 
           .carousel-content {
             text-align: center;
-            margin-bottom: var(--spacing-md);
+            margin-bottom: 24px;
           }
 
           .carousel-title {
             font-weight: 600;
             font-size: 1.25rem;
-            margin-bottom: var(--spacing-sm);
+            margin-bottom: 16px;
           }
 
           .carousel-description {
@@ -174,7 +148,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: var(--spacing-sm);
+            gap: 16px;
           }
 
           .carousel-button {
@@ -191,7 +165,7 @@
           .carousel-indicators {
             display: flex;
             align-items: center;
-            gap: var(--spacing-xs);
+            gap: 8px;
           }
 
           .carousel-indicator {
@@ -199,122 +173,118 @@
             height: 8px;
             border-radius: 50%;
             background-color: rgba(255, 255, 255, 0.5);
-            transition: all var(--transition);
+            transition: all 0.3s ease;
             display: inline-block;
           }
 
-          .carousel-indicator--active {
+          .carousel-indicator-active {
             width: 24px;
             height: 8px;
             border-radius: 4px;
             background-color: white;
           }
 
-          /* ===== DECORATIVE ELEMENTS ===== */
           .decorative-element {
             position: absolute;
             border-radius: 50%;
             background-color: rgba(255, 255, 255, 0.1);
           }
 
-          .decorative-element--red {
+          .decorative-element-red {
             top: 20%;
             right: 10%;
             z-index: 2;
           }
 
-          .decorative-element--large {
+          .decorative-element-large {
             width: 200px;
             height: 200px;
             top: 10%;
             left: 10%;
           }
 
-          .decorative-element--medium {
+          .decorative-element-medium {
             width: 100px;
             height: 100px;
             bottom: 30%;
             right: 20%;
           }
 
-          .decorative-element--small {
+          .decorative-element-small {
             width: 60px;
             height: 60px;
             bottom: 10%;
             left: 30%;
           }
 
-          /* ===== BRAND COMPONENTS ===== */
           .brand-header {
             text-align: center;
-            margin-bottom: var(--spacing-lg);
-            margin-top: var(--spacing-xl);
+            margin-bottom: 32px;
+            margin-top: 40px;
           }
 
           .brand-logo {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: var(--spacing-xs);
+            gap: 8px;
           }
 
           .brand-title {
             font-weight: bold;
             font-size: 1.25rem;
             margin: 0;
-            color: var(--text-primary);
+            color: #333;
           }
 
-          /* ===== PAGE TITLE ===== */
           .page-header {
             text-align: center;
-            margin-bottom: var(--spacing-xxl);
+            margin-bottom: 48px;
           }
 
           .page-title {
             font-weight: bold;
             font-size: 2.5rem;
-            color: var(--text-primary);
+            color: #333;
             margin: 0;
           }
 
-          /* ===== FORM COMPONENTS ===== */
           .auth-form {
             max-width: 532px;
             margin: 0 auto;
           }
 
           .form-field {
-            margin-bottom: var(--spacing-md);
+            margin-bottom: 24px;
           }
 
           .form-label {
             font-weight: 600;
             font-size: 1.25rem;
-            color: var(--text-primary);
-            margin-bottom: var(--spacing-xs);
+            color: #333;
+            margin-bottom: 8px;
             display: block;
           }
 
           .form-input {
             width: 100%;
-            height: var(--input-height);
-            padding: var(--spacing-sm);
-            background-color: var(--background-light);
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
+            height: 60px;
+            padding: 16px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
             font-size: 1rem;
-            transition: border-color var(--transition);
+            transition: border-color 0.3s ease;
           }
 
           .form-input:focus {
             outline: none;
-            border-color: var(--primary-color);
+            border-color: #0066cc;
             box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
           }
 
-          .form-input--error {
-            border-color: var(--error-color);
+          .form-input-error {
+            border-color: #dc3545;
           }
 
           .input-wrapper {
@@ -327,7 +297,7 @@
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
-            color: var(--text-secondary);
+            color: #6c757d;
             width: 20px;
             height: 20px;
             display: flex;
@@ -340,20 +310,19 @@
             height: 20px;
           }
 
-          /* ===== FORM ACTIONS ===== */
           .form-actions {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: var(--spacing-md);
+            margin-bottom: 24px;
             flex-wrap: wrap;
-            gap: var(--spacing-sm);
+            gap: 16px;
           }
 
           .link-button {
             background: none;
             border: none;
-            color: var(--primary-color);
+            color: #0066cc;
             text-decoration: underline;
             cursor: pointer;
             padding: 0;
@@ -361,37 +330,36 @@
           }
 
           .checkbox-field {
-            margin-bottom: var(--spacing-sm);
+            margin-bottom: 16px;
           }
 
           .checkbox-field input {
-            margin-right: var(--spacing-xs);
+            margin-right: 8px;
           }
 
           .terms-text {
             text-align: center;
-            margin-bottom: var(--spacing-md);
-            color: var(--text-secondary);
+            margin-bottom: 24px;
+            color: #6c757d;
             font-size: 0.9rem;
           }
 
-          /* ===== BUTTONS ===== */
           .btn-primary {
             width: 100%;
-            height: var(--input-height);
-            background-color: var(--primary-color);
+            height: 60px;
+            background-color: #0066cc;
             border: none;
-            border-radius: var(--border-radius);
+            border-radius: 8px;
             color: white;
             font-size: 1.25rem;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color var(--transition);
-            margin-bottom: var(--spacing-md);
+            transition: background-color 0.3s ease;
+            margin-bottom: 24px;
           }
 
           .btn-primary:hover:not(:disabled) {
-            background-color: var(--primary-hover);
+            background-color: #0052a3;
           }
 
           .btn-primary:disabled {
@@ -399,38 +367,33 @@
             cursor: not-allowed;
           }
 
-          /* ===== UTILITY COMPONENTS ===== */
           .error-message {
-            color: var(--error-color);
+            color: #dc3545;
             font-size: 0.875rem;
             margin-top: 4px;
           }
 
           .footer-text {
             text-align: center;
-            color: var(--text-secondary);
+            color: #6c757d;
             font-size: 0.9rem;
           }
         </style>
 
         <div class="auth-container">
-          <!-- Sidebar with Carousel -->
           <div class="auth-sidebar">
             <div class="carousel-container">
-              <!-- Carousel Images -->
-              <img src="${url.resourcesPath}/img/car1.png" alt="" class="carousel-slide carousel-slide--active" id="slide-1" />
+              <img src="${url.resourcesPath}/img/car1.png" alt="" class="carousel-slide carousel-slide-active" id="slide-1" />
               <img src="${url.resourcesPath}/img/car2.png" alt="" class="carousel-slide" id="slide-2" />
               <img src="${url.resourcesPath}/img/car3.png" alt="" class="carousel-slide" id="slide-3" />
 
-              <!-- Decorative Elements -->
-              <svg class="decorative-element decorative-element--red" width="120" height="120" viewBox="0 0 179 95" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg class="decorative-element decorative-element-red" width="120" height="120" viewBox="0 0 179 95" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <ellipse cx="89.5" cy="86" rx="89.5" ry="86" fill="#EC232A"></ellipse>
               </svg>
-              <div class="decorative-element decorative-element--large"></div>
-              <div class="decorative-element decorative-element--medium"></div>
-              <div class="decorative-element decorative-element--small"></div>
+              <div class="decorative-element decorative-element-large"></div>
+              <div class="decorative-element decorative-element-medium"></div>
+              <div class="decorative-element decorative-element-small"></div>
 
-              <!-- Carousel Overlay -->
               <div class="carousel-overlay">
                 <div class="carousel-content">
                   <h3 class="carousel-title">Discover your communication potential</h3>
@@ -448,7 +411,7 @@
                     </svg>
                   </button>
                   <div class="carousel-indicators">
-                    <div class="carousel-indicator carousel-indicator--active" id="indicator-1"></div>
+                    <div class="carousel-indicator carousel-indicator-active" id="indicator-1"></div>
                     <div class="carousel-indicator" id="indicator-2"></div>
                     <div class="carousel-indicator" id="indicator-3"></div>
                   </div>
@@ -462,9 +425,7 @@
             </div>
           </div>
 
-          <!-- Main Content -->
           <main class="auth-main">
-            <!-- Brand Header -->
             <header class="brand-header">
               <div class="brand-logo">
                 <img src="${url.resourcesPath}/img/NASD Product logos.png" alt="NASD Logo" />
@@ -472,12 +433,10 @@
               </div>
             </header>
 
-            <!-- Page Title -->
             <div class="page-header">
               <h2 class="page-title">Login to your account</h2>
             </div>
 
-            <!-- Login Form -->
             <div id="kc-form">
               <div id="kc-form-wrapper">
                 <#if realm.password>
@@ -497,7 +456,7 @@
                         <input
                           tabindex="2"
                           id="username"
-                          class="form-input <#if messagesPerField.existsError('username','password')>form-input--error</#if>"
+                          class="form-input <#if messagesPerField.existsError('username','password')>form-input-error</#if>"
                           name="username"
                           value="${(login.username!'')}"
                           type="text"
@@ -522,7 +481,7 @@
                         <input
                           tabindex="3"
                           id="password"
-                          class="form-input <#if messagesPerField.existsError('username','password')>form-input--error</#if>"
+                          class="form-input <#if messagesPerField.existsError('username','password')>form-input-error</#if>"
                           name="password"
                           type="password"
                           autocomplete="current-password"
@@ -585,7 +544,6 @@
               </div>
             </div>
 
-            <!-- Footer -->
             <footer class="footer-text">
               © 2024 NASD Plc. All rights reserved
             </footer>
@@ -593,133 +551,111 @@
         </div>
 
         <script>
-          // ===== CAROUSEL MODULE =====
-          const CarouselManager = {
-            currentSlide: 1,
-            totalSlides: 3,
-            autoSlideInterval: null,
+          var currentSlide = 1;
+          var totalSlides = 3;
+          var autoSlideInterval;
 
-            init() {
-              this.bindEvents();
-              this.startAutoSlide();
-            },
+          function showSlide(slideNumber) {
+            for (var i = 1; i <= totalSlides; i++) {
+              var slide = document.getElementById('slide-' + i);
+              var indicator = document.getElementById('indicator-' + i);
 
-            bindEvents() {
-              const nextBtn = document.getElementById('next-btn');
-              const prevBtn = document.getElementById('prev-btn');
-
-              if (nextBtn) {
-                nextBtn.addEventListener('click', () => {
-                  this.stopAutoSlide();
-                  this.nextSlide();
-                  this.startAutoSlide();
-                });
-              }
-
-              if (prevBtn) {
-                prevBtn.addEventListener('click', () => {
-                  this.stopAutoSlide();
-                  this.prevSlide();
-                  this.startAutoSlide();
-                });
-              }
-            },
-
-            showSlide(slideNumber) {
-              // Update slides
-              for (let i = 1; i <= this.totalSlides; i++) {
-                const slide = document.getElementById(`slide-${i}`);
-                const indicator = document.getElementById(`indicator-${i}`);
-
-                if (slide) {
-                  slide.classList.toggle('carousel-slide--active', i === slideNumber);
-                }
-
-                if (indicator) {
-                  indicator.classList.toggle('carousel-indicator--active', i === slideNumber);
-                }
-              }
-
-              // Update navigation buttons
-              const prevBtn = document.getElementById('prev-btn');
-              const nextBtn = document.getElementById('next-btn');
-
-              if (prevBtn) prevBtn.style.display = slideNumber === 1 ? 'none' : 'block';
-              if (nextBtn) nextBtn.style.display = slideNumber === this.totalSlides ? 'none' : 'block';
-            },
-
-            nextSlide() {
-              if (this.currentSlide < this.totalSlides) {
-                this.currentSlide++;
-                this.showSlide(this.currentSlide);
-              }
-            },
-
-            prevSlide() {
-              if (this.currentSlide > 1) {
-                this.currentSlide--;
-                this.showSlide(this.currentSlide);
-              }
-            },
-
-            startAutoSlide() {
-              this.autoSlideInterval = setInterval(() => {
-                if (this.currentSlide < this.totalSlides) {
-                  this.nextSlide();
+              if (slide) {
+                if (i === slideNumber) {
+                  slide.classList.add('carousel-slide-active');
                 } else {
-                  this.currentSlide = 1;
-                  this.showSlide(this.currentSlide);
+                  slide.classList.remove('carousel-slide-active');
                 }
-              }, 5000);
-            },
+              }
 
-            stopAutoSlide() {
-              if (this.autoSlideInterval) {
-                clearInterval(this.autoSlideInterval);
+              if (indicator) {
+                if (i === slideNumber) {
+                  indicator.classList.add('carousel-indicator-active');
+                } else {
+                  indicator.classList.remove('carousel-indicator-active');
+                }
               }
             }
-          };
 
-          // ===== PASSWORD TOGGLE MODULE =====
-          const PasswordToggle = {
-            init() {
-              this.setupToggle('password', 'password-toggle');
-            },
+            var prevBtn = document.getElementById('prev-btn');
+            var nextBtn = document.getElementById('next-btn');
 
-            setupToggle(inputId, toggleId) {
-              const input = document.getElementById(inputId);
-              const toggle = document.getElementById(toggleId);
+            if (prevBtn) prevBtn.style.display = slideNumber === 1 ? 'none' : 'block';
+            if (nextBtn) nextBtn.style.display = slideNumber === totalSlides ? 'none' : 'block';
+          }
 
-              if (input && toggle) {
-                toggle.addEventListener('click', () => {
-                  this.toggleVisibility(input, toggle);
-                });
-              }
-            },
-
-            toggleVisibility(input, toggle) {
-              const isPassword = input.type === 'password';
-              input.type = isPassword ? 'text' : 'password';
-              toggle.innerHTML = this.getToggleIcon(isPassword);
-            },
-
-            getToggleIcon(showPassword) {
-              const basePath = 'M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z';
-              const hiddenPath = showPassword ? '<path d="M3 3l18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>' : '';
-
-              return `
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="${basePath}" fill="currentColor"/>
-                  ${hiddenPath}
-                </svg>
-              `;
+          function nextSlide() {
+            if (currentSlide < totalSlides) {
+              currentSlide++;
+              showSlide(currentSlide);
             }
-          };
+          }
 
-          // ===== APPLICATION INITIALIZATION =====
-          document.addEventListener('DOMContentLoaded', () => {
-            CarouselManager.init();
-            PasswordToggle.init();
+          function prevSlide() {
+            if (currentSlide > 1) {
+              currentSlide--;
+              showSlide(currentSlide);
+            }
+          }
+
+          function startAutoSlide() {
+            autoSlideInterval = setInterval(function() {
+              if (currentSlide < totalSlides) {
+                nextSlide();
+              } else {
+                currentSlide = 1;
+                showSlide(currentSlide);
+              }
+            }, 5000);
+          }
+
+          function stopAutoSlide() {
+            if (autoSlideInterval) {
+              clearInterval(autoSlideInterval);
+            }
+          }
+
+          function togglePassword() {
+            var passwordInput = document.getElementById('password');
+            var passwordToggle = document.getElementById('password-toggle');
+
+            if (passwordInput && passwordToggle) {
+              if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passwordToggle.innerHTML = '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/><path d="M3 3l18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+              } else {
+                passwordInput.type = 'password';
+                passwordToggle.innerHTML = '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/></svg>';
+              }
+            }
+          }
+
+          document.addEventListener('DOMContentLoaded', function() {
+            var nextBtn = document.getElementById('next-btn');
+            var prevBtn = document.getElementById('prev-btn');
+            var passwordToggle = document.getElementById('password-toggle');
+
+            if (nextBtn) {
+              nextBtn.addEventListener('click', function() {
+                stopAutoSlide();
+                nextSlide();
+                startAutoSlide();
+              });
+            }
+
+            if (prevBtn) {
+              prevBtn.addEventListener('click', function() {
+                stopAutoSlide();
+                prevSlide();
+                startAutoSlide();
+              });
+            }
+
+            if (passwordToggle) {
+              passwordToggle.addEventListener('click', togglePassword);
+            }
+
+            startAutoSlide();
           });
         </script>
 
