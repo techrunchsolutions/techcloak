@@ -625,34 +625,6 @@ border-top: none;
               </div>
             </div>
 
-            <!-- Social Media Icons -->
-            <#if realm.password && social?? && social.providers?has_content>
-              <div class="social-icons">
-                <#list social.providers as p>
-                  <a href="${p.loginUrl}" class="social-icon" data-once-link>
-                    <#if p.iconClasses?has_content>
-                      <i class="${p.iconClasses!}" aria-hidden="true"></i>
-                    <#else>
-                      <span style="font-size: 12px;">${p.displayName!}</span>
-                    </#if>
-                  </a>
-                </#list>
-              </div>
-            <#else>
-              <!-- Default social icons if no social providers configured -->
-              <div class="social-icons">
-                <div class="social-icon">
-                  <img src="${url.resourcesPath}/img/google.png" alt="Google" />
-                </div>
-                <div class="social-icon">
-                  <img src="${url.resourcesPath}/img/facebook.png" alt="Facebook" />
-                </div>
-                <div class="social-icon">
-                  <img src="${url.resourcesPath}/img/apple.png" alt="Apple" />
-                </div>
-              </div>
-            </#if>
-
             <!-- Footer -->
             <div class="footer-text">
               © 2024 NASD Plc. All rights reserved
