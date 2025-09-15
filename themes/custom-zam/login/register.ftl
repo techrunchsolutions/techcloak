@@ -7,63 +7,104 @@
         <link rel="stylesheet" href="${url.resourcesPath}/css/register.css"/>
     <#elseif section == "form">
 <style>
-.login-pf-page-header,
-.login-pf-header,
-h1#kc-page-title,
-.login-pf-signup {
-    display: none !important;
-}
+  /* ===== CSS VARIABLES ===== */
+  :root {
+    --primary-color: #0066cc;
+    --primary-hover: #0052a3;
+    --error-color: #dc3545;
+    --success-color: #28a745;
+    --text-primary: #333;
+    --text-secondary: #6c757d;
+    --background-light: #f8f9fa;
+    --border-color: #dee2e6;
+    --border-radius: 8px;
+    --transition: 0.3s ease;
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --input-height: 60px;
+    --spacing-xs: 8px;
+    --spacing-sm: 16px;
+    --spacing-md: 24px;
+    --spacing-lg: 32px;
+    --spacing-xl: 40px;
+    --spacing-xxl: 48px;
+  }
 
-.login-pf-page {
+  /* ===== KEYCLOAK OVERRIDES ===== */
+  .login-pf-page-header,
+  .login-pf-header,
+  h1#kc-page-title,
+  .login-pf-signup {
+    display: none !important;
+  }
+
+  .login-pf-page {
     padding-top: 0;
     border: none;
-}
+  }
 
-.login-pf-page .card-pf {
+  .login-pf-page .card-pf {
     padding: 0;
     margin-bottom: 0;
     border: none;
     max-width: none;
-}
+  }
 
-#kc-content-wrapper {
+  #kc-content-wrapper {
     margin-top: 0;
-}
+  }
 
-body {
+  /* ===== BASE STYLES ===== */
+  body {
     background-color: white !important;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+    font-family: var(--font-family);
+  }
 
-.register-container {
+  /* ===== LAYOUT COMPONENTS ===== */
+  .auth-container {
     min-height: 100vh;
     display: flex;
-}
+  }
 
-.left-content {
+  .auth-sidebar {
     width: 50%;
     position: relative;
     overflow: hidden;
     display: none;
-}
+  }
 
-@media (min-width: 992px) {
-    .left-content { display: block; }
-    .main-content { width: 50%; }
-}
+  .auth-main {
+    padding: var(--spacing-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 100vh;
+    overflow-y: auto;
+  }
 
-@media (max-width: 991px) {
-    .main-content { width: 100%; }
-}
+  @media (min-width: 992px) {
+    .auth-sidebar {
+      display: block;
+    }
+    .auth-main {
+      width: 50%;
+    }
+  }
 
-.background-container {
+  @media (max-width: 991px) {
+    .auth-main {
+      width: 100%;
+    }
+  }
+
+  /* ===== CAROUSEL COMPONENTS ===== */
+  .carousel-container {
     position: relative;
     width: 100%;
     height: 100vh;
     overflow: hidden;
-}
+  }
 
-.carousel-image {
+  .carousel-slide {
     position: absolute;
     top: 0;
     left: 0;
@@ -71,479 +112,471 @@ body {
     height: 100%;
     object-fit: cover;
     opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-}
+    transition: opacity 0.5s var(--transition);
+  }
 
-.carousel-image.active {
+  .carousel-slide--active {
     opacity: 1;
-}
+  }
 
-.main-content {
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    min-height: 100vh;
-    overflow-y: auto;
-}
-
-.brand-header {
+  /* ===== BRAND COMPONENTS ===== */
+  .brand-header {
     text-align: center;
-    margin-bottom: 32px;
-    margin-top: 40px;
-}
+    margin-bottom: var(--spacing-lg);
+    margin-top: var(--spacing-xl);
+  }
 
-.brand-logo {
+  .brand-logo {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-}
+    gap: var(--spacing-xs);
+  }
 
-.brand-title {
+  .brand-title {
     font-weight: bold;
     font-size: 1.25rem;
     margin: 0;
-    color: #333;
-}
+    color: var(--text-primary);
+  }
 
-.page-title {
+  /* ===== PAGE TITLE ===== */
+  .page-header {
     text-align: center;
-    margin-bottom: 48px;
-}
+    margin-bottom: var(--spacing-xxl);
+  }
 
-.page-title h2 {
+  .page-title {
     font-weight: bold;
     font-size: 2.5rem;
-    color: #333;
+    color: var(--text-primary);
     margin: 0;
-}
+  }
 
-.register-form {
+  /* ===== FORM COMPONENTS ===== */
+  .auth-form {
     max-width: 532px;
     margin: 0 auto;
-}
+  }
 
-.form-group {
-    margin-bottom: 24px;
-}
+  .form-field {
+    margin-bottom: var(--spacing-md);
+  }
 
-.form-label {
+  .form-label {
     font-weight: 600;
     font-size: 1.25rem;
-    color: #333;
-    margin-bottom: 8px;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
     display: block;
-}
+  }
 
-.form-control-custom {
+  .form-input {
     width: 100%;
-    height: 60px;
-    padding: 16px;
-    background-color: #f8f9fa;
-    border: 1px solid #dee2e6;
-    border-radius: 8px;
+    height: var(--input-height);
+    padding: var(--spacing-sm);
+    background-color: var(--background-light);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
     font-size: 1rem;
-    transition: border-color 0.3s ease;
-}
+    transition: border-color var(--transition);
+  }
 
-.form-control-custom:focus {
+  .form-input:focus {
     outline: none;
-    border-color: #0066cc;
+    border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
-}
+  }
 
-.form-control-custom.error {
-    border-color: #dc3545;
-}
+  .form-input--error {
+    border-color: var(--error-color);
+  }
 
-.form-control-custom.valid {
-    border-color: #28a745;
-}
+  .form-input--valid {
+    border-color: var(--success-color);
+  }
 
-.input-container {
+  .input-wrapper {
     position: relative;
-}
+  }
 
-.password-toggle {
+  .input-toggle {
     position: absolute;
     right: 15px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    color: #6c757d;
+    color: var(--text-secondary);
     width: 20px;
     height: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-}
+  }
 
-.password-toggle svg {
+  .input-toggle svg {
     width: 20px;
     height: 20px;
-}
+  }
 
-.btn-primary-custom {
+  /* ===== VALIDATION MESSAGES ===== */
+  .validation-message {
+    font-size: 0.875rem;
+    margin-top: 4px;
+    display: none;
+  }
+
+  .validation-message--error {
+    color: var(--error-color);
+  }
+
+  .validation-message--success {
+    color: var(--success-color);
+  }
+
+  .validation-message--show {
+    display: block;
+  }
+
+  /* ===== BUTTONS ===== */
+  .btn-primary {
     width: 100%;
-    height: 60px;
-    background-color: #0066cc;
+    height: var(--input-height);
+    background-color: var(--primary-color);
     border: none;
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     color: white;
     font-size: 1.25rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-bottom: 24px;
-}
+    transition: background-color var(--transition);
+    margin-bottom: var(--spacing-md);
+  }
 
-.btn-primary-custom:hover:not(:disabled) {
-    background-color: #0052a3;
-}
+  .btn-primary:hover:not(:disabled) {
+    background-color: var(--primary-hover);
+  }
 
-.btn-primary-custom:disabled {
+  .btn-primary:disabled {
     opacity: 0.6;
     cursor: not-allowed;
-    background-color: #6c757d;
-}
+    background-color: var(--text-secondary);
+  }
 
-.error-message {
-    color: #dc3545;
-    font-size: 0.875rem;
-    margin-top: 4px;
-    display: none;
-}
-
-.error-message.show {
-    display: block;
-}
-
-.success-message {
-    color: #28a745;
-    font-size: 0.875rem;
-    margin-top: 4px;
-    display: none;
-}
-
-.success-message.show {
-    display: block;
-}
-
-.footer-text {
+  /* ===== UTILITY COMPONENTS ===== */
+  .footer-text {
     text-align: center;
-    color: #6c757d;
+    color: var(--text-secondary);
     font-size: 0.9rem;
-    margin-top: 32px;
-}
+    margin-top: var(--spacing-lg);
+  }
 </style>
 
-<div class="register-container">
-    <!-- Left Content (Hidden on smaller screens) -->
-    <div class="left-content">
-        <div class="background-container">
-            <img src="${url.resourcesPath}/img/car4.png" class="carousel-image active"/>
-            <img src="${url.resourcesPath}/img/car5.png" class="carousel-image"/>
-            <img src="${url.resourcesPath}/img/car6.png" class="carousel-image"/>
-        </div>
+<div class="auth-container">
+  <!-- Sidebar with Background Images -->
+  <div class="auth-sidebar">
+    <div class="carousel-container">
+      <img src="${url.resourcesPath}/img/car4.png" class="carousel-slide carousel-slide--active"/>
+      <img src="${url.resourcesPath}/img/car5.png" class="carousel-slide"/>
+      <img src="${url.resourcesPath}/img/car6.png" class="carousel-slide"/>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="auth-main">
+    <!-- Brand Header -->
+    <header class="brand-header">
+      <div class="brand-logo">
+        <img src="${url.resourcesPath}/img/NASD Product logos.png" alt="NASD Logo" />
+        <h1 class="brand-title">NASD ZAM</h1>
+      </div>
+    </header>
+
+    <!-- Page Title -->
+    <div class="page-header">
+      <h2 class="page-title">Create your account</h2>
     </div>
 
-    <!-- Main Content Area -->
-    <div class="main-content">
-        <!-- Header with Logo -->
-        <div class="brand-header">
-            <div class="brand-logo">
-                <img src="${url.resourcesPath}/img/NASD Product logos.png" alt="NASD Logo" />
-                <h1 class="brand-title">NASD ZAM</h1>
+    <!-- Registration Form -->
+    <form id="kc-register-form" action="${url.registrationAction}" method="post" class="auth-form">
+      <div class="row g-4 mb-4">
+        <div class="col-md-6">
+          <div class="form-field">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" id="firstName" name="firstName"
+                   value="${(register.formData.firstName!'')}"
+                   class="form-input" required/>
+            <div class="validation-message validation-message--error" id="firstName-error">
+              First name is required
             </div>
+            <#if messagesPerField.existsError('firstName')>
+              <div class="validation-message validation-message--error validation-message--show">
+                ${kcSanitize(messagesPerField.get('firstName'))?no_esc}
+              </div>
+            </#if>
+          </div>
         </div>
-
-        <!-- Page Title -->
-        <div class="page-title">
-            <h2>Create your account</h2>
+        <div class="col-md-6">
+          <div class="form-field">
+            <label for="lastName" class="form-label">Last Name</label>
+            <input type="text" id="lastName" name="lastName"
+                   value="${(register.formData.lastName!'')}"
+                   class="form-input" required/>
+            <div class="validation-message validation-message--error" id="lastName-error">
+              Last name is required
+            </div>
+            <#if messagesPerField.existsError('lastName')>
+              <div class="validation-message validation-message--error validation-message--show">
+                ${kcSanitize(messagesPerField.get('lastName'))?no_esc}
+              </div>
+            </#if>
+          </div>
         </div>
+      </div>
 
-        <!-- Registration Form -->
-        <form id="kc-register-form" action="${url.registrationAction}" method="post" class="register-form">
-            <div class="row g-4 mb-4">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="firstName" class="form-label">First Name</label>
-                        <input type="text" id="firstName" name="firstName"
-                               value="${(register.formData.firstName!'')}"
-                               class="form-control-custom" required/>
-                        <div class="error-message" id="firstName-error">First name is required</div>
-                        <#if messagesPerField.existsError('firstName')>
-                            <div class="error-message show">${kcSanitize(messagesPerField.get('firstName'))?no_esc}</div>
-                        </#if>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="lastName" class="form-label">Last Name</label>
-                        <input type="text" id="lastName" name="lastName"
-                               value="${(register.formData.lastName!'')}"
-                               class="form-control-custom" required/>
-                        <div class="error-message" id="lastName-error">Last name is required</div>
-                        <#if messagesPerField.existsError('lastName')>
-                            <div class="error-message show">${kcSanitize(messagesPerField.get('lastName'))?no_esc}</div>
-                        </#if>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" id="email" name="email"
-                       value="${(register.formData.email!'')}"
-                       class="form-control-custom" required/>
-                <div class="error-message" id="email-error">Please enter a valid email address</div>
-                <div class="success-message" id="email-success">Valid email address</div>
-                <#if messagesPerField.existsError('email')>
-                    <div class="error-message show">${kcSanitize(messagesPerField.get('email'))?no_esc}</div>
-                </#if>
-            </div>
-
-            <div class="form-group">
-                <label for="password" class="form-label">Password</label>
-                <div class="input-container">
-                    <input type="password" id="password" name="password"
-                           class="form-control-custom" style="padding-right: 50px;" required/>
-                    <span class="password-toggle" id="password-toggle">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
-                        </svg>
-                    </span>
-                </div>
-                <div class="error-message" id="password-error">Password must be at least 8 characters with uppercase, lowercase, and special character</div>
-                <div class="success-message" id="password-success">Password meets requirements</div>
-                <#if messagesPerField.existsError('password')>
-                    <div class="error-message show">${kcSanitize(messagesPerField.get('password'))?no_esc}</div>
-                </#if>
-            </div>
-
-            <div class="form-group">
-                <label for="password-confirm" class="form-label">Confirm Password</label>
-                <div class="input-container">
-                    <input type="password" id="password-confirm" name="password-confirm"
-                           class="form-control-custom" style="padding-right: 50px;" required/>
-                    <span class="password-toggle" id="password-confirm-toggle">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
-                        </svg>
-                    </span>
-                </div>
-                <div class="error-message" id="password-confirm-error">Passwords do not match</div>
-                <div class="success-message" id="password-confirm-success">Passwords match</div>
-                <#if messagesPerField.existsError('password-confirm')>
-                    <div class="error-message show">${kcSanitize(messagesPerField.get('password-confirm'))?no_esc}</div>
-                </#if>
-            </div>
-
-            <button type="submit" id="submit-btn" class="btn-primary-custom" disabled>
-                Create account
-            </button>
-        </form>
-
-        <!-- Footer -->
-        <div class="footer-text">
-            © 2024 NASD Plc. All rights reserved
+      <div class="form-field">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" id="email" name="email"
+               value="${(register.formData.email!'')}"
+               class="form-input" required/>
+        <div class="validation-message validation-message--error" id="email-error">
+          Please enter a valid email address
         </div>
-    </div>
+        <div class="validation-message validation-message--success" id="email-success">
+          Valid email address
+        </div>
+        <#if messagesPerField.existsError('email')>
+          <div class="validation-message validation-message--error validation-message--show">
+            ${kcSanitize(messagesPerField.get('email'))?no_esc}
+          </div>
+        </#if>
+      </div>
+
+      <div class="form-field">
+        <label for="password" class="form-label">Password</label>
+        <div class="input-wrapper">
+          <input type="password" id="password" name="password"
+                 class="form-input" style="padding-right: 50px;" required/>
+          <span class="input-toggle" id="password-toggle">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
+            </svg>
+          </span>
+        </div>
+        <div class="validation-message validation-message--error" id="password-error">
+          Password must be at least 8 characters with uppercase, lowercase, and special character
+        </div>
+        <div class="validation-message validation-message--success" id="password-success">
+          Password meets requirements
+        </div>
+        <#if messagesPerField.existsError('password')>
+          <div class="validation-message validation-message--error validation-message--show">
+            ${kcSanitize(messagesPerField.get('password'))?no_esc}
+          </div>
+        </#if>
+      </div>
+
+      <div class="form-field">
+        <label for="password-confirm" class="form-label">Confirm Password</label>
+        <div class="input-wrapper">
+          <input type="password" id="password-confirm" name="password-confirm"
+                 class="form-input" style="padding-right: 50px;" required/>
+          <span class="input-toggle" id="password-confirm-toggle">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
+            </svg>
+          </span>
+        </div>
+        <div class="validation-message validation-message--error" id="password-confirm-error">
+          Passwords do not match
+        </div>
+        <div class="validation-message validation-message--success" id="password-confirm-success">
+          Passwords match
+        </div>
+        <#if messagesPerField.existsError('password-confirm')>
+          <div class="validation-message validation-message--error validation-message--show">
+            ${kcSanitize(messagesPerField.get('password-confirm'))?no_esc}
+          </div>
+        </#if>
+      </div>
+
+      <button type="submit" id="submit-btn" class="btn-primary" disabled>
+        Create account
+      </button>
+    </form>
+
+    <!-- Footer -->
+    <footer class="footer-text">
+      © 2024 NASD Plc. All rights reserved
+    </footer>
+  </main>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Form validation state
-    const validationState = {
-        firstName: false,
-        lastName: false,
-        email: false,
-        password: false,
-        passwordConfirm: false
-    };
+  // ===== VALIDATION SYSTEM =====
+  const ValidationSystem = {
+    state: {
+      firstName: false,
+      lastName: false,
+      email: false,
+      password: false,
+      passwordConfirm: false
+    },
 
-    // Get form elements
-    const form = document.getElementById('kc-register-form');
-    const submitBtn = document.getElementById('submit-btn');
-    const firstNameInput = document.getElementById('firstName');
-    const lastNameInput = document.getElementById('lastName');
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    const passwordConfirmInput = document.getElementById('password-confirm');
+    elements: {},
 
-    // Password toggle functionality
-    function setupPasswordToggle(inputId, toggleId) {
-        const input = document.getElementById(inputId);
-        const toggle = document.getElementById(toggleId);
+    init() {
+      this.cacheElements();
+      this.bindEvents();
+      this.updateSubmitButton();
+    },
 
-        if (input && toggle) {
-            toggle.addEventListener('click', function() {
-                if (input.type === 'password') {
-                    input.type = 'text';
-                    toggle.innerHTML = `
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
-                            <path d="M3 3l18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    `;
-                } else {
-                    input.type = 'password';
-                    toggle.innerHTML = `
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
-                        </svg>
-                    `;
-                }
-            });
+    cacheElements() {
+      this.elements = {
+        form: document.getElementById('kc-register-form'),
+        submitBtn: document.getElementById('submit-btn'),
+        firstName: document.getElementById('firstName'),
+        lastName: document.getElementById('lastName'),
+        email: document.getElementById('email'),
+        password: document.getElementById('password'),
+        passwordConfirm: document.getElementById('password-confirm')
+      };
+    },
+
+    bindEvents() {
+      const validators = {
+        firstName: this.validateRequired.bind(this),
+        lastName: this.validateRequired.bind(this),
+        email: this.validateEmail.bind(this),
+        password: this.validatePassword.bind(this),
+        passwordConfirm: this.validatePasswordConfirm.bind(this)
+      };
+
+      Object.keys(validators).forEach(field => {
+        const element = this.elements[field];
+        if (element) {
+          element.addEventListener('input', () => {
+            validators[field](field, element.value);
+            this.updateSubmitButton();
+          });
         }
+      });
+    },
+
+    validateRequired(field, value) {
+      const isValid = value.trim().length > 0;
+      this.state[field] = isValid;
+      this.updateFieldUI(field, isValid, value.length > 0);
+      return isValid;
+    },
+
+    validateEmail(field, value) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const isValid = emailRegex.test(value);
+      this.state[field] = isValid;
+      this.updateFieldUI(field, isValid, value.length > 0, true);
+      return isValid;
+    },
+
+    validatePassword(field, value) {
+      const requirements = {
+        minLength: value.length >= 8,
+        hasUppercase: /[A-Z]/.test(value),
+        hasLowercase: /[a-z]/.test(value),
+        hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(value)
+      };
+
+      const isValid = Object.values(requirements).every(req => req);
+      this.state[field] = isValid;
+      this.updateFieldUI(field, isValid, value.length > 0, true);
+
+      // Re-validate password confirmation if it has a value
+      if (this.elements.passwordConfirm.value.length > 0) {
+        this.validatePasswordConfirm('passwordConfirm', this.elements.passwordConfirm.value);
+      }
+
+      return isValid;
+    },
+
+    validatePasswordConfirm(field, value) {
+      const passwordValue = this.elements.password.value;
+      const isValid = value === passwordValue && value.length > 0;
+      this.state[field] = isValid;
+      this.updateFieldUI(field, isValid, value.length > 0, true);
+      return isValid;
+    },
+
+    updateFieldUI(field, isValid, hasValue, hasSuccessState = false) {
+      const input = this.elements[field];
+      const errorElement = document.getElementById(`${field}-error`);
+      const successElement = document.getElementById(`${field}-success`);
+
+      if (!input || !errorElement) return;
+
+      // Update input classes
+      input.classList.remove('form-input--error', 'form-input--valid');
+
+      if (hasValue) {
+        input.classList.add(isValid ? 'form-input--valid' : 'form-input--error');
+      }
+
+      // Update error message
+      errorElement.classList.toggle('validation-message--show', hasValue && !isValid);
+
+      // Update success message (if exists)
+      if (successElement && hasSuccessState) {
+        successElement.classList.toggle('validation-message--show', hasValue && isValid);
+      }
+    },
+
+    updateSubmitButton() {
+      const allValid = Object.values(this.state).every(state => state);
+      this.elements.submitBtn.disabled = !allValid;
     }
+  };
 
-    setupPasswordToggle('password', 'password-toggle');
-    setupPasswordToggle('password-confirm', 'password-confirm-toggle');
+  // ===== PASSWORD TOGGLE SYSTEM =====
+  const PasswordToggleSystem = {
+    init() {
+      this.setupToggle('password', 'password-toggle');
+      this.setupToggle('password-confirm', 'password-confirm-toggle');
+    },
 
-    // Validation functions
-    function validateEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
+    setupToggle(inputId, toggleId) {
+      const input = document.getElementById(inputId);
+      const toggle = document.getElementById(toggleId);
 
-    function validatePassword(password) {
-        const hasMinLength = password.length >= 8;
-        const hasUppercase = /[A-Z]/.test(password);
-        const hasLowercase = /[a-z]/.test(password);
-        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-        return hasMinLength && hasUppercase && hasLowercase && hasSpecialChar;
-    }
-
-    function updateValidationUI(inputElement, isValid, errorElement, successElement) {
-        if (isValid) {
-            inputElement.classList.remove('error');
-            inputElement.classList.add('valid');
-            errorElement.classList.remove('show');
-            successElement.classList.add('show');
-        } else {
-            inputElement.classList.add('error');
-            inputElement.classList.remove('valid');
-            errorElement.classList.add('show');
-            successElement.classList.remove('show');
-        }
-    }
-
-    function updateSubmitButton() {
-        const allValid = Object.values(validationState).every(state => state);
-        submitBtn.disabled = !allValid;
-    }
-
-    // First name validation
-    if (firstNameInput) {
-        firstNameInput.addEventListener('input', function() {
-            const isValid = this.value.trim().length > 0;
-            validationState.firstName = isValid;
-
-            const errorElement = document.getElementById('firstName-error');
-            if (this.value.length > 0) {
-                if (isValid) {
-                    this.classList.remove('error');
-                    errorElement.classList.remove('show');
-                } else {
-                    this.classList.add('error');
-                    errorElement.classList.add('show');
-                }
-            }
-            updateSubmitButton();
+      if (input && toggle) {
+        toggle.addEventListener('click', () => {
+          this.toggleVisibility(input, toggle);
         });
+      }
+    },
+
+    toggleVisibility(input, toggle) {
+      const isPassword = input.type === 'password';
+      input.type = isPassword ? 'text' : 'password';
+      toggle.innerHTML = this.getToggleIcon(isPassword);
+    },
+
+    getToggleIcon(showPassword) {
+      const basePath = 'M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z';
+      const hiddenPath = showPassword ? '<path d="M3 3l18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>' : '';
+
+      return `
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="${basePath}" fill="currentColor"/>
+          ${hiddenPath}
+        </svg>
+      `;
     }
+  };
 
-    // Last name validation
-    if (lastNameInput) {
-        lastNameInput.addEventListener('input', function() {
-            const isValid = this.value.trim().length > 0;
-            validationState.lastName = isValid;
-
-            const errorElement = document.getElementById('lastName-error');
-            if (this.value.length > 0) {
-                if (isValid) {
-                    this.classList.remove('error');
-                    errorElement.classList.remove('show');
-                } else {
-                    this.classList.add('error');
-                    errorElement.classList.add('show');
-                }
-            }
-            updateSubmitButton();
-        });
-    }
-
-    // Email validation
-    if (emailInput) {
-        emailInput.addEventListener('input', function() {
-            const isValid = validateEmail(this.value);
-            validationState.email = isValid;
-
-            const errorElement = document.getElementById('email-error');
-            const successElement = document.getElementById('email-success');
-
-            if (this.value.length > 0) {
-                updateValidationUI(this, isValid, errorElement, successElement);
-            } else {
-                this.classList.remove('error', 'valid');
-                errorElement.classList.remove('show');
-                successElement.classList.remove('show');
-            }
-            updateSubmitButton();
-        });
-    }
-
-    // Password validation
-    if (passwordInput) {
-        passwordInput.addEventListener('input', function() {
-            const isValid = validatePassword(this.value);
-            validationState.password = isValid;
-
-            const errorElement = document.getElementById('password-error');
-            const successElement = document.getElementById('password-success');
-
-            if (this.value.length > 0) {
-                updateValidationUI(this, isValid, errorElement, successElement);
-            } else {
-                this.classList.remove('error', 'valid');
-                errorElement.classList.remove('show');
-                successElement.classList.remove('show');
-            }
-
-            // Re-validate password confirmation
-            if (passwordConfirmInput && passwordConfirmInput.value.length > 0) {
-                passwordConfirmInput.dispatchEvent(new Event('input'));
-            }
-
-            updateSubmitButton();
-        });
-    }
-
-    // Password confirmation validation
-    if (passwordConfirmInput) {
-        passwordConfirmInput.addEventListener('input', function() {
-            const isValid = this.value === passwordInput.value && this.value.length > 0;
-            validationState.passwordConfirm = isValid;
-
-            const errorElement = document.getElementById('password-confirm-error');
-            const successElement = document.getElementById('password-confirm-success');
-
-            if (this.value.length > 0) {
-                updateValidationUI(this, isValid, errorElement, successElement);
-            } else {
-                this.classList.remove('error', 'valid');
-                errorElement.classList.remove('show');
-                successElement.classList.remove('show');
-            }
-            updateSubmitButton();
-        });
-    }
-
-    // Initial validation state
-    updateSubmitButton();
-});
+  // ===== APPLICATION INITIALIZATION =====
+  document.addEventListener('DOMContentLoaded', () => {
+    ValidationSystem.init();
+    PasswordToggleSystem.init();
+  });
 </script>
     </#if>
 </@layout.registrationLayout>
