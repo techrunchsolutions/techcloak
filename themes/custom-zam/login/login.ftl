@@ -16,6 +16,29 @@
             display: flex;
           }
 
+.login-pf-page-header,
+        .login-pf-header,
+        h1#kc-page-title,
+        .login-pf-signup {
+            display: none !important;
+        }
+
+        .login-pf-page {
+            padding-top: 0;
+            border: none;
+        }
+
+        .login-pf-page .card-pf {
+            padding: 0;
+            margin-bottom: 0;
+            border: none;
+            max-width: none;
+        }
+
+        #kc-content-wrapper {
+            margin-top: 0;
+        }
+
 #kc-info-wrapper{
 display:none;
 }
