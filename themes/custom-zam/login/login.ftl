@@ -13,7 +13,7 @@
           }
 
           body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            background: linear-gradient(135deg, #EC232A 0%, #B91C1C 100%) !important;
             font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
@@ -312,7 +312,7 @@
             font-weight: 700;
             font-size: 1.4rem;
             margin: 0;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #EC232A, #B91C1C);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -349,7 +349,7 @@
             transform: translateX(-50%);
             width: 60px;
             height: 4px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #EC232A, #B91C1C);
             border-radius: 2px;
           }
 
@@ -387,11 +387,11 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
           }
 
-          .form-control-custom:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1), 0 8px 30px rgba(102, 126, 234, 0.15);
-            transform: translateY(-2px);
+          .form-control-custom:focus + .form-label,
+          .form-control-custom:not(:placeholder-shown) + .form-label {
+            color: #EC232A;
+            transform: scale(0.9);
+          }
             background: rgba(255, 255, 255, 0.95);
           }
 
@@ -433,8 +433,8 @@
           }
 
           .password-toggle:hover {
-            color: #667eea;
-            background: rgba(102, 126, 234, 0.1);
+            color: #EC232A;
+            background: rgba(236, 35, 42, 0.1);
             transform: translateY(-50%) scale(1.1);
           }
 
@@ -456,7 +456,7 @@
           .btn-link-custom {
             background: none;
             border: none;
-            color: #667eea;
+            color: #EC232A;
             text-decoration: none;
             cursor: pointer;
             padding: 8px 16px;
@@ -475,7 +475,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(236, 35, 42, 0.1), transparent);
             transition: left 0.5s ease;
           }
 
@@ -484,8 +484,8 @@
           }
 
           .btn-link-custom:hover {
-            color: #4f46e5;
-            background: rgba(102, 126, 234, 0.05);
+            color: #B91C1C;
+            background: rgba(236, 35, 42, 0.05);
             transform: translateY(-1px);
           }
 
@@ -505,7 +505,7 @@
           .remember-me input[type="checkbox"] {
             width: 20px;
             height: 20px;
-            accent-color: #667eea;
+            accent-color: #EC232A;
             cursor: pointer;
           }
 
@@ -534,7 +534,7 @@
           .btn-primary-custom {
             width: 100%;
             height: 64px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #EC232A 0%, #B91C1C 100%);
             border: none;
             border-radius: 16px;
             color: white;
@@ -545,7 +545,7 @@
             margin-bottom: 32px;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 8px 30px rgba(236, 35, 42, 0.3);
           }
 
           .btn-primary-custom::before {
@@ -560,9 +560,9 @@
           }
 
           .btn-primary-custom:hover:not(:disabled) {
-            background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+            background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%);
             transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 12px 40px rgba(236, 35, 42, 0.4);
           }
 
           .btn-primary-custom:hover:not(:disabled)::before {
@@ -577,7 +577,7 @@
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+            box-shadow: 0 4px 15px rgba(236, 35, 42, 0.2);
           }
 
           /* Enhanced error messages */
@@ -1020,16 +1020,16 @@
 
               // Add floating label effect
               input.addEventListener('input', function() {
-                const label = this.parentElement.querySelector('.form-label');
-                if (label) {
-                  if (this.value.length > 0) {
-                    label.style.color = '#667eea';
-                    label.style.transform = 'scale(0.9)';
-                  } else {
-                    label.style.color = '#374151';
-                    label.style.transform = 'scale(1)';
-                  }
-                }
+            const label = this.parentElement.querySelector('.form-label');
+            if (label) {
+              if (this.value.length > 0) {
+                label.style.color = '#EC232A';
+                label.style.transform = 'scale(0.9)';
+              } else {
+                label.style.color = '#374151';
+                label.style.transform = 'scale(1)';
+              }
+            }
               });
             });
           }
