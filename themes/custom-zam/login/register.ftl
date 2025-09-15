@@ -6,6 +6,30 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet"/>
         <link rel="stylesheet" href="${url.resourcesPath}/css/register.css"/>
     <#elseif section == "form">
+<style>
+.login-pf-page-header,
+        .login-pf-header,
+        h1#kc-page-title,
+        .login-pf-signup {
+            display: none !important;
+        }
+
+        .login-pf-page {
+            padding-top: 0;
+            border: none;
+        }
+
+        .login-pf-page .card-pf {
+            padding: 0;
+            margin-bottom: 0;
+            border: none;
+            max-width: none;
+        }
+
+        #kc-content-wrapper {
+            margin-top: 0;
+        }
+</style>
     <main class="position-relative min-vh-100">
         <!-- Left promotional content -->
         <div class="left-content">
@@ -92,5 +116,6 @@
     </main>
     </#if>
 </@layout.registrationLayout>
+
 
 
