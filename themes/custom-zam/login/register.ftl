@@ -10,6 +10,10 @@
   box-sizing: border-box;
 }
 
+.lastt {
+margin-bottom: 28px !important;
+}
+
 /* Hide default Keycloak elements */
 .login-pf-page-header,
 .login-pf-header,
@@ -692,7 +696,7 @@ body {
                     </#if>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group lastt">
                     <label for="password-confirm" class="form-label">Confirm Password</label>
                     <div class="input-container">
                         <input type="password" id="password-confirm" name="password-confirm"
@@ -947,3 +951,4 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
     </#if>
 </@layout.registrationLayout>
+
