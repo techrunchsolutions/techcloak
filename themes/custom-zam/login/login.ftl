@@ -6,11 +6,11 @@
     <#elseif section = "form">
         <style>
           /* Custom CSS for the login page */
-          body { 
-            background-color: white !important; 
+          body {
+            background-color: white !important;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
           }
-          
+
           .login-container {
             min-height: 100vh;
             display: flex;
@@ -76,23 +76,23 @@ border-top: none;
             overflow: hidden;
             display: none;
           }
-          
+
           @media (min-width: 992px) {
             .left-content { display: block; }
             .main-content { width: 50%; }
           }
-          
+
           @media (max-width: 991px) {
             .main-content { width: 100%; }
           }
-          
+
           .background-container {
             position: relative;
             width: 100%;
             height: 100vh;
             overflow: hidden;
           }
-          
+
           .carousel-image {
             position: absolute;
             top: 0;
@@ -103,45 +103,45 @@ border-top: none;
             opacity: 0;
             transition: opacity 0.5s ease-in-out;
           }
-          
+
           .carousel-image.active {
             opacity: 1;
           }
-          
+
           .decorative-ellipse-red {
             position: absolute;
             top: 20%;
             right: 10%;
             z-index: 2;
           }
-          
+
           .decorative-ellipse {
             position: absolute;
             border-radius: 50%;
             background-color: rgba(255, 255, 255, 0.1);
           }
-          
+
           .decorative-ellipse-gray-large {
             width: 200px;
             height: 200px;
             top: 10%;
             left: 10%;
           }
-          
+
           .decorative-ellipse-gray-medium {
             width: 100px;
             height: 100px;
             bottom: 30%;
             right: 20%;
           }
-          
+
           .decorative-ellipse-gray-small {
             width: 60px;
             height: 60px;
             bottom: 10%;
             left: 30%;
           }
-          
+
           .promotional-section {
             position: absolute;
             bottom: 40px;
@@ -154,7 +154,7 @@ border-top: none;
             padding: 24px;
             color: white;
           }
-          
+
           .carousel-indicator {
             width: 8px;
             height: 8px;
@@ -163,7 +163,7 @@ border-top: none;
             transition: all 0.3s ease;
             display: inline-block;
           }
-          
+
           .carousel-indicator-active {
             width: 24px;
             height: 8px;
@@ -172,56 +172,57 @@ border-top: none;
             transition: all 0.3s ease;
             display: inline-block;
           }
-          
+
           .main-content {
             padding: 40px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             min-height: 100vh;
+            overflow-y: auto;
           }
-          
+
           .brand-header {
             text-align: center;
             margin-bottom: 32px;
-            margin-top: 100px;
+            margin-top: 40px;
           }
-          
+
           .brand-logo {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
           }
-          
+
           .brand-title {
             font-weight: bold;
             font-size: 1.25rem;
             margin: 0;
             color: #333;
           }
-          
+
           .page-title {
             text-align: center;
             margin-bottom: 48px;
           }
-          
+
           .page-title h2 {
             font-weight: bold;
             font-size: 2.5rem;
             color: #333;
             margin: 0;
           }
-          
+
           .login-form {
             max-width: 532px;
             margin: 0 auto;
           }
-          
+
           .form-group {
             margin-bottom: 24px;
           }
-          
+
           .form-label {
             font-weight: 600;
             font-size: 1.25rem;
@@ -229,7 +230,7 @@ border-top: none;
             margin-bottom: 8px;
             display: block;
           }
-          
+
           .form-control-custom {
             width: 100%;
             height: 60px;
@@ -240,21 +241,21 @@ border-top: none;
             font-size: 1rem;
             transition: border-color 0.3s ease;
           }
-          
+
           .form-control-custom:focus {
             outline: none;
             border-color: #0066cc;
             box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
           }
-          
+
           .form-control-custom.error {
             border-color: #dc3545;
           }
-          
+
           .input-container {
             position: relative;
           }
-          
+
           .password-toggle {
             position: absolute;
             right: 15px;
@@ -262,9 +263,18 @@ border-top: none;
             transform: translateY(-50%);
             cursor: pointer;
             color: #6c757d;
-            font-size: 1.2rem;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
-          
+
+          .password-toggle svg {
+            width: 20px;
+            height: 20px;
+          }
+
           .form-actions {
             display: flex;
             justify-content: space-between;
@@ -273,7 +283,7 @@ border-top: none;
             flex-wrap: wrap;
             gap: 16px;
           }
-          
+
           .btn-link-custom {
             background: none;
             border: none;
@@ -283,22 +293,22 @@ border-top: none;
             padding: 0;
             font-size: 1rem;
           }
-          
+
           .remember-me {
             margin-bottom: 16px;
           }
-          
+
           .remember-me input {
             margin-right: 8px;
           }
-          
+
           .terms-text {
             text-align: center;
             margin-bottom: 24px;
             color: #6c757d;
             font-size: 0.9rem;
           }
-          
+
           .btn-primary-custom {
             width: 100%;
             height: 60px;
@@ -312,23 +322,23 @@ border-top: none;
             transition: background-color 0.3s ease;
             margin-bottom: 24px;
           }
-          
+
           .btn-primary-custom:hover:not(:disabled) {
             background-color: #0052a3;
           }
-          
+
           .btn-primary-custom:disabled {
             opacity: 0.6;
             cursor: not-allowed;
           }
-          
+
           .social-icons {
             display: flex;
             justify-content: center;
             gap: 16px;
             margin: 32px 0;
           }
-          
+
           .social-icon {
             width: 48px;
             height: 48px;
@@ -341,35 +351,35 @@ border-top: none;
             transition: all 0.3s ease;
             text-decoration: none;
           }
-          
+
           .social-icon:hover {
             background-color: #f8f9fa;
           }
-          
+
           .social-icon img {
             width: 24px;
             height: 24px;
           }
-          
+
           .footer-text {
             text-align: center;
             color: #6c757d;
             font-size: 0.9rem;
           }
-          
+
           .error-message {
             color: #dc3545;
             font-size: 0.875rem;
             margin-top: 4px;
           }
-          
+
           .carousel-nav {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
           }
-          
+
           .carousel-btn {
             background: none;
             border: none;
@@ -380,18 +390,18 @@ border-top: none;
             align-items: center;
             justify-content: center;
           }
-          
+
           .carousel-indicators {
             display: flex;
             align-items: center;
             gap: 8px;
           }
-          
+
           /* Bootstrap integration */
           .kc-login #kc-form {
             width: 100% !important;
           }
-          
+
           .kc-login #kc-form-wrapper {
             width: 100% !important;
           }
@@ -520,7 +530,7 @@ border-top: none;
               <div id="kc-form-wrapper">
                 <#if realm.password>
                   <form id="kc-form-login" onsubmit="login.disabled = true; return true;" action="${url.loginAction}" method="post" class="login-form">
-                    
+
                     <#if !usernameHidden??>
                       <div class="form-group">
                         <label for="username" class="form-label">
@@ -532,14 +542,14 @@ border-top: none;
                             Email
                           </#if>
                         </label>
-                        <input 
-                          tabindex="2" 
-                          id="username" 
-                          class="form-control-custom <#if messagesPerField.existsError('username','password')>error</#if>" 
-                          name="username" 
-                          value="${(login.username!'')}" 
+                        <input
+                          tabindex="2"
+                          id="username"
+                          class="form-control-custom <#if messagesPerField.existsError('username','password')>error</#if>"
+                          name="username"
+                          value="${(login.username!'')}"
                           type="text"
-                          autofocus 
+                          autofocus
                           autocomplete="${(enableWebAuthnConditionalUI?has_content)?then('username webauthn', 'username')}"
                           aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
                           dir="ltr"
@@ -557,19 +567,23 @@ border-top: none;
                     <div class="form-group">
                       <label for="password" class="form-label">Password</label>
                       <div class="input-container">
-                        <input 
-                          tabindex="3" 
-                          id="password" 
-                          class="form-control-custom <#if messagesPerField.existsError('username','password')>error</#if>" 
-                          name="password" 
-                          type="password" 
+                        <input
+                          tabindex="3"
+                          id="password"
+                          class="form-control-custom <#if messagesPerField.existsError('username','password')>error</#if>"
+                          name="password"
+                          type="password"
                           autocomplete="current-password"
                           aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
                           placeholder="Enter your password"
                           style="padding-right: 50px;"
                           required
                         />
-                        <span class="password-toggle" id="password-toggle">👁</span>
+                        <span class="password-toggle" id="password-toggle">
+                          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
+                          </svg>
+                        </span>
                       </div>
                       <#if usernameHidden?? && messagesPerField.existsError('username','password')>
                         <div class="error-message">
@@ -586,7 +600,7 @@ border-top: none;
                       <#else>
                         <span></span>
                       </#if>
-                      
+
                       <#if realm.registrationAllowed && !registrationDisabled??>
                         <a tabindex="8" href="${url.registrationUrl}" class="btn-link-custom">
                           Create account
@@ -611,11 +625,11 @@ border-top: none;
                     </div>
 
                     <input type="hidden" id="id-hidden-input" name="credentialId" <#if auth.selectedCredential?has_content>value="${auth.selectedCredential}"</#if>/>
-                    <button 
-                      tabindex="7" 
-                      class="btn-primary-custom" 
-                      name="login" 
-                      id="kc-login" 
+                    <button
+                      tabindex="7"
+                      class="btn-primary-custom"
+                      name="login"
+                      id="kc-login"
                       type="submit"
                     >
                       Sign in
@@ -696,7 +710,7 @@ border-top: none;
             // Event listeners for carousel
             const nextBtn = document.getElementById("carousel-next");
             const prevBtn = document.getElementById("carousel-prev");
-            
+
             if (nextBtn) {
               nextBtn.addEventListener("click", function() {
                 stopAutoSlide();
@@ -719,21 +733,30 @@ border-top: none;
             // Password toggle functionality
             const passwordToggle = document.getElementById("password-toggle");
             const passwordInput = document.getElementById("password");
-            
+
             if (passwordToggle && passwordInput) {
               passwordToggle.addEventListener("click", function() {
                 if (passwordInput.type === "password") {
                   passwordInput.type = "text";
-                  passwordToggle.textContent = "🙈";
+                  passwordToggle.innerHTML = `
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
+                      <path d="M3 3l18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                  `;
                 } else {
                   passwordInput.type = "password";
-                  passwordToggle.textContent = "👁";
+                  passwordToggle.innerHTML = `
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
+                    </svg>
+                  `;
                 }
               });
             }
           });
         </script>
-        
+
         <@passkeys.conditionalUIData />
     <#elseif section = "info" >
         <#if realm.password && realm.registrationAllowed && !registrationDisabled??>
