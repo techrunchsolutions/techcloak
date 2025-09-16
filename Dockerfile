@@ -8,9 +8,9 @@ ENV KEYCLOAK_ADMIN_PASSWORD=admin
 ENV KC_HEALTH_ENABLED=true
 ENV KC_METRICS_ENABLED=true
 ENV KC_DB=postgres
-ENV KC_DB_URL=jdbc:postgresql://dpg-cuu5ag1opnds739t6gs0-a.oregon-postgres.render.com/bluepay_db
-ENV KC_DB_USERNAME=techrunch
-ENV KC_DB_PASSWORD=ZfNqijcx0TcRIopJ5f46VNYxPZBaVFtZ
+ENV KC_DB_URL=jdbc:postgresql://dpg-another-a.oregon-postgres.render.com/something
+ENV KC_DB_USERNAME=....
+ENV KC_DB_PASSWORD=.....
 
 # Add custom theme
 COPY themes /opt/keycloak/themes
