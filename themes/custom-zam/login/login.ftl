@@ -133,7 +133,7 @@
           .brand-title-large {
             font-size: 2.5rem;
             font-weight: 800;
-            color: #ffffff;
+            color: #ffffff !important;
             margin-bottom: 1.5rem;
             background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
             -webkit-background-clip: text;
