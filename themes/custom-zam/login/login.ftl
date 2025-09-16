@@ -142,6 +142,10 @@
             animation: fadeInUp 1s ease-out 0.2s both;
           }
 
+          .omoo {
+            color: #ffffff !important;
+          }
+
           .brand-subtitle {
             font-size: 1.25rem;
             color: #cbd5e1;
@@ -556,7 +560,7 @@
                 <img src="${url.resourcesPath}/img/NASD Product logos.png" alt="NASD Logo" />
               </div>
 
-              <h1 class="brand-title-large">NASD Communication System</h1>
+              <h1 class="brand-title-large omoo">NASD Communication System</h1>
 
               <p class="brand-subtitle">
                 Secure, professional communication platform designed for modern financial institutions and corporate environments.
