@@ -5,25 +5,12 @@
         ${msg("loginAccountTitle")}
     <#elseif section = "form">
         <style>
-          /* Enhanced CSS for beautiful login page */
-          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
           * {
             box-sizing: border-box;
-          }
-
-          body {
-            background: linear-gradient(135deg, #EC232A 0%, #B91C1C 100%) !important;
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-          }
-
-          .login-container {
-            min-height: 100vh;
-            display: flex;
-            position: relative;
-            overflow: hidden;
           }
 
           /* Hide default Keycloak elements */
@@ -55,387 +42,272 @@
 
           html, body {
             overflow-x: hidden;
-          }
-
-          .card-pf {
-            max-width: 15000px;
-            border-top: none;
-          }
-
-          @media (min-width: 768px) {
-            .login-pf-page .card-pf {
-              padding: 0;
-            }
-          }
-
-          /* Left Content - Enhanced Carousel */
-          .left-content {
-            width: 50%;
-            position: relative;
-            overflow: hidden;
-            display: none;
-          }
-
-          @media (min-width: 992px) {
-            .left-content { display: block; }
-            .main-content { width: 50%; }
-          }
-
-          @media (max-width: 991px) {
-            .main-content { width: 100%; }
-          }
-
-          .background-container {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            overflow: hidden;
-          }
-
-          .carousel-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
             height: 100%;
-            object-fit: cover;
-            opacity: 0;
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            transform: scale(1.1);
           }
 
-          .carousel-image.active {
-            opacity: 1;
-            transform: scale(1);
-          }
-
-          /* Enhanced decorative elements */
-          .decorative-ellipse-red {
-            position: absolute;
-            top: 15%;
-            right: 8%;
-            z-index: 2;
-            animation: float 6s ease-in-out infinite;
-          }
-
-          @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-          }
-
-          .decorative-ellipse {
-            position: absolute;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
-            backdrop-filter: blur(10px);
-            animation: pulse 4s ease-in-out infinite;
-          }
-
-          @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.7; }
-            50% { transform: scale(1.1); opacity: 1; }
-          }
-
-          .decorative-ellipse-gray-large {
-            width: 220px;
-            height: 220px;
-            top: 8%;
-            left: 8%;
-            animation-delay: 0s;
-          }
-
-          .decorative-ellipse-gray-medium {
-            width: 120px;
-            height: 120px;
-            bottom: 35%;
-            right: 15%;
-            animation-delay: 1s;
-          }
-
-          .decorative-ellipse-gray-small {
-            width: 80px;
-            height: 80px;
-            bottom: 15%;
-            left: 25%;
-            animation-delay: 2s;
-          }
-
-          /* Enhanced promotional section */
-          .promotional-section {
-            position: absolute;
-            bottom: 40px;
-            left: 40px;
-            right: 40px;
-            z-index: 3;
-            backdrop-filter: blur(20px);
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1));
-            border-radius: 20px;
-            padding: 32px;
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            transform: translateY(20px);
-            animation: slideUp 1s ease-out 0.5s forwards;
-          }
-
-          @keyframes slideUp {
-            to { transform: translateY(0); }
-          }
-
-          .promotional-section h3 {
-            font-weight: 600;
-            font-size: 1.5rem;
-            text-align: center;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, #fff, #e0e7ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-          }
-
-          .promotional-section p {
-            text-align: center;
-            margin-bottom: 24px;
-            font-size: 1rem;
+          body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: #1e293b;
             line-height: 1.6;
-            opacity: 0.9;
           }
 
-          /* Enhanced carousel controls */
-          .carousel-indicator {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.4);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            display: inline-block;
-            cursor: pointer;
-          }
-
-          .carousel-indicator-active {
-            width: 32px;
-            height: 8px;
-            border-radius: 4px;
-            background: linear-gradient(135deg, #fff, #e0e7ff);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            display: inline-block;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
-          }
-
-          .carousel-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            cursor: pointer;
-            padding: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-          }
-
-          .carousel-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.1);
-          }
-
-          /* Main Content - Enhanced */
-          .main-content {
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
+          /* Main container */
+          .auth-container {
             min-height: 100vh;
-            overflow-y: auto;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.95));
-            backdrop-filter: blur(20px);
+            display: flex;
             position: relative;
+            overflow: hidden;
           }
 
-          .main-content::before {
+          /* Animated background */
+          .auth-container::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23000" opacity="0.02"/><circle cx="75" cy="75" r="1" fill="%23000" opacity="0.02"/><circle cx="50" cy="10" r="1" fill="%23000" opacity="0.02"/><circle cx="10" cy="90" r="1" fill="%23000" opacity="0.02"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-            pointer-events: none;
-            z-index: 1;
+            background:
+              radial-gradient(circle at 20% 80%, rgba(236, 35, 42, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 40% 40%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+            animation: backgroundShift 20s ease-in-out infinite;
           }
 
-          .main-content > * {
+          @keyframes backgroundShift {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+          }
+
+          /* Left side - Brand showcase */
+          .brand-showcase {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem;
+            position: relative;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%);
+            backdrop-filter: blur(20px);
+          }
+
+          .brand-showcase::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23334155" stroke-width="0.5" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+          }
+
+          .brand-showcase > * {
             position: relative;
             z-index: 2;
           }
 
-          /* Enhanced brand header */
-          .brand-header {
+          .showcase-content {
             text-align: center;
-            margin-bottom: 40px;
-            margin-top: 40px;
-            animation: fadeInDown 1s ease-out;
+            max-width: 500px;
           }
 
-          @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
+          .brand-logo-large {
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out;
           }
 
-          .brand-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            padding: 20px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4));
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            margin: 0 auto;
-          }
-
-          .brand-logo img {
+          .brand-logo-large img {
+            width: 120px;
+            height: auto;
+            filter: brightness(1.1) contrast(1.1);
             transition: transform 0.3s ease;
           }
 
-          .brand-logo:hover img {
+          .brand-logo-large:hover img {
             transform: scale(1.05);
           }
 
-          .brand-title {
-            font-weight: 700;
-            font-size: 1.4rem;
-            margin: 0;
-            background: linear-gradient(135deg, #EC232A, #B91C1C);
+          .brand-title-large {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-          }
-
-          /* Enhanced page title */
-          .page-title {
-            text-align: center;
-            margin-bottom: 48px;
             animation: fadeInUp 1s ease-out 0.2s both;
           }
 
-          @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-
-          .page-title h2 {
-            font-weight: 700;
-            font-size: 3rem;
-            background: linear-gradient(135deg, #1e293b, #475569);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin: 0;
-            position: relative;
-          }
-
-          .page-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(135deg, #EC232A, #B91C1C);
-            border-radius: 2px;
-          }
-
-          /* Enhanced form styling */
-          .login-form {
-            max-width: 480px;
-            margin: 0 auto;
+          .brand-subtitle {
+            font-size: 1.25rem;
+            color: #cbd5e1;
+            margin-bottom: 3rem;
+            font-weight: 400;
+            line-height: 1.7;
             animation: fadeInUp 1s ease-out 0.4s both;
           }
 
-          .form-group {
-            margin-bottom: 28px;
+          .feature-highlights {
+            display: grid;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            animation: fadeInUp 1s ease-out 0.6s both;
+          }
+
+          .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+          }
+
+          .feature-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+          }
+
+          .feature-icon {
+            width: 24px;
+            height: 24px;
+            color: #EC232A;
+            flex-shrink: 0;
+          }
+
+          .feature-text {
+            color: #e2e8f0;
+            font-weight: 500;
+          }
+
+          /* Right side - Login form */
+          .auth-form-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%);
+            backdrop-filter: blur(20px);
             position: relative;
+          }
+
+          .auth-form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="%23e2e8f0" opacity="0.4"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+            opacity: 0.6;
+          }
+
+          .auth-form-container > * {
+            position: relative;
+            z-index: 2;
+          }
+
+          .form-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 1s ease-out;
+          }
+
+          .form-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
+          }
+
+          .form-subtitle {
+            font-size: 1.1rem;
+            color: #64748b;
+            font-weight: 400;
+          }
+
+          .auth-form {
+            max-width: 400px;
+            margin: 0 auto;
+            width: 100%;
+            animation: fadeInUp 1s ease-out 0.2s both;
+          }
+
+          .form-group {
+            margin-bottom: 1.5rem;
           }
 
           .form-label {
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: #374151;
-            margin-bottom: 12px;
             display: block;
-            transition: color 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
           }
 
-          .form-control-custom {
-            width: 100%;
-            height: 64px;
-            padding: 20px 24px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.9));
-            border: 2px solid rgba(203, 213, 225, 0.5);
-            border-radius: 16px;
-            font-size: 1.1rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-          }
-
-          .form-control-custom:focus + .form-label,
-          .form-control-custom:not(:placeholder-shown) + .form-label {
-            color: #EC232A;
-            transform: scale(0.9);
-          }
-            background: rgba(255, 255, 255, 0.95);
-          }
-
-          .form-control-custom.error {
-            border-color: #ef4444;
-            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
-          }
-
-          .form-control-custom::placeholder {
-            color: #9ca3af;
-            transition: opacity 0.3s ease;
-          }
-
-          .form-control-custom:focus::placeholder {
-            opacity: 0.7;
-          }
-
-          /* Enhanced input container */
-          .input-container {
+          .input-wrapper {
             position: relative;
+          }
+
+          .form-input {
+            width: 100%;
+            height: 3.5rem;
+            padding: 0 1rem;
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #1e293b;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+          }
+
+          .form-input:focus {
+            outline: none;
+            border-color: #EC232A;
+            box-shadow: 0 0 0 3px rgba(236, 35, 42, 0.1), 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-1px);
+          }
+
+          .form-input.error {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+          }
+
+          .form-input::placeholder {
+            color: #9ca3af;
+            font-weight: 400;
           }
 
           .password-toggle {
             position: absolute;
-            right: 20px;
+            right: 1rem;
             top: 50%;
             transform: translateY(-50%);
-            cursor: pointer;
+            background: none;
+            border: none;
             color: #6b7280;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
+            cursor: pointer;
+            padding: 0.25rem;
+            border-radius: 6px;
+            transition: all 0.2s ease;
           }
 
           .password-toggle:hover {
             color: #EC232A;
             background: rgba(236, 35, 42, 0.1);
-            transform: translateY(-50%) scale(1.1);
           }
 
           .password-toggle svg {
@@ -443,112 +315,71 @@
             height: 20px;
           }
 
-          /* Enhanced form actions */
-          .form-actions {
+          .form-options {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 32px;
+            margin-bottom: 2rem;
             flex-wrap: wrap;
-            gap: 16px;
+            gap: 1rem;
           }
 
-          .btn-link-custom {
-            background: none;
-            border: none;
-            color: #EC232A;
-            text-decoration: none;
-            cursor: pointer;
-            padding: 8px 16px;
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-          }
-
-          .btn-link-custom::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(236, 35, 42, 0.1), transparent);
-            transition: left 0.5s ease;
-          }
-
-          .btn-link-custom:hover::before {
-            left: 100%;
-          }
-
-          .btn-link-custom:hover {
-            color: #B91C1C;
-            background: rgba(236, 35, 42, 0.05);
-            transform: translateY(-1px);
-          }
-
-          /* Enhanced remember me */
           .remember-me {
-            margin-bottom: 24px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 16px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(248, 250, 252, 0.6));
-            border-radius: 12px;
-            border: 1px solid rgba(203, 213, 225, 0.3);
-            backdrop-filter: blur(10px);
+            gap: 0.5rem;
           }
 
           .remember-me input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
+            width: 1rem;
+            height: 1rem;
             accent-color: #EC232A;
             cursor: pointer;
           }
 
           .remember-me label {
+            font-size: 0.875rem;
+            color: #64748b;
             cursor: pointer;
-            font-weight: 500;
-            color: #374151;
             margin: 0;
           }
 
-          /* Enhanced terms text */
-          .terms-text {
-            text-align: center;
-            margin-bottom: 32px;
-            color: #6b7280;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            padding: 20px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(248, 250, 252, 0.5));
-            border-radius: 12px;
-            border: 1px solid rgba(203, 213, 225, 0.2);
-            backdrop-filter: blur(10px);
+          .forgot-password {
+            color: #EC232A;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
           }
 
-          /* Enhanced primary button */
-          .btn-primary-custom {
+          .forgot-password:hover {
+            color: #dc2626;
+            background: rgba(236, 35, 42, 0.1);
+            text-decoration: none;
+          }
+
+          .submit-button {
             width: 100%;
-            height: 64px;
-            background: linear-gradient(135deg, #EC232A 0%, #B91C1C 100%);
+            height: 3.5rem;
+            background: linear-gradient(135deg, #EC232A 0%, #dc2626 100%);
             border: none;
-            border-radius: 16px;
-            color: white;
-            font-size: 1.2rem;
+            border-radius: 12px;
+            color: #ffffff;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            margin-bottom: 32px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 1.5rem;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 8px 30px rgba(236, 35, 42, 0.3);
+            box-shadow: 0 4px 12px rgba(236, 35, 42, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
           }
 
-          .btn-primary-custom::before {
+          .submit-button::before {
             content: '';
             position: absolute;
             top: 0;
@@ -559,105 +390,29 @@
             transition: left 0.6s ease;
           }
 
-          .btn-primary-custom:hover:not(:disabled) {
-            background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%);
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(236, 35, 42, 0.4);
+          .submit-button:hover:not(:disabled) {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(236, 35, 42, 0.4);
           }
 
-          .btn-primary-custom:hover:not(:disabled)::before {
+          .submit-button:hover:not(:disabled)::before {
             left: 100%;
           }
 
-          .btn-primary-custom:active {
-            transform: translateY(-1px);
-          }
-
-          .btn-primary-custom:disabled {
+          .submit-button:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none;
-            box-shadow: 0 4px 15px rgba(236, 35, 42, 0.2);
+            background: #9ca3af;
+            box-shadow: 0 2px 8px rgba(156, 163, 175, 0.3);
           }
 
-          /* Enhanced error messages */
-          .error-message {
-            color: #ef4444;
-            font-size: 0.9rem;
-            margin-top: 8px;
-            padding: 8px 12px;
-            background: rgba(239, 68, 68, 0.1);
-            border-radius: 8px;
-            border-left: 4px solid #ef4444;
-            animation: shake 0.5s ease-in-out;
+          .submit-button.loading {
+            color: transparent;
           }
 
-          @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-          }
-
-          /* Enhanced footer */
-          .footer-text {
-            text-align: center;
-            color: #6b7280;
-            font-size: 0.9rem;
-            margin-top: 40px;
-            padding: 20px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(248, 250, 252, 0.4));
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(203, 213, 225, 0.2);
-          }
-
-          /* Enhanced carousel navigation */
-          .carousel-nav {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-          }
-
-          .carousel-indicators {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-          }
-
-          /* Responsive enhancements */
-          @media (max-width: 768px) {
-            .main-content {
-              padding: 20px;
-            }
-
-            .page-title h2 {
-              font-size: 2.2rem;
-            }
-
-            .brand-title {
-              font-size: 1.1rem;
-            }
-
-            .form-control-custom {
-              height: 56px;
-              padding: 16px 20px;
-              font-size: 1rem;
-            }
-
-            .btn-primary-custom {
-              height: 56px;
-              font-size: 1.1rem;
-            }
-          }
-
-          /* Loading animation for buttons */
-          .btn-loading {
-            position: relative;
-            color: transparent !important;
-          }
-
-          .btn-loading::after {
+          .submit-button.loading::after {
             content: '';
             position: absolute;
             top: 50%;
@@ -666,7 +421,7 @@
             width: 20px;
             height: 20px;
             border: 2px solid rgba(255, 255, 255, 0.3);
-            border-top: 2px solid white;
+            border-top: 2px solid #ffffff;
             border-radius: 50%;
             animation: spin 1s linear infinite;
           }
@@ -674,6 +429,113 @@
           @keyframes spin {
             0% { transform: translate(-50%, -50%) rotate(0deg); }
             100% { transform: translate(-50%, -50%) rotate(360deg); }
+          }
+
+          .form-footer {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+          }
+
+          .signup-link {
+            color: #64748b;
+            font-size: 0.875rem;
+          }
+
+          .signup-link a {
+            color: #EC232A;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+          }
+
+          .signup-link a:hover {
+            color: #dc2626;
+            background: rgba(236, 35, 42, 0.1);
+            text-decoration: none;
+          }
+
+          .error-message {
+            color: #ef4444;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 8px;
+            animation: slideInDown 0.3s ease-out;
+          }
+
+          @keyframes slideInDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+
+          .terms-notice {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #64748b;
+            margin-top: 1rem;
+            line-height: 1.5;
+          }
+
+          .terms-notice a {
+            color: #EC232A;
+            text-decoration: none;
+            font-weight: 500;
+          }
+
+          .terms-notice a:hover {
+            text-decoration: underline;
+          }
+
+          /* Animations */
+          @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+
+          @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+
+          /* Responsive design */
+          @media (max-width: 1024px) {
+            .brand-showcase {
+              display: none;
+            }
+
+            .auth-form-container {
+              flex: none;
+              width: 100%;
+            }
+          }
+
+          @media (max-width: 768px) {
+            .auth-form-container {
+              padding: 2rem 1.5rem;
+            }
+
+            .brand-title-large {
+              font-size: 2rem;
+            }
+
+            .form-title {
+              font-size: 1.875rem;
+            }
+
+            .form-options {
+              flex-direction: column;
+              align-items: stretch;
+              gap: 1rem;
+            }
+
+            .remember-me {
+              justify-content: center;
+            }
           }
 
           /* Bootstrap integration */
@@ -686,159 +548,83 @@
           }
         </style>
 
-        <div class="login-container">
-          <!-- Left Content (Hidden on smaller screens) -->
-          <div class="left-content">
-            <div class="background-container">
-              <!-- Background Images -->
-              <img
-                src="${url.resourcesPath}/img/car1.png"
-                alt=""
-                class="carousel-image active"
-                id="carousel-img-1"
-              />
-              <img
-                src="${url.resourcesPath}/img/car2.png"
-                alt=""
-                class="carousel-image"
-                id="carousel-img-2"
-              />
-              <img
-                src="${url.resourcesPath}/img/car3.png"
-                alt=""
-                class="carousel-image"
-                id="carousel-img-3"
-              />
+        <div class="auth-container">
+          <!-- Brand Showcase Side -->
+          <div class="brand-showcase">
+            <div class="showcase-content">
+              <div class="brand-logo-large">
+                <img src="${url.resourcesPath}/img/NASD Product logos.png" alt="NASD Logo" />
+              </div>
 
-              <!-- Decorative Elements -->
-              <svg
-                class="decorative-ellipse-red"
-                width="120"
-                height="120"
-                viewBox="0 0 179 95"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <ellipse
-                  cx="89.5"
-                  cy="86"
-                  rx="89.5"
-                  ry="86"
-                  fill="url(#redGradient)"
-                ></ellipse>
-                <defs>
-                  <linearGradient id="redGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" style="stop-color:#ff6b6b;stop-opacity:1" />
-                    <stop offset="100%" style="stop-color:#ee5a52;stop-opacity:1" />
-                  </linearGradient>
-                </defs>
-              </svg>
+              <h1 class="brand-title-large">NASD Communication System</h1>
 
-              <div class="decorative-ellipse decorative-ellipse-gray-large"></div>
-              <div class="decorative-ellipse decorative-ellipse-gray-medium"></div>
-              <div class="decorative-ellipse decorative-ellipse-gray-small"></div>
+              <p class="brand-subtitle">
+                Secure, professional communication platform designed for modern financial institutions and corporate environments.
+              </p>
 
-              <!-- Promotional Section -->
-              <div class="promotional-section">
-                <h3>Discover your communication potential</h3>
-                <p>
-                  Tired of using non-privacy communication system? Customize your
-                  organization chat and branding the way its suit you and your
-                  business. We have all the parameters and functionalities you need
-                  to push your business communication to the next level.
-                </p>
-                <div class="carousel-nav">
-                  <button
-                    class="carousel-btn"
-                    id="carousel-prev"
-                    style="display: none"
-                    type="button"
-                  >
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      style="transform: rotate(90deg)"
-                    >
-                      <path
-                        d="M8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13ZM14 8C14 11.3137 11.3137 14 8 14C4.68629 14 2 11.3137 2 8C2 4.68629 4.68629 2 8 2C11.3137 2 14 4.68629 14 8ZM7.35355 5.14645L9.85355 7.64645C10.0488 7.84171 10.0488 8.15829 9.85355 8.35355L7.35355 10.8536C7.15829 11.0488 6.84171 11.0488 6.64645 10.8536C6.45118 10.6583 6.45118 10.3417 6.64645 10.1464L8.79289 8L6.64645 5.85355C6.45118 5.65829 6.45118 5.34171 6.64645 5.14645C6.84171 4.95118 7.15829 4.95118 7.35355 5.14645Z"
-                        fill="white"
-                      ></path>
-                    </svg>
-                  </button>
-                  <div class="carousel-indicators">
-                    <div class="carousel-indicator-active" id="indicator-1"></div>
-                    <div class="carousel-indicator" id="indicator-2"></div>
-                    <div class="carousel-indicator" id="indicator-3"></div>
-                  </div>
-                  <button class="carousel-btn" id="carousel-next" type="button">
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      style="transform: rotate(-90deg)"
-                    >
-                      <path
-                        d="M8 13C10.7614 13 13 10.7614 13 8C13 5.23858 10.7614 3 8 3C5.23858 3 3 5.23858 3 8C3 10.7614 5.23858 13 8 13ZM14 8C14 11.3137 11.3137 14 8 14C4.68629 14 2 11.3137 2 8C2 4.68629 4.68629 2 8 2C11.3137 2 14 4.68629 14 8ZM7.35355 5.14645L9.85355 7.64645C10.0488 7.84171 10.0488 8.15829 9.85355 8.35355L7.35355 10.8536C7.15829 11.0488 6.84171 11.0488 6.64645 10.8536C6.45118 10.6583 6.45118 10.3417 6.64645 10.1464L8.79289 8L6.64645 5.85355C6.45118 5.65829 6.45118 5.34171 6.64645 5.14645C6.84171 4.95118 7.15829 4.95118 7.35355 5.14645Z"
-                        fill="white"
-                      ></path>
-                    </svg>
-                  </button>
+              <div class="feature-highlights">
+                <div class="feature-item">
+                  <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="feature-text">Enterprise-grade security</span>
+                </div>
+
+                <div class="feature-item">
+                  <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+                  </svg>
+                  <span class="feature-text">Customizable interface</span>
+                </div>
+
+                <div class="feature-item">
+                  <svg class="feature-icon" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="feature-text">Professional compliance</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Main Content Area -->
-          <div class="main-content">
-            <!-- Header with Logo -->
-            <header class="brand-header">
-              <div class="brand-logo">
-                <img src="${url.resourcesPath}/img/NASD Product logos.png" alt="NASD Logo" />
-                <h1 class="brand-title">NASD-Communication System</h1>
-              </div>
-            </header>
+          <!-- Login Form Side -->
+          <div class="auth-form-container">
+            <div class="form-header">
+              <h2 class="form-title">Welcome Back</h2>
+              <p class="form-subtitle">Sign in to access your account</p>
+            </div>
 
-            <!-- Page Title -->
-            <section class="page-title">
-              <h2>Login to your account</h2>
-            </section>
-
-            <!-- Keycloak Login Form -->
-            <main id="kc-form">
+            <div id="kc-form">
               <div id="kc-form-wrapper">
                 <#if realm.password>
-                  <form id="kc-form-login" onsubmit="login.disabled = true; return true;" action="${url.loginAction}" method="post" class="login-form">
+                  <form id="kc-form-login" onsubmit="login.disabled = true; return true;" action="${url.loginAction}" method="post" class="auth-form">
 
                     <#if !usernameHidden??>
                       <div class="form-group">
                         <label for="username" class="form-label">
                           <#if !realm.loginWithEmailAllowed>
-                            ${msg("username")}
+                            Username
                           <#elseif !realm.registrationEmailAsUsername>
-                            ${msg("usernameOrEmail")}
+                            Username or Email
                           <#else>
-                            Email
+                            Email Address
                           </#if>
                         </label>
-                        <input
-                          tabindex="2"
-                          id="username"
-                          class="form-control-custom <#if messagesPerField.existsError('username','password')>error</#if>"
-                          name="username"
-                          value="${(login.username!'')}"
-                          type="text"
-                          autofocus
-                          autocomplete="${(enableWebAuthnConditionalUI?has_content)?then('username webauthn', 'username')}"
-                          aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
-                          dir="ltr"
-                          placeholder="Enter your email"
-                          required
-                        />
+                        <div class="input-wrapper">
+                          <input
+                            tabindex="2"
+                            id="username"
+                            class="form-input <#if messagesPerField.existsError('username','password')>error</#if>"
+                            name="username"
+                            value="${(login.username!'')}"
+                            type="text"
+                            autofocus
+                            autocomplete="${(enableWebAuthnConditionalUI?has_content)?then('username webauthn', 'username')}"
+                            aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
+                            placeholder="Enter your email address"
+                            required
+                          />
+                        </div>
                         <#if messagesPerField.existsError('username','password')>
                           <div class="error-message">
                             ${kcSanitize(messagesPerField.getFirstError('username','password'))?no_esc}
@@ -849,24 +635,24 @@
 
                     <div class="form-group">
                       <label for="password" class="form-label">Password</label>
-                      <div class="input-container">
+                      <div class="input-wrapper">
                         <input
                           tabindex="3"
                           id="password"
-                          class="form-control-custom <#if messagesPerField.existsError('username','password')>error</#if>"
+                          class="form-input <#if messagesPerField.existsError('username','password')>error</#if>"
                           name="password"
                           type="password"
                           autocomplete="current-password"
                           aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
                           placeholder="Enter your password"
-                          style="padding-right: 60px;"
                           required
                         />
-                        <span class="password-toggle" id="password-toggle">
-                          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
+                        <button type="button" class="password-toggle" id="password-toggle">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
                           </svg>
-                        </span>
+                        </button>
                       </div>
                       <#if usernameHidden?? && messagesPerField.existsError('username','password')>
                         <div class="error-message">
@@ -875,232 +661,107 @@
                       </#if>
                     </div>
 
-                    <div class="form-actions">
-                      <#if realm.resetPasswordAllowed>
-                        <a tabindex="6" href="${url.loginResetCredentialsUrl}" class="btn-link-custom">
-                          Forgot password?
-                        </a>
+                    <div class="form-options">
+                      <#if realm.rememberMe && !usernameHidden??>
+                        <div class="remember-me">
+                          <input tabindex="5" id="rememberMe" name="rememberMe" type="checkbox" <#if login.rememberMe??>checked</#if>>
+                          <label for="rememberMe">${msg("rememberMe")}</label>
+                        </div>
                       <#else>
-                        <span></span>
+                        <div></div>
                       </#if>
 
-                      <#if realm.registrationAllowed && !registrationDisabled??>
-                        <a tabindex="8" href="${url.registrationUrl}" class="btn-link-custom">
-                          Create account
+                      <#if realm.resetPasswordAllowed>
+                        <a tabindex="6" href="${url.loginResetCredentialsUrl}" class="forgot-password">
+                          Forgot Password?
                         </a>
                       </#if>
-                    </div>
-
-                    <#if realm.rememberMe && !usernameHidden??>
-                      <div class="remember-me">
-                        <input tabindex="5" id="rememberMe" name="rememberMe" type="checkbox" <#if login.rememberMe??>checked</#if>>
-                        <label for="rememberMe">${msg("rememberMe")}</label>
-                      </div>
-                    </#if>
-
-                    <div class="terms-text">
-                      By registering, you agree to ZAM's
-                      <button type="button" class="btn-link-custom" style="font-size: 0.95rem;">Terms of Service</button>
-                      and
-                      <button type="button" class="btn-link-custom" style="font-size: 0.95rem;">Privacy Policy</button>
                     </div>
 
                     <input type="hidden" id="id-hidden-input" name="credentialId" <#if auth.selectedCredential?has_content>value="${auth.selectedCredential}"</#if>/>
+
                     <button
                       tabindex="7"
-                      class="btn-primary-custom"
+                      class="submit-button"
                       name="login"
                       id="kc-login"
                       type="submit"
                     >
-                      Sign in
+                      Sign In
                     </button>
+
+                    <div class="terms-notice">
+                      By signing in, you agree to our
+                      <a href="#" onclick="return false;">Terms of Service</a> and
+                      <a href="#" onclick="return false;">Privacy Policy</a>
+                    </div>
                   </form>
                 </#if>
-              </div>
-            </main>
 
-            <!-- Footer -->
-            <footer class="footer-text">
-              © 2024 NASD Plc. All rights reserved
-            </footer>
+                <#if realm.registrationAllowed && !registrationDisabled??>
+                  <div class="form-footer">
+                    <div class="signup-link">
+                      Don't have an account? <a tabindex="8" href="${url.registrationUrl}">Create Account</a>
+                    </div>
+                  </div>
+                </#if>
+              </div>
+            </div>
           </div>
         </div>
 
         <script>
-          // Enhanced carousel functionality
-          let currentSlide = 1;
-          const totalSlides = 3;
-          let autoSlideInterval;
-          let isTransitioning = false;
+          document.addEventListener('DOMContentLoaded', function() {
+            // Enhanced password toggle
+            const passwordToggle = document.getElementById('password-toggle');
+            const passwordInput = document.getElementById('password');
 
-          function showSlide(slideNumber) {
-            if (isTransitioning) return;
-            isTransitioning = true;
+            if (passwordToggle && passwordInput) {
+              passwordToggle.addEventListener('click', function() {
+                const isPassword = passwordInput.type === 'password';
+                passwordInput.type = isPassword ? 'text' : 'password';
 
-            // Hide all images
-            for (let i = 1; i <= totalSlides; i++) {
-              const img = document.getElementById('carousel-img-' + i);
-              const indicator = document.getElementById('indicator-' + i);
-              if (img) img.classList.remove("active");
-              if (indicator) indicator.className = "carousel-indicator";
+                this.innerHTML = isPassword ?
+                  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                     <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                     <line x1="1" y1="1" x2="23" y2="23"/>
+                   </svg>` :
+                  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                     <circle cx="12" cy="12" r="3"/>
+                   </svg>`;
+              });
             }
 
-            // Show current image with delay for smooth transition
-            setTimeout(() => {
-              const currentImg = document.getElementById('carousel-img-' + slideNumber);
-              const currentIndicator = document.getElementById('indicator-' + slideNumber);
-              if (currentImg) currentImg.classList.add("active");
-              if (currentIndicator) currentIndicator.className = "carousel-indicator-active";
-
-              // Update navigation buttons
-              const prevBtn = document.getElementById("carousel-prev");
-              const nextBtn = document.getElementById("carousel-next");
-              if (prevBtn) prevBtn.style.display = slideNumber === 1 ? "none" : "flex";
-              if (nextBtn) nextBtn.style.display = slideNumber === totalSlides ? "none" : "flex";
-
-              isTransitioning = false;
-            }, 100);
-          }
-
-          function nextSlide() {
-            if (currentSlide < totalSlides && !isTransitioning) {
-              currentSlide++;
-              showSlide(currentSlide);
-            }
-          }
-
-          function prevSlide() {
-            if (currentSlide > 1 && !isTransitioning) {
-              currentSlide--;
-              showSlide(currentSlide);
-            }
-          }
-
-          function startAutoSlide() {
-            autoSlideInterval = setInterval(function() {
-              if (currentSlide < totalSlides) {
-                nextSlide();
-              } else {
-                currentSlide = 1;
-                showSlide(currentSlide);
-              }
-            }, 6000);
-          }
-
-          function stopAutoSlide() {
-            if (autoSlideInterval) {
-              clearInterval(autoSlideInterval);
-            }
-          }
-
-          // Enhanced form interactions
-          function addFormEnhancements() {
+            // Enhanced form submission
             const form = document.getElementById('kc-form-login');
             const submitBtn = document.getElementById('kc-login');
-            const inputs = form.querySelectorAll('.form-control-custom');
 
-            // Add loading state to submit button
             if (form && submitBtn) {
               form.addEventListener('submit', function() {
-                submitBtn.classList.add('btn-loading');
+                submitBtn.classList.add('loading');
                 submitBtn.disabled = true;
               });
             }
 
             // Enhanced input interactions
+            const inputs = document.querySelectorAll('.form-input');
             inputs.forEach(input => {
               input.addEventListener('focus', function() {
-                this.parentElement.style.transform = 'translateY(-2px)';
+                this.parentElement.style.transform = 'translateY(-1px)';
               });
 
               input.addEventListener('blur', function() {
                 this.parentElement.style.transform = 'translateY(0)';
               });
+            });
 
-              // Add floating label effect
-              input.addEventListener('input', function() {
-            const label = this.parentElement.querySelector('.form-label');
-            if (label) {
-              if (this.value.length > 0) {
-                label.style.color = '#EC232A';
-                label.style.transform = 'scale(0.9)';
-              } else {
-                label.style.color = '#374151';
-                label.style.transform = 'scale(1)';
-              }
-            }
+            // Prevent terms links from navigating
+            document.querySelectorAll('.terms-notice a').forEach(link => {
+              link.addEventListener('click', function(e) {
+                e.preventDefault();
               });
             });
-          }
-
-          // Initialize when DOM is ready
-          document.addEventListener('DOMContentLoaded', function() {
-            // Event listeners for carousel
-            const nextBtn = document.getElementById("carousel-next");
-            const prevBtn = document.getElementById("carousel-prev");
-
-            if (nextBtn) {
-              nextBtn.addEventListener("click", function() {
-                stopAutoSlide();
-                nextSlide();
-                setTimeout(startAutoSlide, 1000);
-              });
-            }
-
-            if (prevBtn) {
-              prevBtn.addEventListener("click", function() {
-                stopAutoSlide();
-                prevSlide();
-                setTimeout(startAutoSlide, 1000);
-              });
-            }
-
-            // Start auto-slide
-            startAutoSlide();
-
-            // Enhanced password toggle functionality
-            const passwordToggle = document.getElementById("password-toggle");
-            const passwordInput = document.getElementById("password");
-
-            if (passwordToggle && passwordInput) {
-              passwordToggle.addEventListener("click", function() {
-                if (passwordInput.type === "password") {
-                  passwordInput.type = "text";
-                  passwordToggle.innerHTML = `
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
-                      <path d="M3 3l18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                  `;
-                } else {
-                  passwordInput.type = "password";
-                  passwordToggle.innerHTML = `
-                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
-                    </svg>
-                  `;
-                }
-              });
-            }
-
-            // Add form enhancements
-            addFormEnhancements();
-
-            // Add click handlers for carousel indicators
-            for (let i = 1; i <= totalSlides; i++) {
-              const indicator = document.getElementById('indicator-' + i);
-              if (indicator) {
-                indicator.addEventListener('click', function() {
-                  if (currentSlide !== i && !isTransitioning) {
-                    stopAutoSlide();
-                    currentSlide = i;
-                    showSlide(currentSlide);
-                    setTimeout(startAutoSlide, 1000);
-                  }
-                });
-              }
-            }
           });
         </script>
 
