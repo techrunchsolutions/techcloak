@@ -129,13 +129,16 @@ body {
 .brand-title-large {
     font-size: 2.5rem;
     font-weight: 800;
-    color: #ffffff !important;
     margin-bottom: 1.5rem;
     background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: fadeInUp 1s ease-out 0.2s both;
+}
+
+.omoo {
+color: #ffffff !important;
 }
 
 .brand-subtitle {
@@ -589,7 +592,7 @@ body {
                 <img src="${url.resourcesPath}/img/NASD Product logos.png" alt="NASD Logo" />
             </div>
 
-            <h1 class="brand-title-large">NASD Communication System</h1>
+            <h1 class="brand-title-large omoo">NASD Communication System</h1>
 
             <p class="brand-subtitle">
                 Join thousands of professionals using our secure communication platform designed for the financial industry.
@@ -938,4 +941,5 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
     </#if>
 </@layout.registrationLayout>
+
 
