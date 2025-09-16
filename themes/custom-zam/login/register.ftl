@@ -1,17 +1,15 @@
 <#import "template.ftl" as layout>
 <@layout.registrationLayout displayMessage=messagesPerField.exists('global') displayRequiredFields=true; section>
     <#if section == "header">
-        <title>Sign Up - NASD ZAM</title>
+        <title>Create Account - NASD Communication System</title>
     <#elseif section == "form">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 * {
   box-sizing: border-box;
-}
-
-.lastt {
-margin-bottom: 28px !important;
+  margin: 0;
+  padding: 0;
 }
 
 /* Hide default Keycloak elements */
@@ -38,13 +36,19 @@ h1#kc-page-title,
     margin-top: 0;
 }
 
-body {
-    background: linear-gradient(135deg, #EC232A 0%, #B91C1C 100%) !important;
-    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
+html, body {
+    overflow-x: hidden;
+    height: 100%;
 }
 
+body {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #1e293b;
+    line-height: 1.6;
+}
+
+/* Main container */
 .register-container {
     min-height: 100vh;
     display: flex;
@@ -52,273 +56,245 @@ body {
     overflow: hidden;
 }
 
-/* Left Content - Enhanced Carousel */
-.left-content {
-    width: 50%;
-    position: relative;
-    overflow: hidden;
-    display: none;
-}
-
-@media (min-width: 992px) {
-    .left-content { display: block; }
-    .main-content { width: 50%; }
-}
-
-@media (max-width: 991px) {
-    .main-content { width: 100%; }
-}
-
-.background-container {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-}
-
-.carousel-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    transform: scale(1.1);
-}
-
-.carousel-image.active {
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* Enhanced decorative elements */
-.decorative-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(236, 35, 42, 0.3), rgba(185, 28, 28, 0.3));
-    z-index: 1;
-}
-
-.floating-shapes {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 2;
-    pointer-events: none;
-}
-
-.shape {
-    position: absolute;
-    border-radius: 50%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
-    backdrop-filter: blur(10px);
-    animation: float 6s ease-in-out infinite;
-}
-
-.shape-1 {
-    width: 200px;
-    height: 200px;
-    top: 10%;
-    left: 10%;
-    animation-delay: 0s;
-}
-
-.shape-2 {
-    width: 120px;
-    height: 120px;
-    top: 60%;
-    right: 15%;
-    animation-delay: 2s;
-}
-
-.shape-3 {
-    width: 80px;
-    height: 80px;
-    bottom: 20%;
-    left: 30%;
-    animation-delay: 4s;
-}
-
-@keyframes float {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    33% { transform: translateY(-20px) rotate(5deg); }
-    66% { transform: translateY(10px) rotate(-3deg); }
-}
-
-/* Main Content - Enhanced */
-.main-content {
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    min-height: 100vh;
-    overflow-y: auto;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.95));
-    backdrop-filter: blur(20px);
-    position: relative;
-}
-
-.main-content::before {
+/* Animated background */
+.register-container::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23000" opacity="0.02"/><circle cx="75" cy="75" r="1" fill="%23000" opacity="0.02"/><circle cx="50" cy="10" r="1" fill="%23000" opacity="0.02"/><circle cx="10" cy="90" r="1" fill="%23000" opacity="0.02"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-    pointer-events: none;
-    z-index: 1;
+    background:
+      radial-gradient(circle at 20% 80%, rgba(236, 35, 42, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+    animation: backgroundShift 20s ease-in-out infinite;
 }
 
-.main-content > * {
+@keyframes backgroundShift {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+/* Left side - Brand showcase */
+.brand-showcase {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem;
+    position: relative;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.8) 100%);
+    backdrop-filter: blur(20px);
+}
+
+.brand-showcase::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23334155" stroke-width="0.5" opacity="0.3"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.3;
+}
+
+.brand-showcase > * {
     position: relative;
     z-index: 2;
 }
 
-/* Enhanced brand header */
-.brand-header {
+.showcase-content {
     text-align: center;
-    margin-bottom: 40px;
-    margin-top: 20px;
-    animation: fadeInDown 1s ease-out;
+    max-width: 500px;
 }
 
-@keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-30px); }
-    to { opacity: 1; transform: translateY(0); }
+.brand-logo-large {
+    margin-bottom: 3rem;
+    animation: fadeInUp 1s ease-out;
 }
 
-.brand-logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    padding: 20px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4));
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    max-width: 350px;
-    margin: 0 auto;
+.brand-logo-large img {
+    width: 120px;
+    height: auto;
+    filter: brightness(1.1) contrast(1.1);
     transition: transform 0.3s ease;
 }
 
-.brand-logo:hover {
-    transform: translateY(-2px);
-}
-
-.brand-logo img {
-    transition: transform 0.3s ease;
-}
-
-.brand-logo:hover img {
+.brand-logo-large:hover img {
     transform: scale(1.05);
 }
 
-.brand-title {
-    font-weight: 700;
-    font-size: 1.3rem;
-    margin: 0;
-    background: linear-gradient(135deg, #EC232A, #B91C1C);
+.brand-title-large {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-}
-
-/* Enhanced page title */
-.page-title {
-    text-align: center;
-    margin-bottom: 40px;
     animation: fadeInUp 1s ease-out 0.2s both;
 }
 
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.page-title h2 {
-    font-weight: 700;
-    font-size: 2.8rem;
-    background: linear-gradient(135deg, #1e293b, #475569);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin: 0;
-    position: relative;
-}
-
-.page-title h2::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 4px;
-    background: linear-gradient(135deg, #EC232A, #B91C1C);
-    border-radius: 2px;
-}
-
-/* Enhanced form styling */
-.register-form {
-    max-width: 520px;
-    margin: 0 auto;
+.brand-subtitle {
+    font-size: 1.25rem;
+    color: #cbd5e1;
+    margin-bottom: 3rem;
+    font-weight: 400;
+    line-height: 1.7;
     animation: fadeInUp 1s ease-out 0.4s both;
 }
 
-.form-group {
-    margin-bottom: 28px;
-    position: relative;
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+    animation: fadeInUp 1s ease-out 0.6s both;
 }
 
-.form-label {
-    font-weight: 600;
-    font-size: 1.1rem;
-    color: #374151;
-    margin-bottom: 12px;
-    display: block;
+.stat-item {
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
     transition: all 0.3s ease;
 }
 
-.form-control-custom {
-    width: 100%;
-    height: 64px;
-    padding: 20px 24px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.9));
-    border: 2px solid rgba(203, 213, 225, 0.5);
-    border-radius: 16px;
-    font-size: 1.1rem;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+.stat-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
 }
 
-.form-control-custom:focus {
+.stat-number {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #EC232A;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: #e2e8f0;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/* Right side - Register form */
+.register-form-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    position: relative;
+    overflow-y: auto;
+}
+
+.register-form-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="%23e2e8f0" opacity="0.4"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
+    opacity: 0.6;
+}
+
+.register-form-container > * {
+    position: relative;
+    z-index: 2;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    animation: fadeInDown 1s ease-out;
+}
+
+.form-title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.025em;
+}
+
+.form-subtitle {
+    font-size: 1.1rem;
+    color: #64748b;
+    font-weight: 400;
+}
+
+.register-form {
+    max-width: 480px;
+    margin: 0 auto;
+    width: 100%;
+    animation: fadeInUp 1s ease-out 0.2s both;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.form-input {
+    width: 100%;
+    height: 3.5rem;
+    padding: 0 1rem;
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #1e293b;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.form-input:focus {
     outline: none;
     border-color: #EC232A;
-    box-shadow: 0 0 0 4px rgba(236, 35, 42, 0.1), 0 8px 30px rgba(236, 35, 42, 0.15);
-    transform: translateY(-2px);
-    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 0 3px rgba(236, 35, 42, 0.1), 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
 }
 
-.form-control-custom.error {
+.form-input.error {
     border-color: #ef4444;
-    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
     animation: shake 0.5s ease-in-out;
 }
 
-.form-control-custom.valid {
+.form-input.valid {
     border-color: #10b981;
-    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 
 @keyframes shake {
@@ -327,42 +303,28 @@ body {
     75% { transform: translateX(5px); }
 }
 
-.form-control-custom::placeholder {
+.form-input::placeholder {
     color: #9ca3af;
-    transition: opacity 0.3s ease;
-}
-
-.form-control-custom:focus::placeholder {
-    opacity: 0.7;
-}
-
-/* Enhanced input container */
-.input-container {
-    position: relative;
+    font-weight: 400;
 }
 
 .password-toggle {
     position: absolute;
-    right: 20px;
+    right: 1rem;
     top: 50%;
     transform: translateY(-50%);
-    cursor: pointer;
+    background: none;
+    border: none;
     color: #6b7280;
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
 }
 
 .password-toggle:hover {
     color: #EC232A;
     background: rgba(236, 35, 42, 0.1);
-    transform: translateY(-50%) scale(1.1);
 }
 
 .password-toggle svg {
@@ -370,25 +332,55 @@ body {
     height: 20px;
 }
 
-/* Enhanced primary button */
-.btn-primary-custom {
-    width: 100%;
-    height: 64px;
-    background: linear-gradient(135deg, #EC232A 0%, #B91C1C 100%);
-    border: none;
-    border-radius: 16px;
-    color: white;
-    font-size: 1.2rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    margin-bottom: 32px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 8px 30px rgba(236, 35, 42, 0.3);
+.validation-icon {
+    position: absolute;
+    right: 3.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 12px;
 }
 
-.btn-primary-custom::before {
+.form-input.valid ~ .validation-icon.success {
+    opacity: 1;
+    color: #ffffff;
+    background: #10b981;
+}
+
+.form-input.error ~ .validation-icon.error {
+    opacity: 1;
+    color: #ffffff;
+    background: #ef4444;
+}
+
+.submit-button {
+    width: 100%;
+    height: 3.5rem;
+    background: linear-gradient(135deg, #EC232A 0%, #dc2626 100%);
+    border: none;
+    border-radius: 12px;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 2rem 0 1.5rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(236, 35, 42, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.submit-button::before {
     content: '';
     position: absolute;
     top: 0;
@@ -399,146 +391,29 @@ body {
     transition: left 0.6s ease;
 }
 
-.btn-primary-custom:hover:not(:disabled) {
-    background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%);
-    transform: translateY(-3px);
-    box-shadow: 0 12px 40px rgba(236, 35, 42, 0.4);
+.submit-button:hover:not(:disabled) {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(236, 35, 42, 0.4);
 }
 
-.btn-primary-custom:hover:not(:disabled)::before {
+.submit-button:hover:not(:disabled)::before {
     left: 100%;
 }
 
-.btn-primary-custom:active {
-    transform: translateY(-1px);
-}
-
-.btn-primary-custom:disabled {
+.submit-button:disabled {
     opacity: 0.6;
     cursor: not-allowed;
-    background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
     transform: none;
-    box-shadow: 0 4px 15px rgba(156, 163, 175, 0.3);
+    background: #9ca3af;
+    box-shadow: 0 2px 8px rgba(156, 163, 175, 0.3);
 }
 
-/* Enhanced validation messages */
-.error-message {
-    color: #ef4444;
-    font-size: 0.9rem;
-    margin-top: 8px;
-    padding: 8px 12px;
-    background: rgba(239, 68, 68, 0.1);
-    border-radius: 8px;
-    border-left: 4px solid #ef4444;
-    display: none;
-    animation: slideInLeft 0.3s ease-out;
+.submit-button.loading {
+    color: transparent;
 }
 
-.error-message.show {
-    display: block;
-}
-
-.success-message {
-    color: #10b981;
-    font-size: 0.9rem;
-    margin-top: 8px;
-    padding: 8px 12px;
-    background: rgba(16, 185, 129, 0.1);
-    border-radius: 8px;
-    border-left: 4px solid #10b981;
-    display: none;
-    animation: slideInLeft 0.3s ease-out;
-}
-
-.success-message.show {
-    display: block;
-}
-
-@keyframes slideInLeft {
-    from { opacity: 0; transform: translateX(-10px); }
-    to { opacity: 1; transform: translateX(0); }
-}
-
-/* Enhanced footer */
-.footer-text {
-    text-align: center;
-    color: #6b7280;
-    font-size: 0.9rem;
-    margin-top: 40px;
-    padding: 20px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(248, 250, 252, 0.4));
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(203, 213, 225, 0.2);
-}
-
-/* Enhanced row styling - Fixed alignment */
-.row {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 -12px;
-    width: 100%;
-}
-
-.col-md-6 {
-    flex: 0 0 calc(50% - 24px);
-    max-width: calc(50% - 24px);
-    padding: 0 12px;
-    box-sizing: border-box;
-}
-
-.g-4 {
-    gap: 0;
-}
-
-.mb-4 {
-    margin-bottom: 1.5rem;
-}
-
-/* Responsive enhancements */
-    @media (max-width: 768px) {
-        .main-content {
-            padding: 20px;
-        }
-
-        .page-title h2 {
-            font-size: 2.2rem;
-        }
-
-        .brand-title {
-            font-size: 1.1rem;
-        }
-
-        .form-control-custom {
-            height: 56px;
-            padding: 16px 20px;
-            font-size: 1rem;
-        }
-
-        .btn-primary-custom {
-            height: 56px;
-            font-size: 1.1rem;
-        }
-
-        .col-md-6 {
-            flex: 0 0 100%;
-            max-width: 100%;
-            padding: 0;
-            margin-bottom: 24px;
-        }
-
-        .row {
-            margin: 0;
-        }
-    }
-
-/* Loading animation for buttons */
-.btn-loading {
-    position: relative;
-    color: transparent !important;
-}
-
-.btn-loading::after {
+.submit-button.loading::after {
     content: '';
     position: absolute;
     top: 50%;
@@ -547,7 +422,7 @@ body {
     width: 20px;
     height: 20px;
     border: 2px solid rgba(255, 255, 255, 0.3);
-    border-top: 2px solid white;
+    border-top: 2px solid #ffffff;
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -557,206 +432,325 @@ body {
     100% { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
-/* Enhanced focus states */
-.form-control-custom:focus + .form-label,
-.form-control-custom:not(:placeholder-shown) + .form-label {
-    color: #667eea;
-    transform: scale(0.9);
+.error-message {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    border-radius: 8px;
+    display: none;
+    animation: slideInDown 0.3s ease-out;
 }
 
-/* Validation icons */
-.validation-icon {
-    position: absolute;
-    right: 60px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-    opacity: 0;
+.error-message.show {
+    display: block;
+}
+
+.success-message {
+    color: #10b981;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: 8px;
+    display: none;
+    animation: slideInDown 0.3s ease-out;
+}
+
+.success-message.show {
+    display: block;
+}
+
+@keyframes slideInDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-footer {
+    text-align: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.login-link {
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+.login-link a {
+    color: #EC232A;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+}
+
+.login-link a:hover {
+    color: #dc2626;
+    background: rgba(236, 35, 42, 0.1);
+    text-decoration: none;
+}
+
+.terms-notice {
+    text-align: center;
+    font-size: 0.75rem;
+    color: #64748b;
+    margin-top: 1rem;
+    line-height: 1.5;
+}
+
+.terms-notice a {
+    color: #EC232A;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.terms-notice a:hover {
+    text-decoration: underline;
+}
+
+.progress-indicator {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.progress-step {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #e2e8f0;
     transition: all 0.3s ease;
 }
 
-.form-control-custom.valid ~ .validation-icon.success {
-    opacity: 1;
-    color: #10b981;
+.progress-step.active {
+    background: #EC232A;
+    transform: scale(1.2);
 }
 
-.form-control-custom.error ~ .validation-icon.error {
-    opacity: 1;
-    color: #ef4444;
+.progress-step.completed {
+    background: #10b981;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+    .brand-showcase {
+        display: none;
+    }
+
+    .register-form-container {
+        flex: none;
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .register-form-container {
+        padding: 2rem 1.5rem;
+    }
+
+    .form-title {
+        font-size: 1.875rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
 }
 </style>
 
 <div class="register-container">
-    <!-- Left Content (Hidden on smaller screens) -->
-    <div class="left-content">
-        <div class="background-container">
-            <img src="${url.resourcesPath}/img/car4.png" class="carousel-image active"/>
-            <img src="${url.resourcesPath}/img/car5.png" class="carousel-image"/>
-            <img src="${url.resourcesPath}/img/car6.png" class="carousel-image"/>
+    <!-- Brand Showcase Side -->
+    <div class="brand-showcase">
+        <div class="showcase-content">
+            <div class="brand-logo-large">
+                <img src="${url.resourcesPath}/img/NASD Product logos.png" alt="NASD Logo" />
+            </div>
 
-            <div class="decorative-overlay"></div>
-            <div class="floating-shapes">
-                <div class="shape shape-1"></div>
-                <div class="shape shape-2"></div>
-                <div class="shape shape-3"></div>
+            <h1 class="brand-title-large">NASD Communication System</h1>
+
+            <p class="brand-subtitle">
+                Join thousands of professionals using our secure communication platform designed for the financial industry.
+            </p>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number">99.9%</span>
+                    <span class="stat-label">Uptime</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">256-bit</span>
+                    <span class="stat-label">Encryption</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Support</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">SOC 2</span>
+                    <span class="stat-label">Compliant</span>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Main Content Area -->
-    <div class="main-content">
-        <!-- Header with Logo -->
-        <header class="brand-header">
-            <div class="brand-logo">
-                <img src="${url.resourcesPath}/img/NASD Product logos.png" alt="NASD Logo" />
-                <h1 class="brand-title">NASD ZAM</h1>
-            </div>
-        </header>
+    <!-- Register Form Side -->
+    <div class="register-form-container">
+        <div class="form-header">
+            <h2 class="form-title">Create Account</h2>
+            <p class="form-subtitle">Join our secure communication platform</p>
+        </div>
 
-        <!-- Page Title -->
-        <section class="page-title">
-            <h2>Create your account</h2>
-        </section>
+        <div class="progress-indicator">
+            <div class="progress-step active"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+        </div>
 
-        <!-- Registration Form -->
-        <main>
-            <form id="kc-register-form" action="${url.registrationAction}" method="post" class="register-form">
-                <div class="row g-4 mb-4">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="firstName" class="form-label">First Name</label>
-                            <input type="text" id="firstName" name="firstName"
-                                   value="${(register.formData.firstName!'')}"
-                                   class="form-control-custom"
-                                   placeholder="Enter your first name"
-                                   required/>
-                            <div class="validation-icon success">✓</div>
-                            <div class="validation-icon error">✗</div>
-                            <div class="error-message" id="firstName-error">First name is required</div>
-                            <#if messagesPerField.existsError('firstName')>
-                                <div class="error-message show">${kcSanitize(messagesPerField.get('firstName'))?no_esc}</div>
-                            </#if>
-                        </div>
+        <form id="kc-register-form" action="${url.registrationAction}" method="post" class="register-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="firstName" name="firstName"
+                               value="${(register.formData.firstName!'')}"
+                               class="form-input"
+                               placeholder="Enter first name"
+                               required/>
+                        <div class="validation-icon success">✓</div>
+                        <div class="validation-icon error">✗</div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="lastName" class="form-label">Last Name</label>
-                            <input type="text" id="lastName" name="lastName"
-                                   value="${(register.formData.lastName!'')}"
-                                   class="form-control-custom"
-                                   placeholder="Enter your last name"
-                                   required/>
-                            <div class="validation-icon success">✓</div>
-                            <div class="validation-icon error">✗</div>
-                            <div class="error-message" id="lastName-error">Last name is required</div>
-                            <#if messagesPerField.existsError('lastName')>
-                                <div class="error-message show">${kcSanitize(messagesPerField.get('lastName'))?no_esc}</div>
-                            </#if>
-                        </div>
-                    </div>
+                    <div class="error-message" id="firstName-error">First name is required</div>
+                    <#if messagesPerField.existsError('firstName')>
+                        <div class="error-message show">${kcSanitize(messagesPerField.get('firstName'))?no_esc}</div>
+                    </#if>
                 </div>
 
                 <div class="form-group">
-                    <label for="email" class="form-label">Email</label>
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="lastName" name="lastName"
+                               value="${(register.formData.lastName!'')}"
+                               class="form-input"
+                               placeholder="Enter last name"
+                               required/>
+                        <div class="validation-icon success">✓</div>
+                        <div class="validation-icon error">✗</div>
+                    </div>
+                    <div class="error-message" id="lastName-error">Last name is required</div>
+                    <#if messagesPerField.existsError('lastName')>
+                        <div class="error-message show">${kcSanitize(messagesPerField.get('lastName'))?no_esc}</div>
+                    </#if>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email" class="form-label">Email Address</label>
+                <div class="input-wrapper">
                     <input type="email" id="email" name="email"
                            value="${(register.formData.email!'')}"
-                           class="form-control-custom"
+                           class="form-input"
                            placeholder="Enter your email address"
                            required/>
                     <div class="validation-icon success">✓</div>
                     <div class="validation-icon error">✗</div>
-                    <div class="error-message" id="email-error">Please enter a valid email address</div>
-                    <div class="success-message" id="email-success">Valid email address</div>
-                    <#if messagesPerField.existsError('email')>
-                        <div class="error-message show">${kcSanitize(messagesPerField.get('email'))?no_esc}</div>
-                    </#if>
                 </div>
+                <div class="error-message" id="email-error">Please enter a valid email address</div>
+                <div class="success-message" id="email-success">Valid email address</div>
+                <#if messagesPerField.existsError('email')>
+                    <div class="error-message show">${kcSanitize(messagesPerField.get('email'))?no_esc}</div>
+                </#if>
+            </div>
 
-                <div class="form-group">
-                    <label for="password" class="form-label">Password</label>
-                    <div class="input-container">
-                        <input type="password" id="password" name="password"
-                               class="form-control-custom"
-                               style="padding-right: 100px;"
-                               placeholder="Create a strong password"
-                               required/>
-                        <div class="validation-icon success">✓</div>
-                        <div class="validation-icon error">✗</div>
-                        <span class="password-toggle" id="password-toggle">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
-                            </svg>
-                        </span>
-                    </div>
-                    <div class="error-message" id="password-error">Password must be at least 8 characters with uppercase, lowercase, and special character</div>
-                    <div class="success-message" id="password-success">Password meets requirements</div>
-                    <#if messagesPerField.existsError('password')>
-                        <div class="error-message show">${kcSanitize(messagesPerField.get('password'))?no_esc}</div>
-                    </#if>
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <div class="input-wrapper">
+                    <input type="password" id="password" name="password"
+                           class="form-input"
+                           placeholder="Create a strong password"
+                           required/>
+                    <div class="validation-icon success">✓</div>
+                    <div class="validation-icon error">✗</div>
+                    <button type="button" class="password-toggle" id="password-toggle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </button>
                 </div>
+                <div class="error-message" id="password-error">Password must be at least 8 characters with uppercase, lowercase, and special character</div>
+                <div class="success-message" id="password-success">Password meets requirements</div>
+                <#if messagesPerField.existsError('password')>
+                    <div class="error-message show">${kcSanitize(messagesPerField.get('password'))?no_esc}</div>
+                </#if>
+            </div>
 
-                <div class="form-group lastt">
-                    <label for="password-confirm" class="form-label">Confirm Password</label>
-                    <div class="input-container">
-                        <input type="password" id="password-confirm" name="password-confirm"
-                               class="form-control-custom"
-                               style="padding-right: 100px;"
-                               placeholder="Confirm your password"
-                               required/>
-                        <div class="validation-icon success">✓</div>
-                        <div class="validation-icon error">✗</div>
-                        <span class="password-toggle" id="password-confirm-toggle">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
-                            </svg>
-                        </span>
-                    </div>
-                    <div class="error-message" id="password-confirm-error">Passwords do not match</div>
-                    <div class="success-message" id="password-confirm-success">Passwords match</div>
-                    <#if messagesPerField.existsError('password-confirm')>
-                        <div class="error-message show">${kcSanitize(messagesPerField.get('password-confirm'))?no_esc}</div>
-                    </#if>
+            <div class="form-group">
+                <label for="password-confirm" class="form-label">Confirm Password</label>
+                <div class="input-wrapper">
+                    <input type="password" id="password-confirm" name="password-confirm"
+                           class="form-input"
+                           placeholder="Confirm your password"
+                           required/>
+                    <div class="validation-icon success">✓</div>
+                    <div class="validation-icon error">✗</div>
+                    <button type="button" class="password-toggle" id="password-confirm-toggle">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </button>
                 </div>
+                <div class="error-message" id="password-confirm-error">Passwords do not match</div>
+                <div class="success-message" id="password-confirm-success">Passwords match</div>
+                <#if messagesPerField.existsError('password-confirm')>
+                    <div class="error-message show">${kcSanitize(messagesPerField.get('password-confirm'))?no_esc}</div>
+                </#if>
+            </div>
 
-                <button type="submit" id="submit-btn" class="btn-primary-custom" disabled>
-                    Create account
-                </button>
-            </form>
-        </main>
+            <button type="submit" id="submit-btn" class="submit-button" disabled>
+                Create Account
+            </button>
 
-        <!-- Footer -->
-        <footer class="footer-text">
-            © 2024 NASD Plc. All rights reserved
-        </footer>
+            <div class="terms-notice">
+                By creating an account, you agree to our
+                <a href="#" onclick="return false;">Terms of Service</a> and
+                <a href="#" onclick="return false;">Privacy Policy</a>
+            </div>
+        </form>
+
+        <div class="form-footer">
+            <div class="login-link">
+                Already have an account? <a href="${url.loginUrl}">Sign In</a>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Enhanced carousel functionality
-    let currentSlide = 0;
-    const totalSlides = 3;
-    let autoSlideInterval;
-
-    function showSlide(slideNumber) {
-        const images = document.querySelectorAll('.carousel-image');
-        images.forEach((img, index) => {
-            img.classList.toggle('active', index === slideNumber);
-        });
-    }
-
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % totalSlides;
-        showSlide(currentSlide);
-    }
-
-    function startAutoSlide() {
-        autoSlideInterval = setInterval(nextSlide, 5000);
-    }
-
-    startAutoSlide();
-
     // Form validation state
     const validationState = {
         firstName: false,
@@ -769,11 +763,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Get form elements
     const form = document.getElementById('kc-register-form');
     const submitBtn = document.getElementById('submit-btn');
-    const firstNameInput = document.getElementById('firstName');
-    const lastNameInput = document.getElementById('lastName');
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    const passwordConfirmInput = document.getElementById('password-confirm');
+    const progressSteps = document.querySelectorAll('.progress-step');
 
     // Enhanced password toggle functionality
     function setupPasswordToggle(inputId, toggleId) {
@@ -782,22 +772,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (input && toggle) {
             toggle.addEventListener('click', function() {
-                if (input.type === 'password') {
-                    input.type = 'text';
-                    toggle.innerHTML = `
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
-                            <path d="M3 3l18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        </svg>
-                    `;
-                } else {
-                    input.type = 'password';
-                    toggle.innerHTML = `
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" fill="currentColor"/>
-                        </svg>
-                    `;
-                }
+                const isPassword = input.type === 'password';
+                input.type = isPassword ? 'text' : 'password';
+
+                this.innerHTML = isPassword ?
+                  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                     <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/>
+                     <line x1="1" y1="1" x2="23" y2="23"/>
+                   </svg>` :
+                  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                     <circle cx="12" cy="12" r="3"/>
+                   </svg>`;
             });
         }
     }
@@ -833,17 +819,24 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    function updateProgressIndicator() {
+        const validCount = Object.values(validationState).filter(state => state).length;
+        const totalFields = Object.keys(validationState).length;
+
+        progressSteps.forEach((step, index) => {
+            step.classList.remove('active', 'completed');
+            if (index < Math.floor((validCount / totalFields) * 3)) {
+                step.classList.add('completed');
+            } else if (index === Math.floor((validCount / totalFields) * 3)) {
+                step.classList.add('active');
+            }
+        });
+    }
+
     function updateSubmitButton() {
         const allValid = Object.values(validationState).every(state => state);
         submitBtn.disabled = !allValid;
-
-        if (allValid) {
-            submitBtn.style.background = 'linear-gradient(135deg, #EC232A 0%, #B91C1C 100%)';
-            submitBtn.style.cursor = 'pointer';
-        } else {
-            submitBtn.style.background = 'linear-gradient(135deg, #9ca3af 0%, #6b7280 100%)';
-            submitBtn.style.cursor = 'not-allowed';
-        }
+        updateProgressIndicator();
     }
 
     // Enhanced input validation with real-time feedback
@@ -871,29 +864,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Enhanced focus effects
         input.addEventListener('focus', function() {
-            this.parentElement.style.transform = 'translateY(-2px)';
-            const label = this.parentElement.querySelector('.form-label');
-            if (label) {
-                label.style.color = '#EC232A';
-            }
+            this.parentElement.style.transform = 'translateY(-1px)';
         });
 
         input.addEventListener('blur', function() {
             this.parentElement.style.transform = 'translateY(0)';
-            const label = this.parentElement.querySelector('.form-label');
-            if (label && this.value.length === 0) {
-                label.style.color = '#374151';
-            }
         });
     }
 
     // Setup validation for all inputs
-    setupInputValidation(firstNameInput, 'firstName', null, 'firstName-error');
-    setupInputValidation(lastNameInput, 'lastName', null, 'lastName-error');
-    setupInputValidation(emailInput, 'email', validateEmail, 'email-error', 'email-success');
-    setupInputValidation(passwordInput, 'password', validatePassword, 'password-error', 'password-success');
+    setupInputValidation(document.getElementById('firstName'), 'firstName', null, 'firstName-error');
+    setupInputValidation(document.getElementById('lastName'), 'lastName', null, 'lastName-error');
+    setupInputValidation(document.getElementById('email'), 'email', validateEmail, 'email-error', 'email-success');
+    setupInputValidation(document.getElementById('password'), 'password', validatePassword, 'password-error', 'password-success');
 
     // Special handling for password confirmation
+    const passwordConfirmInput = document.getElementById('password-confirm');
+    const passwordInput = document.getElementById('password');
+
     if (passwordConfirmInput) {
         passwordConfirmInput.addEventListener('input', function() {
             const isValid = this.value === passwordInput.value && this.value.length > 0;
@@ -932,23 +920,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 return false;
             }
 
-            submitBtn.classList.add('btn-loading');
+            submitBtn.classList.add('loading');
             submitBtn.disabled = true;
-
-            // Add a slight delay to show the loading state
-            setTimeout(() => {
-                // Form will submit naturally
-            }, 500);
         });
     }
 
     // Initial validation state
     updateSubmitButton();
 
-    // Add smooth scroll behavior for better UX
-    document.documentElement.style.scrollBehavior = 'smooth';
+    // Prevent terms links from navigating
+    document.querySelectorAll('.terms-notice a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+        });
+    });
 });
 </script>
     </#if>
 </@layout.registrationLayout>
-
